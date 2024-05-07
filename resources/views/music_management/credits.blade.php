@@ -11,12 +11,30 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Credit List') }}
+            {{ __('Credits List') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-      
+      <script>
+        $(document).ready(function() {
+    $('#searchCredit').on('keyup', function() {
+        var searchText = $(this).val().toLowerCase();
+        $('table tbody tr').each(function() {
+            var name = $(this).find('td:nth-child(2)').text().toLowerCase();
+            var district = $(this).find('td:nth-child(4)').text().toLowerCase();
+            var local = $(this).find('td:nth-child(5)').text().toLowerCase();
+            var designation = $(this).find('td:nth-child(7)').text().toLowerCase();
+            if (name.includes(searchText) || district.includes(searchText) || local.includes(searchText) || designation.includes(searchText)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+});
+
+      </script>
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -25,36 +43,76 @@
                 <button id="addCreditButton" data-toggle="modal" data-target="#addCreditModal" class="btn btn-success">
                     <i class="fas fa-plus"></i> Credit
                 </button>
+                <input type="hidden" id="searchCredit" class="form-control mt-4 mb-4" placeholder="Search credits by name, district, local, or designation">
+
+                <form action="{{ route('credits.index') }}" method="GET" class="mt-4 mb-4">
+    <div class="input-group">
+        <input type="text" name="query" class="form-control" placeholder="Search credits by name, district, local, or designation">
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-success">Search</button>
+        </div>
+    </div>
+</form>
+
+
                 <div class="overflow-x-auto">
-                    <div class="pagination flex justify-center items-center h-full" style="padding:0px;margin-bottom:10px;">
-                        {{ $credits->links() }}
-                    </div>
+                <div class="pagination flex justify-center items-center h-full" style="padding:0px;margin-bottom:10px;">
+    {{ $credits->appends(['query' => request()->query('query')])->links() }}
+</div>
+
                     <table class="w-full max-w-full table-auto border divide-y divide-gray-200">
                         <thead>
                             <tr>
                                 <th scope="col" style="width: 5%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">#</th>
-                                <th scope="col" style="width: 85%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Name</th>
-                                <th scope="col" style="width: 10%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider"></th>
+                                <th scope="col" style="width: 30%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Name</th>
+                                <th scope="col" style="width: 15%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Birthday</th>
+                                <th scope="col" style="width: 10%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">District</th>
+                                <th scope="col" style="width: 10%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Local</th>
+                                <th scope="col" style="width: 10%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Music Background</th>
+                                <th scope="col" style="width: 8%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Designation</th>
+                                <th scope="col" style="width: 12%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($credits as $index => $Credit)
+                            @foreach($credits as $index => $credit)
                             <tr class="{{ $index % 2 == 0 ? 'bg-gray-50' : 'bg-white' }} hover:bg-gray-200">
                                 <td style="width: 5%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ ($credits->currentPage() - 1) * $credits->perPage() + $loop->iteration }}</td>
                                 
-                                <td style="width: 85%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $Credit->name }}</td>
+                                <td style="width: 30%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $credit->name }}</td>
                                 <td style="width: 15%;" class="px-6 py-4 whitespace-nowrap border text-center">
+                                    {{ $credit->birthday !== '0000-00-00 00:00:00' ? \Carbon\Carbon::parse($credit->birthday)->format('F j, Y') : '-' }}
+                                </td>
+                                <td style="width: 10%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $credit->district }}</td>
+                                <td style="width: 10%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $credit->local }}</td>
+                                <td style="width: 10%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $credit->music_background }}</td>
+                                <td style="width: 8%;" class="px-6 py-4 whitespace-nowrap border text-center">
+                                    @if($credit->designation == 1)
+                                        Arranger
+                                    @elseif($credit->designation == 2)
+                                        Composer
+                                    @elseif($credit->designation == 3)
+                                        Lyricist
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+
+                                <td style="width: 12%;" class="px-6 py-4 whitespace-nowrap border text-center">
                                     <button class="btn btn-primary btn-sm edit-Credit" 
                                     data-toggle="modal" 
                                     data-target="#editCreditModal" 
-                                    data-id="{{ $Credit->id }}"
-                                    data-name="{{ $Credit->name }}">
-                                    
+                                    data-id="{{ $credit->id }}"
+                                    data-name="{{ $credit->name }}"
+                                    data-birthday="{{ $credit->birthday }}"
+                                    data-district="{{ $credit->district }}"
+                                    data-local="{{ $credit->local }}"
+                                    data-music_background="{{ $credit->music_background }}"
+                                    data-designation="{{ $credit->designation }}">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="btn btn-danger btn-sm delete-Credit" 
-        data-Credit-id="{{ $Credit->id }}"
-        data-Credit-name="{{ $Credit->name }}">
+        data-credit-id="{{ $credit->id }}"
+        data-credit-name="{{ $credit->name }}">
         <i class="fas fa-trash-alt"></i>
     </button>
                                 </td>
@@ -98,6 +156,37 @@
                             <label for="name">Credit Name:</label>
                             <input type="text" class="form-control" id="name" name="name">
                         </div>
+
+                        <div class="form-group">
+                            <label for="birthday">Birthday:</label>
+                            <input type="date" class="form-control" id="birthday" name="birthday">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="district">District:</label>
+                            <input type="text" class="form-control" id="district" name="district">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="local">Local:</label>
+                            <input type="text" class="form-control" id="local" name="local">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="music_background">Music Background:</label>
+                            <textarea type="text" class="form-control" id="music_background" name="music_background"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="designation">Designation:</label>
+                            <select class="form-control" id="designation" name="designation">
+                                <option value="0" selected disabled>Select Designation</option>
+                                <option value="1">Arranger</option>
+                                <option value="2">Composer</option>
+                                <option value="3">Lyricist</option>
+                            </select>
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Add Credit</button>
                     </form>
                 </div>
@@ -121,12 +210,45 @@
                         <form id="editForm" method="POST">
                             @csrf
                             @method('PUT')
+
+                            <input type="hidden" class="form-control" id="edit_id" name="edit_id" value="{{ $credit->id }}">
                             <div class="form-group">
                                 <label for="edit_name">Credit Name:</label>
                                 
-                                <input type="hidden" class="form-control" id="edit_id" name="edit_id" value="{{ $Credit->id }}">
-                                <input type="text" class="form-control" id="edit_name" name="edit_name" value="{{ $Credit->name }}">
+                                
+                                <input type="text" class="form-control" id="edit_name" name="edit_name" value="{{ $credit->name }}">
                             </div>
+
+                            <div class="form-group">
+                                <label for="edit_birthday">Birthday:</label>
+                                <input type="date" class="form-control" id="edit_birthday" name="edit_birthday">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit_district">District:</label>
+                                <input type="text" class="form-control" id="edit_district" name="edit_district">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit_local">Local:</label>
+                                <input type="text" class="form-control" id="edit_local" name="edit_local">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit_music_background">Music Background:</label>
+                                <textarea type="text" class="form-control" id="edit_music_background" name="edit_music_background"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit_designation">Designation:</label>
+                                <select class="form-control" id="edit_designation" name="edit_designation">
+                                    <option value="0" selected disabled>Select Designation</option>
+                                    <option value="1">Arranger</option>
+                                    <option value="2">Composer</option>
+                                    <option value="3">Lyricist</option>
+                                </select>
+                            </div>
+
                             <button type="submit" class="btn btn-primary">Save Changes</button>
                         </form>
                         </div>
@@ -165,16 +287,41 @@
                 $('.edit-Credit').click(function() {
                     var CreditId = $(this).data('id');
                     var CreditName = $(this).data('name');
-                
+                    var Birthday = $(this).data('birthday');
+                    var District = $(this).data('district');
+                    var Local = $(this).data('local');
+                    var MusicBackground = $(this).data('music_background');
+                    var Designation = $(this).data('designation');
+            
+                    // Format the birthday value if it's not empty
+                    if (Birthday !== '0000-00-00 00:00:00') {
+                        // Convert birthday string to a Date object
+                        var birthdayDate = new Date(Birthday);
+
+                        // Adjust the date by adding one day
+                        birthdayDate.setDate(birthdayDate.getDate() + 1);
+
+                        // Format the adjusted date
+                        var formattedBirthday = birthdayDate.toISOString().split('T')[0];
+                    } else {
+                        var formattedBirthday = ''; // Set an empty string if the birthday value is '0000-00-00 00:00:00'
+                    }
+                    
                     $('#edit_name').val(CreditName);
-                        // Set the Credit ID in the form action
-                        $('#editForm').attr('action', "{{ route('credits.update', ':id') }}".replace(':id', CreditId));
+                    $('#edit_birthday').val(formattedBirthday);
+                    $('#edit_district').val(District);
+                    $('#edit_local').val(Local);
+                    $('#edit_music_background').val(MusicBackground);
+                    $('#edit_designation').val(Designation);
+
+                    // Set the Credit ID in the form action
+                    $('#editForm').attr('action', "{{ route('credits.update', ':id') }}".replace(':id', CreditId));
                 });
 
                 // JavaScript for handling the delete modal
                 $('.delete-Credit').click(function() {
-                    var CreditId = $(this).data('Credit-id');
-                    var CreditName = $(this).data('Credit-name');
+                    var CreditId = $(this).data('credit-id');
+                    var CreditName = $(this).data('credit-name');
                     var form = $('#deleteCreditForm');
                     var url = "{{ url('music_management/credits') }}/" + CreditId;
                     form.attr('action', url);

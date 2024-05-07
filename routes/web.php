@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InstrumentationController;
 use App\Http\Controllers\EnsembleTypeController;
+use App\Http\Controllers\MusicCreatorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -86,3 +87,11 @@ Route::get('music_management/ensemble_types/{ensemble_types}/edit', [EnsembleTyp
 Route::put('music_management/ensemble_types/{ensemble_type}', [EnsembleTypeController::class, 'update'])->name('ensemble_types.update');
 
 Route::delete('music_management/ensemble_types/{ensemble_type}', [EnsembleTypeController::class, 'destroy'])->name('ensemble_types.destroy');
+
+
+Route::get('music_management/credits', [MusicCreatorController::class, 'index'])->name('credits.index');
+Route::post('music_management/credits', [MusicCreatorController::class, 'store'])->name('credits.store'); // Updated route for storing a new ensemble_type
+Route::get('music_management/credits/{credits}/edit', [MusicCreatorController::class, 'edit'])->name('credits.edit');
+Route::put('music_management/credits/{credit}', [MusicCreatorController::class, 'update'])->name('credits.update');
+
+Route::delete('music_management/credits/{credit}', [MusicCreatorController::class, 'destroy'])->name('credits.destroy');

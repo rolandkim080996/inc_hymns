@@ -12,6 +12,7 @@ class MusicCreator extends Model
         'district',
         'local',
         'music_background',
+        'designation',
     ];
 
     // Define relationships

@@ -43,7 +43,7 @@
                                 <td style="width: 5%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ ($categories->currentPage() - 1) * $categories->perPage() + $loop->iteration }}</td>
                                 
                                 <td style="width: 85%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $category->name }}</td>
-                                <td style="width: 15%;" class="px-6 py-4 whitespace-nowrap border text-center">
+                                <td style="width: 10%;" class="px-6 py-4 whitespace-nowrap border text-center">
                                     <button class="btn btn-primary btn-sm edit-category" 
                                     data-toggle="modal" 
                                     data-target="#editCategoryModal" 
