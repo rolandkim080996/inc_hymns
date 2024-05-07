@@ -11,30 +11,33 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Credits List123') }}
+            {{ __('Credits List') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-      <script>
-        $(document).ready(function() {
-    $('#searchCredit').on('keyup', function() {
-        var searchText = $(this).val().toLowerCase();
-        $('table tbody tr').each(function() {
-            var name = $(this).find('td:nth-child(2)').text().toLowerCase();
-            var district = $(this).find('td:nth-child(4)').text().toLowerCase();
-            var local = $(this).find('td:nth-child(5)').text().toLowerCase();
-            var designation = $(this).find('td:nth-child(7)').text().toLowerCase();
-            if (name.includes(searchText) || district.includes(searchText) || local.includes(searchText) || designation.includes(searchText)) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
+
+
+    <script>
+    $(document).ready(function() {
+        $('#searchCredit').on('keyup', function() {
+            var searchText = $(this).val().toLowerCase();
+            $('table tbody tr').each(function() {
+                var name = $(this).find('td:nth-child(2)').text().toLowerCase();
+                var district = $(this).find('td:nth-child(4)').text().toLowerCase();
+                var local = $(this).find('td:nth-child(5)').text().toLowerCase();
+                var designation = $(this).find('td:nth-child(7)').text().toLowerCase();
+                if (name.includes(searchText) || district.includes(searchText) || local.includes(searchText) || designation.includes(searchText)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
         });
     });
-});
+</script>
 
-      </script>
+
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -43,11 +46,10 @@
                 <button id="addCreditButton" data-toggle="modal" data-target="#addCreditModal" class="btn btn-success">
                     <i class="fas fa-plus"></i> Credit
                 </button>
-                <input type="hidden" id="searchCredit" class="form-control mt-4 mb-4" placeholder="Search credits by name, district, local, or designation">
 
                 <form action="{{ route('credits.index') }}" method="GET" class="mt-4 mb-4">
     <div class="input-group">
-        <input type="text" name="query" class="form-control" placeholder="Search credits by name, district, local, or designation">
+        <input type="text" id="searchCredit" name="query" class="form-control" placeholder="Search credits by name, district, local, or designation">
         <div class="input-group-append">
             <button type="submit" class="btn btn-success">Search</button>
         </div>
@@ -56,7 +58,7 @@
 
 
                 <div class="overflow-x-auto">
-                <div class="pagination flex justify-center items-center h-full" style="padding:0px;margin-bottom:10px;">
+                <div class="pagination flex justify-center items-center" style="padding:0px;margin-bottom:10px;">
     {{ $credits->appends(['query' => request()->query('query')])->links() }}
 </div>
 
@@ -127,7 +129,7 @@
 
 
 
-                    <div class="pagination flex justify-center items-center h-full" style="padding:0px;margin-top:10px;">
+                    <div class="pagination flex justify-center items-center" style="padding:0px;margin-top:10px;">
                         {{ $credits->links() }}
                     </div>
                 </div>
