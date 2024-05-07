@@ -53,6 +53,9 @@
         <li class="border border-gray-200 rounded-md hover:bg-gray-100 transition duration-300">
             <a href="{{ route('ensemble_types.index') }}" class="block py-2 px-4 text-purple-600 hover:underline">Manage Ensemble Types</a>
         </li>
+        <li class="border border-gray-200 rounded-md hover:bg-gray-100 transition duration-300">
+            <a href="{{ route('credits.index') }}" class="block py-2 px-4 text-purple-600 hover:underline">Manage Credits</a>
+        </li>
       
         <li class="border border-gray-200 rounded-md hover:bg-gray-100 transition duration-300">
             <a href="{{ route('musics.index') }}" class="block py-2 px-4 text-red-600 hover:underline">View All Hymns</a>
