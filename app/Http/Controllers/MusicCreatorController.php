@@ -42,9 +42,10 @@ class MusicCreatorController extends Controller
         // Validate request data
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'birthday' => 'nullable|date',
-            'district' => 'nullable|string',
             'local' => 'nullable|string',
+            'district' => 'nullable|string',
+            'duty' => 'nullable|string',
+            'birthday' => 'nullable|date',
             'music_background' => 'nullable|string',
             'designation' => 'nullable|string',
         ]);
@@ -74,9 +75,10 @@ class MusicCreatorController extends Controller
         // Validate request data
         $validatedData = $request->validate([
             'edit_name' => 'required|max:255',
-            'edit_birthday' => 'nullable|date',
-            'edit_district' => 'nullable|string',
             'edit_local' => 'nullable|string',
+            'edit_district' => 'nullable|string',
+            'edit_duty' => 'nullable|string',
+            'edit_birthday' => 'nullable|date',
             'edit_music_background' => 'nullable|string',
             'edit_designation' => 'nullable|string',
         ]);
@@ -84,9 +86,10 @@ class MusicCreatorController extends Controller
       
         $credit->update([
             'name' => $request->edit_name,
-            'birthday' => $request->edit_birthday,
-            'district' => $request->edit_district,
             'local' => $request->edit_local,
+            'district' => $request->edit_district,
+            'duty' => $request->edit_duty,
+            'birthday' => $request->edit_birthday,
             'music_background' => $request->edit_music_background,
             'designation' => $request->edit_designation,
         ]);

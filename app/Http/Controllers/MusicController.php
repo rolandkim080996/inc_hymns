@@ -23,6 +23,7 @@ class MusicController extends Controller
         $instrumentations = Instrumentation::all();
         $ensembleTypes = EnsembleType::all();
         $languages = Language::all();
+        
         $creators = MusicCreator::all();
 
         return view('musics', compact('musics','churchHymns','categories','instrumentations','ensembleTypes','languages','creators'));
@@ -97,6 +98,7 @@ class MusicController extends Controller
             'verses_used' => $request->input('versesused'), // Add 'verses_used' from the request
         ], $filePaths); // Merge other file paths if any
         
+       // dd($filePaths);
         // Create music entry
         $music = Music::create(array_merge($validatedData, $filePaths));
       
@@ -210,8 +212,11 @@ class MusicController extends Controller
         if ($request->hasFile($fieldName)) {
             // Ensure that the file was uploaded successfully
             if ($request->file($fieldName)->isValid()) {
-                // Store the file in the 'music_files' directory
-                return $request->file($fieldName)->store('music_files', 'public'); // 'public' disk
+                // Get the original name of the file
+                $originalName = $request->file($fieldName)->getClientOriginalName();
+                
+                // Store the file with the original name in the 'music_files' directory
+                return $request->file($fieldName)->storeAs('music_files', $originalName, 'public'); // 'public' disk
             } else {
                 // Handle file upload failure
                 throw new \Exception('Invalid file uploaded');
@@ -220,6 +225,7 @@ class MusicController extends Controller
     
         return null; // No file uploaded
     }
+    
 
     // Display the specified music entry
     public function show($id)
@@ -232,7 +238,9 @@ class MusicController extends Controller
     // Show the form for editing the specified music entry
     public function edit($id)
     {
+       
         $musics = Music::findOrFail($id);
+       // dd($musics);
         $churchHymns = ChurchHymn::all();
         $categories = Category::all();
         $instrumentations = Instrumentation::all();
@@ -251,6 +259,7 @@ class MusicController extends Controller
         $validatedData = $request->validate([
             'church_hymn_id' => 'required|exists:church_hymns,id',
             'title' => 'required|max:255',
+            'edit_song_number' => 'nullable|numeric',
             'music_score_path' => 'nullable|string',
             'lyrics_path' => 'nullable|string',
             'vocals_mp3_path' => 'nullable|string',

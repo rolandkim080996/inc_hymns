@@ -61,16 +61,12 @@ Route::get('/musics/{id}', [MusicController::class, 'show'])->name('musics.show'
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
-
-
 Route::get('music_management/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::post('music_management/categories', [CategoryController::class, 'store'])->name('categories.store'); // Updated route for storing a new category
 Route::get('music_management/categories/{categories}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
 Route::put('music_management/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 
 Route::delete('music_management/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-
-
 
 Route::get('music_management/instrumentations', [InstrumentationController::class, 'index'])->name('instrumentations.index');
 Route::post('music_management/instrumentations', [InstrumentationController::class, 'store'])->name('instrumentations.store'); // Updated route for storing a new instrumentation
@@ -79,15 +75,12 @@ Route::put('music_management/instrumentations/{instrumentation}', [Instrumentati
 
 Route::delete('music_management/instrumentations/{instrumentation}', [InstrumentationController::class, 'destroy'])->name('instrumentations.destroy');
 
-
-
 Route::get('music_management/ensemble_types', [EnsembleTypeController::class, 'index'])->name('ensemble_types.index');
 Route::post('music_management/ensemble_types', [EnsembleTypeController::class, 'store'])->name('ensemble_types.store'); // Updated route for storing a new ensemble_type
 Route::get('music_management/ensemble_types/{ensemble_types}/edit', [EnsembleTypeController::class, 'edit'])->name('ensemble_types.edit');
 Route::put('music_management/ensemble_types/{ensemble_type}', [EnsembleTypeController::class, 'update'])->name('ensemble_types.update');
 
 Route::delete('music_management/ensemble_types/{ensemble_type}', [EnsembleTypeController::class, 'destroy'])->name('ensemble_types.destroy');
-
 
 Route::get('music_management/credits', [MusicCreatorController::class, 'index'])->name('credits.index');
 Route::post('music_management/credits', [MusicCreatorController::class, 'store'])->name('credits.store'); // Updated route for storing a new ensemble_type

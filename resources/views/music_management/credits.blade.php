@@ -18,24 +18,24 @@
     <div class="py-12">
 
 
-    <script>
-    $(document).ready(function() {
-        $('#searchCredit').on('keyup', function() {
-            var searchText = $(this).val().toLowerCase();
-            $('table tbody tr').each(function() {
-                var name = $(this).find('td:nth-child(2)').text().toLowerCase();
-                var district = $(this).find('td:nth-child(4)').text().toLowerCase();
-                var local = $(this).find('td:nth-child(5)').text().toLowerCase();
-                var designation = $(this).find('td:nth-child(7)').text().toLowerCase();
-                if (name.includes(searchText) || district.includes(searchText) || local.includes(searchText) || designation.includes(searchText)) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
+        <script>
+            $(document).ready(function() {
+                $('#searchCredit').on('keyup', function() {
+                    var searchText = $(this).val().toLowerCase();
+                    $('table tbody tr').each(function() {
+                        var name = $(this).find('td:nth-child(2)').text().toLowerCase();
+                        var district = $(this).find('td:nth-child(4)').text().toLowerCase();
+                        var local = $(this).find('td:nth-child(5)').text().toLowerCase();
+                        var designation = $(this).find('td:nth-child(7)').text().toLowerCase();
+                        if (name.includes(searchText) || district.includes(searchText) || local.includes(searchText) || designation.includes(searchText)) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                });
             });
-        });
-    });
-</script>
+        </script>
 
 
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -48,30 +48,32 @@
                 </button>
 
                 <form action="{{ route('credits.index') }}" method="GET" class="mt-4 mb-4">
-    <div class="input-group">
-        <input type="text" id="searchCredit" name="query" class="form-control" placeholder="Search credits by name, district, local, or designation">
-        <div class="input-group-append">
-            <button type="submit" class="btn btn-success">Search</button>
-        </div>
-    </div>
-</form>
+                    <div class="input-group">
+                        <input type="text" id="searchCredit" name="query" class="form-control" placeholder="Search credits by name, district, local, or designation">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-success">Search</button>
+                        </div>
+                    </div>
+                </form>
 
 
                 <div class="overflow-x-auto">
-                <div class="pagination flex justify-center items-center" style="padding:0px;margin-bottom:10px;">
-    {{ $credits->appends(['query' => request()->query('query')])->links() }}
-</div>
+                    <div class="pagination flex justify-center items-center" style="padding:0px;margin-bottom:10px;">
+                        {{ $credits->appends(['query' => request()->query('query')])->links() }}
+                    </div>
 
                     <table class="w-full max-w-full table-auto border divide-y divide-gray-200">
                         <thead>
                             <tr>
                                 <th scope="col" style="width: 5%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">#</th>
                                 <th scope="col" style="width: 30%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Name</th>
-                                <th scope="col" style="width: 15%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Birthday</th>
-                                <th scope="col" style="width: 10%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">District</th>
                                 <th scope="col" style="width: 10%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Local</th>
+                                <th scope="col" style="width: 10%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">District</th>
+                                <th scope="col" style="width: 15%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Duty</th>
+                                <th scope="col" style="width: 15%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Birthday</th>
                                 <th scope="col" style="width: 10%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Music Background</th>
                                 <th scope="col" style="width: 8%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Designation</th>
+                                
                                 <th scope="col" style="width: 12%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider"></th>
                             </tr>
                         </thead>
@@ -79,14 +81,15 @@
                             @foreach($credits as $index => $credit)
                             <tr class="{{ $index % 2 == 0 ? 'bg-gray-50' : 'bg-white' }} hover:bg-gray-200">
                                 <td style="width: 5%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ ($credits->currentPage() - 1) * $credits->perPage() + $loop->iteration }}</td>
-                                
                                 <td style="width: 30%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $credit->name }}</td>
+                                <td style="width: 10%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $credit->local }}</td>
+                                <td style="width: 10%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $credit->district }}</td>
+                                <td style="width: 10%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $credit->duty }}</td>
                                 <td style="width: 15%;" class="px-6 py-4 whitespace-nowrap border text-center">
                                     {{ $credit->birthday !== '0000-00-00 00:00:00' ? \Carbon\Carbon::parse($credit->birthday)->format('F j, Y') : '-' }}
                                 </td>
-                                <td style="width: 10%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $credit->district }}</td>
-                                <td style="width: 10%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $credit->local }}</td>
                                 <td style="width: 10%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $credit->music_background }}</td>
+                           
                                 <td style="width: 8%;" class="px-6 py-4 whitespace-nowrap border text-center">
                                     @if($credit->designation == 1)
                                         Arranger
@@ -101,36 +104,31 @@
 
                                 <td style="width: 12%;" class="px-6 py-4 whitespace-nowrap border text-center">
                                     <button class="btn btn-primary btn-sm edit-Credit" 
-                                    data-toggle="modal" 
-                                    data-target="#editCreditModal" 
-                                    data-id="{{ $credit->id }}"
-                                    data-name="{{ $credit->name }}"
-                                    data-birthday="{{ $credit->birthday }}"
-                                    data-district="{{ $credit->district }}"
-                                    data-local="{{ $credit->local }}"
-                                    data-music_background="{{ $credit->music_background }}"
-                                    data-designation="{{ $credit->designation }}">
+                                        data-toggle="modal" 
+                                        data-target="#editCreditModal" 
+                                        data-id="{{ $credit->id }}"
+                                        data-name="{{ $credit->name }}"
+                                        data-birthday="{{ $credit->birthday }}"
+                                        data-district="{{ $credit->district }}"
+                                        data-local="{{ $credit->local }}"
+                                        data-music_background="{{ $credit->music_background }}"
+                                        data-designation="{{ $credit->designation }}"
+                                        data-duty="{{ $credit->duty }}">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="btn btn-danger btn-sm delete-Credit" 
-        data-credit-id="{{ $credit->id }}"
-        data-credit-name="{{ $credit->name }}">
-        <i class="fas fa-trash-alt"></i>
-    </button>
+                                        data-credit-id="{{ $credit->id }}"
+                                        data-credit-name="{{ $credit->name }}">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
                                 </td>
-
-
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
 
-
-
-
-
                     <div class="pagination flex justify-center items-center" style="padding:0px;margin-top:10px;">
-                        {{ $credits->links() }}
+                        {{ $credits->appends(['query' => request()->query('query')])->links() }}
                     </div>
                 </div>
             </div>
@@ -160,18 +158,22 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="birthday">Birthday:</label>
-                            <input type="date" class="form-control" id="birthday" name="birthday">
+                            <label for="local">Local:</label>
+                            <input type="text" class="form-control" id="local" name="local">
                         </div>
-
                         <div class="form-group">
                             <label for="district">District:</label>
                             <input type="text" class="form-control" id="district" name="district">
                         </div>
 
                         <div class="form-group">
-                            <label for="local">Local:</label>
-                            <input type="text" class="form-control" id="local" name="local">
+                            <label for="duty">Duty:</label>
+                            <input type="text" class="form-control" id="duty" name="duty">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="birthday">Birthday:</label>
+                            <input type="date" class="form-control" id="birthday" name="birthday">
                         </div>
 
                         <div class="form-group">
@@ -222,8 +224,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="edit_birthday">Birthday:</label>
-                                <input type="date" class="form-control" id="edit_birthday" name="edit_birthday">
+                                <label for="edit_local">Local:</label>
+                                <input type="text" class="form-control" id="edit_local" name="edit_local">
                             </div>
 
                             <div class="form-group">
@@ -232,8 +234,13 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="edit_local">Local:</label>
-                                <input type="text" class="form-control" id="edit_local" name="edit_local">
+                                <label for="edit_duty">Duty:</label>
+                                <input type="text" class="form-control" id="edit_duty" name="edit_duty">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit_birthday">Birthday:</label>
+                                <input type="date" class="form-control" id="edit_birthday" name="edit_birthday">
                             </div>
 
                             <div class="form-group">
@@ -289,9 +296,10 @@
                 $('.edit-Credit').click(function() {
                     var CreditId = $(this).data('id');
                     var CreditName = $(this).data('name');
-                    var Birthday = $(this).data('birthday');
-                    var District = $(this).data('district');
                     var Local = $(this).data('local');
+                    var District = $(this).data('district');
+                    var Duty = $(this).data('duty');
+                    var Birthday = $(this).data('birthday');
                     var MusicBackground = $(this).data('music_background');
                     var Designation = $(this).data('designation');
             
@@ -310,9 +318,10 @@
                     }
                     
                     $('#edit_name').val(CreditName);
-                    $('#edit_birthday').val(formattedBirthday);
-                    $('#edit_district').val(District);
                     $('#edit_local').val(Local);
+                    $('#edit_district').val(District);
+                    $('#edit_duty').val(Duty);
+                    $('#edit_birthday').val(formattedBirthday);
                     $('#edit_music_background').val(MusicBackground);
                     $('#edit_designation').val(Designation);
 

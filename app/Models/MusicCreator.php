@@ -6,11 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class MusicCreator extends Model
 {
+    
+    protected $table = 'music_creators';
     protected $fillable = [
         'name',
-        'birthday',
-        'district',
         'local',
+        'district',
+        'duty',
+        'birthday',
         'music_background',
         'designation',
     ];
@@ -30,4 +33,10 @@ class MusicCreator extends Model
     {
         return $this->belongsToMany(Music::class, 'music_arranger', 'arranger_id', 'music_id');
     }
+
+      // Define relationship: MusicCreator has many musics
+      public function musics()
+      {
+          return $this->hasMany(Music::class);
+      }
 }
