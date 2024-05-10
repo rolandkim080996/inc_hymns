@@ -251,42 +251,67 @@ class MusicController extends Controller
         return view('musics.edit', compact('musics', 'churchHymns', 'categories', 'instrumentations', 'ensembleTypes', 'languages', 'creators'));
     }
 
-    // Update the specified music entry in the database
     public function update(Request $request, Music $music)
-    {
-       
-        // Validate request data
-        $validatedData = $request->validate([
-            'church_hymn_id' => 'required|exists:church_hymns,id',
-            'title' => 'required|max:255',
-            'edit_song_number' => 'nullable|numeric',
-            'music_score_path' => 'nullable|string',
-            'lyrics_path' => 'nullable|string',
-            'vocals_mp3_path' => 'nullable|string',
-            'organ_mp3_path' => 'nullable|string',
-            'preludes_mp3_path' => 'nullable|string',
-            'category_id' => 'required|exists:categories,id',
-            'instrumentation_id' => 'required|exists:instrumentations,id',
-            'ensemble_type_id' => 'required|exists:ensemble_types,id',
-            'language_id' => 'required|exists:languages,id',
-            'verses_used' => 'nullable|string',
-            'created_by' => 'required|integer',
-            'updated_by' => 'required|integer',
-            'lyricists' => 'nullable|array',
-            'composers' => 'nullable|array',
-            'arrangers' => 'nullable|array',
-        ]);
+{
+    dd($request);
+    // Validate request data
+    $validatedData = $request->validate([
+        'church_hymn_id' => 'required|exists:church_hymns,id',
+        'edit_title' => 'required|max:255',
+        'edit_song_number' => 'nullable|numeric',
+        'edit_music_score_path' => 'nullable|string',
+        'edit_lyrics_path' => 'nullable|string',
+        'edit_vocals_mp3_path' => 'nullable|string',
+        'edit_organ_mp3_path' => 'nullable|string',
+        'edit_preludes_mp3_path' => 'nullable|string',
+        'edit_category_id' => 'nullable|array',
+        'edit_instrumentation_id' => 'nullable|array',
+        'edit_ensemble_type_id' => 'nullable|array',
+        'edit_lyricist_id' => 'nullable|array',
+        'edit_composer_id' => 'nullable|array',
+        'edit_arranger_id' => 'nullable|array',
+        'edit_language_id' => 'nullable|integer',
+        'edit_versesused' => 'nullable|string',
+    ]);
 
-        // Update the music entry
-        $music->update($validatedData);
+    // Process file uploads
+    $filePaths = [];
 
-        // Sync lyricists, composers, and arrangers
-        $music->lyricists()->sync($request->input('lyricists', []));
-        $music->composers()->sync($request->input('composers', []));
-        $music->arrangers()->sync($request->input('arrangers', []));
+    // Update file paths if new files are uploaded
+    $filePaths['vocals_mp3_path'] = $this->storeFile($request, 'edit_vocals_mp3_path');
+    $filePaths['organ_mp3_path'] = $this->storeFile($request, 'edit_organ_mp3_path');
+    $filePaths['preludes_mp3_path'] = $this->storeFile($request, 'edit_preludes_mp3_path');
+    $filePaths['music_score_path'] = $this->storeFile($request, 'edit_music_score_path');
+    $filePaths['lyrics_path'] = $this->storeFile($request, 'edit_lyrics_path');
 
-        return redirect()->route('musics.index')->with('success', 'Music entry updated successfully!');
-    }
+    // Merge file paths into validated data
+    $validatedData = array_merge($validatedData, $filePaths);
+
+    // Update music entry
+    $music->update($validatedData);
+
+    // Attach related categories to the music model
+    $music->categories()->sync($request->input('edit_category_id', []));
+
+    // Attach related instrumentations to the music model
+    $music->instrumentations()->sync($request->input('edit_instrumentation_id', []));
+
+    // Attach related ensemble types to the music model
+    $music->ensembleTypes()->sync($request->input('edit_ensemble_type_id', []));
+
+    // Attach related lyricists to the music model
+    $music->lyricists()->sync($request->input('edit_lyricist_id', []));
+
+    // Attach related composers to the music model
+    $music->composers()->sync($request->input('edit_composer_id', []));
+
+    // Attach related arrangers to the music model
+    $music->arrangers()->sync($request->input('edit_arranger_id', []));
+
+    // Redirect back to index page with success message
+    return redirect()->route('musics.index')->with('success', 'Music entry updated successfully!');
+}
+
 
     // Delete the specified music entry from the database
     public function destroy(Music $music)
