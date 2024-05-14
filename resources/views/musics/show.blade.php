@@ -296,7 +296,6 @@ musicPlayer.addEventListener('click', seekAudio);
 
 <!-- Music Score (Right Side) -->
 <div class="music-score">
-
     <!-- Tab buttons -->
     <div class="tab-buttons">
         <button class="tab-button active" data-path="{{ asset('storage/' . $music->music_score_path) }}">Music Score</button>
@@ -306,7 +305,7 @@ musicPlayer.addEventListener('click', seekAudio);
     <!-- PDF or Lyrics Container -->
     <div class="pdf-container">
         <!-- Canvas for PDF rendering -->
-        <canvas id="pdf-canvas" width="100%" height="600px"></canvas>
+        <div id="pdf-container"></div>
     </div>
 </div>
 
@@ -384,12 +383,20 @@ musicPlayer.addEventListener('click', seekAudio);
         flex-basis: 60%; /* Set width for the right side (music score) */
     }
 
-    .pdf-container {
-        position: relative;
-        width: 100%;
-        height: calc(100vh - 40px); /* Adjust height based on header and padding */
-        overflow: hidden;
-    }
+/* Ensure the PDF container is responsive */
+.pdf-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Ensure each canvas scales responsively */
+.pdf-container canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 10px auto;
+}
+
 
 
 /* Responsive Styles (Optional) */
@@ -433,20 +440,6 @@ $(document).ready(function() {
     // Initial rendering based on active tab
     renderContent($('.tab-button.active').data('path'));
 
-        // Handle tab button click
-        $('.tab-button-mp3').click(function() {
-        // Remove active class from all buttons
-        $('.tab-button-mp3').removeClass('active');
-
-        // Add active class to the clicked button
-        $(this).addClass('active');
-
-        // Get the path from the button's data attribute
-        var path = $(this).data('path');
-
-    });
-
-
     // Handle tab button click
     $('.tab-button').click(function() {
         // Remove active class from all buttons
@@ -475,39 +468,50 @@ $(document).ready(function() {
 
     // Function to render PDF content
     function renderPDF(pdfPath) {
-        var canvas = document.getElementById('pdf-canvas');
-        var context = canvas.getContext('2d');
+        // Clear the PDF container
+        $('#pdf-container').empty();
 
-        // Use PDF.js to render the PDF on the canvas
+        // Use PDF.js to render the PDF
         pdfjsLib.getDocument(pdfPath).promise.then(function(pdf) {
-            pdf.getPage(1).then(function(page) {
-                var viewport = page.getViewport({ scale: 1.0 });
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
+            // Loop through each page and render it
+            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                pdf.getPage(pageNum).then(function(page) {
+                    var viewport = page.getViewport({ scale: 1.0 });
+                    
+                    // Create a canvas for each page
+                    var canvas = document.createElement('canvas');
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    $('#pdf-container').append(canvas);
 
-                var renderContext = {
-                    canvasContext: context,
-                    viewport: viewport
-                };
+                    var context = canvas.getContext('2d');
 
-                page.render(renderContext);
-            });
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+
+                    page.render(renderContext);
+                });
+            }
         });
     }
 
     // Function to render lyrics content
     function renderLyrics(lyricsPath) {
-        // Replace the canvas content with lyrics content
-        var canvas = document.getElementById('pdf-canvas');
-        var context = canvas.getContext('2d');
+        // Clear the PDF container and replace with lyrics content
+        $('#pdf-container').html('<p>Loading lyrics...</p>');
 
-        // Clear canvas
-        context.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Display lyrics or other content based on the path
-        context.fillStyle = '#000';
-        context.font = '20px Arial';
-        context.fillText('Lyrics content here', 10, 50); // Replace with actual lyrics
+        // Fetch the lyrics content from the server and display it
+        $.ajax({
+            url: lyricsPath,
+            success: function(data) {
+                $('#pdf-container').html('<pre>' + data + '</pre>');
+            },
+            error: function() {
+                $('#pdf-container').html('<p>Failed to load lyrics.</p>');
+            }
+        });
     }
 });
 </script>
