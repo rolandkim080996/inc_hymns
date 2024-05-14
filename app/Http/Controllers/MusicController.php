@@ -11,12 +11,18 @@ use App\Models\EnsembleType;
 use App\Models\Language;
 use App\Models\MusicCreator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class MusicController extends Controller
 {
     // Display a listing of the music entries
     public function index()
     {
+         // Check if data exists in cache
+         $cachedData = Cache::get('music_index_data');
+
+        // dd($cachedData);
+
         $musics = Music::all();
         $churchHymns = ChurchHymn::all();
         $categories = Category::all();
