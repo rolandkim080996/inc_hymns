@@ -93,7 +93,7 @@
                     <!-- Left Column -->
                     <div class="w-full md:w-1/2 px-4">
 
-                                            <!-- Hidden input fields to store selected IDs -->
+                    <!-- Hidden input fields to store selected IDs -->
                     <input type="hidden" id="selected_category_ids" name="category_id[]" value="">
                     <input type="hidden" id="selected_instrumentation_ids" name="instrumentation_id[]" value="">
                     <input type="hidden" id="selected_ensemble_type_ids" name="ensemble_type_id[]" value="">               
@@ -160,6 +160,8 @@
                             </div>
                         </div>
                     </div>
+
+                    
                     <!-- Instrumentation-->
                     <div class="mb-4">
                         <label for="edit_instrumentation_id" class="block text-sm font-bold text-gray-700 mb-2">Instrumentation:</label>

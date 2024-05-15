@@ -258,11 +258,12 @@ class MusicController extends Controller
     }
 
     public function update(Request $request, Music $music)
-{
-    dd($request);
+    {
+    //dd($request);
+   
     // Validate request data
     $validatedData = $request->validate([
-        'church_hymn_id' => 'required|exists:church_hymns,id',
+        'edit_church_hymn_id' => 'required|exists:church_hymns,id',
         'edit_title' => 'required|max:255',
         'edit_song_number' => 'nullable|numeric',
         'edit_music_score_path' => 'nullable|string',
@@ -282,22 +283,37 @@ class MusicController extends Controller
 
     // Process file uploads
     $filePaths = [];
-
+   
     // Update file paths if new files are uploaded
     $filePaths['vocals_mp3_path'] = $this->storeFile($request, 'edit_vocals_mp3_path');
     $filePaths['organ_mp3_path'] = $this->storeFile($request, 'edit_organ_mp3_path');
     $filePaths['preludes_mp3_path'] = $this->storeFile($request, 'edit_preludes_mp3_path');
     $filePaths['music_score_path'] = $this->storeFile($request, 'edit_music_score_path');
     $filePaths['lyrics_path'] = $this->storeFile($request, 'edit_lyrics_path');
-
+   
     // Merge file paths into validated data
     $validatedData = array_merge($validatedData, $filePaths);
-
+ 
     // Update music entry
     $music->update($validatedData);
+    
+    // Retrieve selected category IDs from the request
+    $selectedCategoryIds = $request->input('edit_category_id', []);
+   
+    // Get the existing category IDs associated with the music entry
+    $existingCategoryIds = $music->categories()->pluck('id')->toArray();
+    dd($selectedCategoryIds);
+    // Add new categories and detach categories that are not selected
+    $categoriesToAdd = array_diff($selectedCategoryIds, $existingCategoryIds);
+    $categoriesToDetach = array_diff($existingCategoryIds, $selectedCategoryIds);
 
-    // Attach related categories to the music model
-    $music->categories()->sync($request->input('edit_category_id', []));
+    // Attach new categories
+    $music->categories()->attach($categoriesToAdd);
+
+    // Detach categories that are not selected
+    $music->categories()->detach($categoriesToDetach);
+
+   
 
     // Attach related instrumentations to the music model
     $music->instrumentations()->sync($request->input('edit_instrumentation_id', []));
