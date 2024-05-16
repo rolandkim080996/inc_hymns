@@ -259,8 +259,7 @@ class MusicController extends Controller
 
     public function update(Request $request, Music $music)
     {
-    //dd($request);
-   
+ 
     // Validate request data
     $validatedData = $request->validate([
         'edit_church_hymn_id' => 'required|exists:church_hymns,id',
@@ -272,9 +271,8 @@ class MusicController extends Controller
         'edit_organ_mp3_path' => 'nullable|string',
         'edit_preludes_mp3_path' => 'nullable|string',
         'category_id' => 'nullable|array',
-        'edit_category_id' => 'nullable|array',
-        'edit_instrumentation_id' => 'nullable|array',
-        'edit_ensemble_type_id' => 'nullable|array',
+        'instrumentation_id' => 'nullable|array',
+        'ensemble_type_id' => 'nullable|array',
         'edit_lyricist_id' => 'nullable|array',
         'edit_composer_id' => 'nullable|array',
         'edit_arranger_id' => 'nullable|array',
@@ -300,7 +298,14 @@ class MusicController extends Controller
     
     // Retrieve selected category IDs from the request
     $selectedCategoryIds = $request->input('category_id', []);
-    dd($selectedCategoryIds);
+    
+
+    // Retrieve selected instrumentation IDs from the request
+    $instrumentationIds = $request->input('instrumentation_id', []);
+
+    // Retrieve selected ensemble_type IDs from the request
+    $ensemble_typeIds = $request->input('ensemble_type_id', []);
+    dd( $ensemble_typeIds);
     // Get the existing category IDs associated with the music entry
     $existingCategoryIds = $music->categories()->pluck('id')->toArray();
    

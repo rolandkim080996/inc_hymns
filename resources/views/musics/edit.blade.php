@@ -113,7 +113,7 @@ function updateHiddenInput(dropdownId) {
     // Collect all selected item IDs
     selectedContainer.querySelectorAll('.selected-tag').forEach(item => {
         let itemId = item.getAttribute('data-id');
-        console.log(itemId); // Log the item ID to debug
+        console.log(itemId);
         if (itemId) {
             selectedIds.push(itemId);
         }
@@ -181,7 +181,7 @@ dropdownOptionsContainer.classList.toggle("active");
 // Function to handle item selection in a dropdown
 function handleDropdownSelection(checkbox, selectedContainerId, hiddenInputId) {
     let selectedContainer = document.getElementById(selectedContainerId);
-alert(hiddenInputId);
+
     if (checkbox.checked) {
         // Append the selected item to the selectedContainer
         appendSelectedItem(selectedContainer, checkbox);
