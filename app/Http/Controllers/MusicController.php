@@ -271,6 +271,7 @@ class MusicController extends Controller
         'edit_vocals_mp3_path' => 'nullable|string',
         'edit_organ_mp3_path' => 'nullable|string',
         'edit_preludes_mp3_path' => 'nullable|string',
+        'category_id' => 'nullable|array',
         'edit_category_id' => 'nullable|array',
         'edit_instrumentation_id' => 'nullable|array',
         'edit_ensemble_type_id' => 'nullable|array',
@@ -298,11 +299,11 @@ class MusicController extends Controller
     $music->update($validatedData);
     
     // Retrieve selected category IDs from the request
-    $selectedCategoryIds = $request->input('edit_category_id', []);
-   
+    $selectedCategoryIds = $request->input('category_id', []);
+    dd($selectedCategoryIds);
     // Get the existing category IDs associated with the music entry
     $existingCategoryIds = $music->categories()->pluck('id')->toArray();
-    dd($selectedCategoryIds);
+   
     // Add new categories and detach categories that are not selected
     $categoriesToAdd = array_diff($selectedCategoryIds, $existingCategoryIds);
     $categoriesToDetach = array_diff($existingCategoryIds, $selectedCategoryIds);
@@ -312,8 +313,6 @@ class MusicController extends Controller
 
     // Detach categories that are not selected
     $music->categories()->detach($categoriesToDetach);
-
-   
 
     // Attach related instrumentations to the music model
     $music->instrumentations()->sync($request->input('edit_instrumentation_id', []));
