@@ -154,36 +154,36 @@
                         @csrf
                         <div class="form-group">
                             <label for="name">Credit Name:</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" class="form-control" id="name" name="name" required>
                         </div>
 
                         <div class="form-group">
                             <label for="local">Local:</label>
-                            <input type="text" class="form-control" id="local" name="local">
+                            <input type="text" class="form-control" id="local" name="local" required>
                         </div>
                         <div class="form-group">
                             <label for="district">District:</label>
-                            <input type="text" class="form-control" id="district" name="district">
+                            <input type="text" class="form-control" id="district" name="district" required>
                         </div>
 
                         <div class="form-group">
                             <label for="duty">Duty:</label>
-                            <input type="text" class="form-control" id="duty" name="duty">
+                            <input type="text" class="form-control" id="duty" name="duty" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="birthday">Birthday:</label>
-                            <input type="date" class="form-control" id="birthday" name="birthday">
+                            <input type="date" class="form-control" id="birthday" name="birthday" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="music_background">Music Background:</label>
+                            <label for="music_background">Music Background(Optional):</label>
                             <textarea type="text" class="form-control" id="music_background" name="music_background"></textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="designation">Designation:</label>
-                            <select class="form-control" id="designation" name="designation">
+                            <select class="form-control" id="designation" name="designation" required>
                                 <option value="0" selected disabled>Select Designation</option>
                                 <option value="1">Arranger</option>
                                 <option value="2">Composer</option>
@@ -220,37 +220,37 @@
                                 <label for="edit_name">Credit Name:</label>
                                 
                                 
-                                <input type="text" class="form-control" id="edit_name" name="edit_name" value="{{ $credit->name }}">
+                                <input type="text" class="form-control" id="edit_name" name="edit_name" value="{{ $credit->name }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="edit_local">Local:</label>
-                                <input type="text" class="form-control" id="edit_local" name="edit_local">
+                                <input type="text" class="form-control" id="edit_local" name="edit_local" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="edit_district">District:</label>
-                                <input type="text" class="form-control" id="edit_district" name="edit_district">
+                                <input type="text" class="form-control" id="edit_district" name="edit_district" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="edit_duty">Duty:</label>
-                                <input type="text" class="form-control" id="edit_duty" name="edit_duty">
+                                <input type="text" class="form-control" id="edit_duty" name="edit_duty" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="edit_birthday">Birthday:</label>
-                                <input type="date" class="form-control" id="edit_birthday" name="edit_birthday">
+                                <input type="date" class="form-control" id="edit_birthday" name="edit_birthday" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="edit_music_background">Music Background:</label>
+                                <label for="edit_music_background">Music Background(Optional): </label>
                                 <textarea type="text" class="form-control" id="edit_music_background" name="edit_music_background"></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="edit_designation">Designation:</label>
-                                <select class="form-control" id="edit_designation" name="edit_designation">
+                                <select class="form-control" id="edit_designation" name="edit_designation" required>
                                     <option value="0" selected disabled>Select Designation</option>
                                     <option value="1">Arranger</option>
                                     <option value="2">Composer</option>

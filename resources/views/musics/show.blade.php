@@ -497,22 +497,24 @@ $(document).ready(function() {
         });
     }
 
-    // Function to render lyrics content
-    function renderLyrics(lyricsPath) {
-        // Clear the PDF container and replace with lyrics content
-        $('#pdf-container').html('<p>Loading lyrics...</p>');
+// Function to render lyrics content
+function renderLyrics(lyricsPath) {
 
-        // Fetch the lyrics content from the server and display it
-        $.ajax({
-            url: lyricsPath,
-            success: function(data) {
-                $('#pdf-container').html('<pre>' + data + '</pre>');
-            },
-            error: function() {
-                $('#pdf-container').html('<p>Failed to load lyrics.</p>');
-            }
-        });
-    }
+    // Clear the PDF container and replace with lyrics content
+    $('#pdf-container').html('<p>Loading lyrics...</p>');
+
+    // Fetch the lyrics content from the server and display it
+    $.ajax({
+        url: lyricsPath,
+        success: function(data) {
+            $('#pdf-container').html('<pre style="white-space: pre-wrap; word-wrap: break-word; font-size: 18px;">' + data + '</pre>');
+        },
+        error: function() {
+            $('#pdf-container').html('<p>Failed to load lyrics.</p>');
+        }
+    });
+}
+
 });
 </script>
 

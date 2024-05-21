@@ -96,7 +96,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="name">Category Name:</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Add Category</button>
                     </form>
@@ -125,7 +125,7 @@
                                 <label for="edit_name">Category Name:</label>
                                 
                                 <input type="hidden" class="form-control" id="edit_id" name="edit_id" value="{{ $category->id }}">
-                                <input type="text" class="form-control" id="edit_name" name="edit_name" value="{{ $category->name }}">
+                                <input type="text" class="form-control" id="edit_name" name="edit_name" value="{{ $category->name }}" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Save Changes</button>
                         </form>

@@ -19,7 +19,7 @@
       
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <!-- Add Music Button with Icon -->
-    <button id="addMusicButton" class="btn btn-success mb-2">
+    <button id="addMusicButton" class="btn btn-success mb-4">
         <i class="fas fa-plus"></i>
         <span> Music</span>
     </button>
@@ -36,24 +36,40 @@
     <div id="overlay" class="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 z-50 hidden"></div>
 
         <!-- Search Input and Tabs -->
-        <div class="flex items-center justify-between mb-4">
-                <!-- Search Input -->
-                <div class="flex-grow relative">
-                    <input type="text" id="searchInput" class="border border-gray-300 rounded px-4 py-2 w-full" placeholder="Search music...">
-                    <div id="searchOverlay" class="absolute inset-0 bg-gray-900 bg-opacity-50 z-10 hidden"></div>
-                </div>
+        <form action="{{ route('musics.index') }}" method="GET" class="mt-4 mb-4">
+            <div class="flex items-center justify-between mb-4">
+                        <form method="GET" action="{{ route('musics.index') }}" method="GET" class="mt-4 mb-4">
+                            <input type="text" id="searchInput" name="query" class="form-control" value="{{ request('query') }}" placeholder="Search hymns ...">
+                            
+                            <select name="category_ids[]" style="height:38px;margin-left:2px;margin-right:2px;">
+                                <option value="0" selected disabled>Select category</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ in_array($category->id, request('category_ids', [])) ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-info">Search</button>
+                            </div>
+                        </form>
 
-                <!-- Tabs -->
-                <div class="flex">
-                    <button id="tabAll" class="tab-button bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-l focus:outline-none">All</button>
-                    <button id="tabSongs" class="tab-button bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 focus:outline-none">Hymns</button>
-                    <button id="tabPlaylist" class="tab-button bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-r focus:outline-none">Playlist</button>
-                </div>
-        </div>
 
+
+                    <!-- Tabs -->
+                    <div class="flex" style="display:none;">
+                        <button id="tabAll" class="tab-button bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-l focus:outline-none">All</button>
+                        <button id="tabSongs" class="tab-button bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 focus:outline-none">Hymns</button>
+                        <button id="tabPlaylist" class="tab-button bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-r focus:outline-none">Playlist</button>
+                    </div>
+            </div>
+        </form>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-            
+                <div class="pagination flex justify-center items-center" style="padding:0px;margin-bottom:10px;">
+                        {{ $musics->appends(['query' => request()->query('query')])->links() }}
+                    </div>
                     <!-- Music Table -->
                     <div class="overflow-x-auto">
                     <table class="min-w-full table-auto border divide-y divide-gray-200">
@@ -68,7 +84,8 @@
                         <tbody id="musicList" class="bg-white divide-y divide-gray-200">
                             @foreach($musics as $index => $music)
                             <tr class="{{ $index % 2 == 0 ? 'bg-gray-50' : 'bg-white' }} hover:bg-gray-200">
-                                <td class="px-6 py-4 whitespace-nowrap border text-center">{{ $index + 1 }}</td>
+                                <td style="width: 5%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ ($musics->currentPage() - 1) * $musics->perPage() + $loop->iteration }}</td>
+                                
                                 <td class="px-6 py-4 whitespace-nowrap border text-center">
                                     <a href="{{ route('musics.show', $music->id) }}" class="flex items-center">
                                         <i class="fas fa-music" style="margin-right: 12px; margin-left: 4px;"></i>
@@ -88,22 +105,23 @@
                                                 <span>- - -</span>
                                             </button>
                                             <div id="context-menu-{{ $music->id }}" class="context-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
-                                                <ul class="py-1">
+                                                <ul class="py-2">
                                                     <li>
-                                                        <a href="{{ route('musics.edit', $music->id) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
+                                                        <a href="{{ route('musics.edit', $music->id) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Edit</a>
                                                     </li>
                                                     <li>
                                                         <form method="POST" action="{{ route('musics.destroy', $music->id) }}" style="display: inline;">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none" onclick="return confirm('Are you sure you want to delete this music?');">Delete</button>
+                                                            <button type="submit" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 hover:text-red-700 focus:outline-none" onclick="return confirm('Are you sure you want to delete this music?');">Delete</button>
                                                         </form>
                                                     </li>
                                                     <li>
-                                                        <a href="#" id="view-credits-{{ $music->id }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">View Credits</a>
+                                                        <a href="#" id="view-credits-{{ $music->id }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">View Credits</a>
                                                     </li>
                                                 </ul>
                                             </div>
+
 
                                             <div id="credits-menu-{{ $music->id }}" class="credits-menu hidden fixed inset-0  items-center justify-center z-50">
                                                 <div class="bg-white rounded-lg shadow-lg p-4">
@@ -162,6 +180,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    </div>
+                    <div class="pagination flex justify-center items-center" style="padding:0px;margin-top:10px;">
+                        {{ $musics->appends(['query' => request()->query('query')])->links() }}
                     </div>
                     <!-- Message when no music is found -->
                     <p id="noMusicFoundMessage" class="text-center text-gray-500 mt-4" style="display: none;">No music found</p>

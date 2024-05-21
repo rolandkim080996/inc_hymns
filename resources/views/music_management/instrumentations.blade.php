@@ -88,7 +88,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="name">Instrumentation Name:</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Add Instrumentation</button>
                     </form>
@@ -117,7 +117,7 @@
                                 <label for="edit_name">Instrumentation Name:</label>
                                 
                                 <input type="hidden" class="form-control" id="edit_id" name="edit_id" value="{{ $instrumentation->id }}">
-                                <input type="text" class="form-control" id="edit_name" name="edit_name" value="{{ $instrumentation->name }}">
+                                <input type="text" class="form-control" id="edit_name" name="edit_name" value="{{ $instrumentation->name }}" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Save Changes</button>
                         </form>

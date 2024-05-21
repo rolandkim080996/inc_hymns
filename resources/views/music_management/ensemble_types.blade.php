@@ -88,7 +88,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="name">Ensemble_type Name:</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Add Ensemble_type</button>
                     </form>
@@ -117,7 +117,7 @@
                                 <label for="edit_name">Ensemble_type Name:</label>
                                 
                                 <input type="hidden" class="form-control" id="edit_id" name="edit_id" value="{{ $ensemble_type->id }}">
-                                <input type="text" class="form-control" id="edit_name" name="edit_name" value="{{ $ensemble_type->name }}">
+                                <input type="text" class="form-control" id="edit_name" name="edit_name" value="{{ $ensemble_type->name }}" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Save Changes</button>
                         </form>

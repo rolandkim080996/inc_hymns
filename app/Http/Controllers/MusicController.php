@@ -15,25 +15,43 @@ use Illuminate\Support\Facades\Cache;
 
 class MusicController extends Controller
 {
-    // Display a listing of the music entries
-    public function index()
-    {
-         // Check if data exists in cache
-         $cachedData = Cache::get('music_index_data');
+// Display a listing of the music entries
+public function index(Request $request)
+{
+    // Get the query string from the request
+    $query = $request->input('query');
+    $categoryIds = $request->input('category_ids', []);
 
-        // dd($cachedData);
+    // Initialize the query builder
+    $queryBuilder = Music::query();
 
-        $musics = Music::all();
-        $churchHymns = ChurchHymn::all();
-        $categories = Category::all();
-        $instrumentations = Instrumentation::all();
-        $ensembleTypes = EnsembleType::all();
-        $languages = Language::all();
-        
-        $creators = MusicCreator::all();
-
-        return view('musics', compact('musics','churchHymns','categories','instrumentations','ensembleTypes','languages','creators'));
+    // If a search query is provided, filter the records
+    if ($query) {
+        $queryBuilder->where('title', 'like', '%' . $query . '%')
+                    ->orWhere('song_number', 'like', '%' . $query . '%')
+                    ->orWhere('verses_used', 'like', '%' . $query . '%');
     }
+
+    // If category IDs are provided, filter by categories
+    if (!empty($categoryIds)) {
+        $queryBuilder->whereHas('categories', function($query) use ($categoryIds) {
+            $query->whereIn('categories.id', $categoryIds);
+        });
+    }
+
+    // Fetch all records if no search query is provided
+    $musics = $queryBuilder->latest()->paginate(10)->withQueryString();
+
+    // Fetch other data
+    $churchHymns = ChurchHymn::all();
+    $categories = Category::all();
+    $instrumentations = Instrumentation::all();
+    $ensembleTypes = EnsembleType::all();
+    $languages = Language::all();
+    $creators = MusicCreator::all();
+
+    return view('musics', compact('musics','churchHymns','categories','instrumentations','ensembleTypes','languages','creators'));
+}
 
     // Show the form for creating a new music entry
     public function create()
