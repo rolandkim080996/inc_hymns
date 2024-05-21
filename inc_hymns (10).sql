@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2024 at 10:22 AM
+-- Generation Time: May 21, 2024 at 09:53 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -254,8 +254,8 @@ CREATE TABLE `musics` (
 --
 
 INSERT INTO `musics` (`id`, `church_hymn_id`, `title`, `song_number`, `music_score_path`, `lyrics_path`, `vocals_mp3_path`, `organ_mp3_path`, `preludes_mp3_path`, `language_id`, `verses_used`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(58, 1, 'DARATING DIN ANG KAGALAKAN', '456', 'music_files/FILIPINO_HYMNS_AWS_1_526_551_594forprinting_23October2023_526.pdf', 'music_files/456.pdf', 'music_files/456.mp3', 'music_files/456 organ.mp3', 'music_files/P456.mp3', 1, 'test', 1, 1, '2024-05-07 18:25:33', '2024-05-07 18:25:33'),
-(59, 1, 'Jesus, Iyong Kaawaan, Palakasin Ako', '526', 'music_files/526.pdf', 'music_files/526 Lyrics Only.pdf', 'music_files/526.mp3', NULL, 'music_files/P526.mp3', 1, 'test', 1, 1, '2024-05-13 22:57:11', '2024-05-13 22:57:11');
+(62, 1, 'DARATING DIN ANG KAGALAKAN', '456', 'music_files/FILIPINO_HYMNS_AWS_1_526_551_594forprinting_23October2023_526.pdf', 'music_files/456.pdf', 'music_files/456.mp3', 'music_files/456 organ.mp3', 'music_files/P456.mp3', 1, 'gaazsdas', 1, 1, '2024-05-20 22:12:50', '2024-05-20 22:12:50'),
+(63, 1, 'Jesus, Iyong Kaawaan, Palakasin Ako', '526', 'music_files/526.pdf', 'music_files/526 Lyrics Only.pdf', 'music_files/526.mp3', NULL, 'music_files/P526.mp3', 1, 'asdsa', 1, 1, '2024-05-20 22:53:16', '2024-05-20 22:53:16');
 
 -- --------------------------------------------------------
 
@@ -276,13 +276,17 @@ CREATE TABLE `music_arranger` (
 --
 
 INSERT INTO `music_arranger` (`id`, `music_id`, `arranger_id`, `created_at`, `updated_at`) VALUES
-(89, 58, 3, NULL, NULL),
-(90, 58, 1, NULL, NULL),
-(91, 58, 11, NULL, NULL),
-(92, 59, 32, NULL, NULL),
-(93, 59, 33, NULL, NULL),
-(94, 59, 34, NULL, NULL),
-(95, 59, 35, NULL, NULL);
+(107, 62, 1, NULL, NULL),
+(108, 62, 17, NULL, NULL),
+(109, 62, 18, NULL, NULL),
+(110, 62, 19, NULL, NULL),
+(111, 62, 31, NULL, NULL),
+(112, 62, 32, NULL, NULL),
+(113, 63, 1, NULL, NULL),
+(114, 63, 2, NULL, NULL),
+(115, 63, 13, NULL, NULL),
+(116, 63, 14, NULL, NULL),
+(117, 63, 26, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -300,11 +304,12 @@ CREATE TABLE `music_category` (
 --
 
 INSERT INTO `music_category` (`music_id`, `category_id`) VALUES
-(58, 1),
-(58, 2),
-(58, 6),
-(59, 3),
-(59, 4);
+(62, 1),
+(62, 2),
+(62, 14),
+(62, 25),
+(63, 1),
+(63, 19);
 
 -- --------------------------------------------------------
 
@@ -325,14 +330,18 @@ CREATE TABLE `music_composer` (
 --
 
 INSERT INTO `music_composer` (`id`, `music_id`, `composer_id`, `created_at`, `updated_at`) VALUES
-(62, 58, 2, NULL, NULL),
-(63, 58, 12, NULL, NULL),
-(64, 58, 33, NULL, NULL),
-(65, 59, 2, NULL, NULL),
-(66, 59, 3, NULL, NULL),
-(67, 59, 15, NULL, NULL),
-(68, 59, 16, NULL, NULL),
-(69, 59, 17, NULL, NULL);
+(80, 62, 1, NULL, NULL),
+(81, 62, 2, NULL, NULL),
+(82, 62, 3, NULL, NULL),
+(83, 62, 24, NULL, NULL),
+(84, 62, 25, NULL, NULL),
+(85, 62, 26, NULL, NULL),
+(86, 63, 2, NULL, NULL),
+(87, 63, 16, NULL, NULL),
+(88, 63, 17, NULL, NULL),
+(89, 63, 25, NULL, NULL),
+(90, 63, 26, NULL, NULL),
+(91, 63, 27, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -358,7 +367,7 @@ CREATE TABLE `music_creators` (
 --
 
 INSERT INTO `music_creators` (`id`, `name`, `local`, `district`, `duty`, `birthday`, `music_background`, `designation`, `created_at`, `updated_at`) VALUES
-(1, 'Albert Lapuz', 'sagana', 'central', 'Choir Director', '1988-02-07 00:00:00', 'test123', 1, NULL, '2024-05-07 16:54:59'),
+(1, 'Albert Lapuz', 'sagana', 'central', 'Choir Director', '1988-02-07 00:00:00', 'asd', 1, NULL, '2024-05-20 23:44:24'),
 (2, 'Alejandro M. Pangulayan', NULL, NULL, '', NULL, NULL, 1, NULL, '2024-05-07 15:38:43'),
 (3, 'Acierto', NULL, NULL, '', '0000-00-00 00:00:00', NULL, 0, NULL, NULL),
 (4, 'Anthony Jumipit', NULL, NULL, '', '0000-00-00 00:00:00', NULL, 0, NULL, NULL),
@@ -477,8 +486,10 @@ CREATE TABLE `music_ensemble_type` (
 --
 
 INSERT INTO `music_ensemble_type` (`music_id`, `ensemble_type_id`) VALUES
-(58, 1),
-(59, 1);
+(62, 1),
+(62, 2),
+(63, 1),
+(63, 2);
 
 -- --------------------------------------------------------
 
@@ -496,9 +507,11 @@ CREATE TABLE `music_instrumentation` (
 --
 
 INSERT INTO `music_instrumentation` (`music_id`, `instrumentation_id`) VALUES
-(58, 1),
-(59, 3),
-(59, 4);
+(62, 1),
+(62, 2),
+(62, 3),
+(63, 1),
+(63, 2);
 
 -- --------------------------------------------------------
 
@@ -519,11 +532,11 @@ CREATE TABLE `music_lyricist` (
 --
 
 INSERT INTO `music_lyricist` (`id`, `music_id`, `lyricist_id`, `created_at`, `updated_at`) VALUES
-(61, 58, 1, NULL, NULL),
-(70, 58, 2, NULL, NULL),
-(71, 59, 21, NULL, NULL),
-(72, 59, 22, NULL, NULL),
-(73, 59, 23, NULL, NULL);
+(79, 62, 1, NULL, NULL),
+(80, 62, 12, NULL, NULL),
+(81, 63, 1, NULL, NULL),
+(82, 63, 2, NULL, NULL),
+(83, 63, 15, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -767,31 +780,31 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `musics`
 --
 ALTER TABLE `musics`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `music_arranger`
 --
 ALTER TABLE `music_arranger`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT for table `music_composer`
 --
 ALTER TABLE `music_composer`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT for table `music_creators`
 --
 ALTER TABLE `music_creators`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `music_lyricist`
 --
 ALTER TABLE `music_lyricist`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
