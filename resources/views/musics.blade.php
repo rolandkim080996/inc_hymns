@@ -65,6 +65,61 @@
                     </div>
             </div>
         </form>
+
+        
+<div class="mb-4">
+    <h2 class="text-lg font-semibold mb-2">Categories</h2>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        @foreach($topCategories as $category)
+            <button class="category-box bg-gray-200 p-2 rounded text-center" data-category-id="{{ $category->id }}">
+                {{ $category->name }} ({{ $category->musics_count }})
+            </button>
+        @endforeach
+    </div>
+    <button id="viewAllCategories" class="mt-4 text-blue-500">View All</button>
+    <div id="allCategories" class="hidden mt-4 grid grid-cols-2 md:grid-cols-5 gap-4">
+        @foreach($categories as $category)
+            <button class="category-box bg-gray-200 p-2 rounded text-center" data-category-id="{{ $category->id }}">
+                {{ $category->name }} ({{ $category->musics_count }})
+            </button>
+        @endforeach
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const viewAllCategoriesBtn = document.getElementById('viewAllCategories');
+        const allCategoriesDiv = document.getElementById('allCategories');
+
+        viewAllCategoriesBtn.addEventListener('click', function() {
+            allCategoriesDiv.classList.toggle('hidden');
+        });
+
+        const categoryBoxes = document.querySelectorAll('.category-box');
+
+        categoryBoxes.forEach(box => {
+            box.addEventListener('click', function() {
+                const categoryId = this.getAttribute('data-category-id');
+                fetchMusicsByCategory(categoryId);
+            });
+        });
+
+        function fetchMusicsByCategory(categoryId) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('category_ids[]', categoryId);
+
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const musicList = doc.getElementById('musicList');
+                    document.getElementById('musicList').innerHTML = musicList.innerHTML;
+                    document.querySelector('.pagination').innerHTML = doc.querySelector('.pagination').innerHTML;
+                });
+        }
+    });
+</script>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                 <div class="pagination flex justify-center items-center" style="padding:0px;margin-bottom:10px;">

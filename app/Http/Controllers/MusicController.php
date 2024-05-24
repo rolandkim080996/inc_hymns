@@ -32,9 +32,9 @@ public function index(Request $request)
                     ->orWhere('verses_used', 'like', '%' . $query . '%');
     }
 
-    // If category IDs are provided, filter by categories
-    if (!empty($categoryIds)) {
-        $queryBuilder->whereHas('categories', function($query) use ($categoryIds) {
+     // Filter by selected categories
+     if (!empty($categoryIds)) {
+        $queryBuilder->whereHas('categories', function ($query) use ($categoryIds) {
             $query->whereIn('categories.id', $categoryIds);
         });
     }
@@ -45,12 +45,16 @@ public function index(Request $request)
     // Fetch other data
     $churchHymns = ChurchHymn::all();
     $categories = Category::all();
+    $topCategories = Category::withCount('musics')
+    ->orderBy('musics_count', 'desc')
+    ->take(10)
+    ->get();
     $instrumentations = Instrumentation::all();
     $ensembleTypes = EnsembleType::all();
     $languages = Language::all();
     $creators = MusicCreator::all();
 
-    return view('musics', compact('musics','churchHymns','categories','instrumentations','ensembleTypes','languages','creators'));
+    return view('musics', compact('musics','churchHymns','categories','topCategories','instrumentations','ensembleTypes','languages','creators'));
 }
 
     // Show the form for creating a new music entry

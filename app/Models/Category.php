@@ -15,6 +15,6 @@ class Category extends Model
     // Define relationship: Category has many musics
     public function musics()
     {
-        return $this->hasMany(Music::class);
+        return $this->belongsToMany(Music::class);
     }
 }
