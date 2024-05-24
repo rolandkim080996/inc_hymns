@@ -272,7 +272,7 @@
 
 <!-- Verses Used -->
 <div class="mb-4">
-    <label for="versesused" class="block text-sm font-bold text-gray-700 mb-2">Verses Used:</label>
+    <label for="versesused" class="block text-sm font-bold text-gray-700 mb-2">Reference Verses:</label>
     <textarea id="versesused" name="versesused" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="width: 400px;"></textarea>
 </div>
 

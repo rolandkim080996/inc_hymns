@@ -520,7 +520,7 @@ optionsContainer.classList.remove("active");
 
                     <!-- Verses Used -->
                     <div class="mb-4">
-                        <label for="edit_versesused" class="block text-sm font-bold text-gray-700 mb-2">Verses Used:</label>
+                        <label for="edit_versesused" class="block text-sm font-bold text-gray-700 mb-2">Reference Verses:</label>
                         <textarea id="edit_versesused" name="versesused" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{ $musics->verses_used }}</textarea>
                     </div>
 

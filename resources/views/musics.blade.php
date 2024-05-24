@@ -19,7 +19,7 @@
       
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <!-- Add Music Button with Icon -->
-    <button id="addMusicButton" class="btn btn-success mb-4">
+    <button id="addMusicButton" class="btn btn-success mb-2">
         <i class="fas fa-plus"></i>
         <span> Music</span>
     </button>
