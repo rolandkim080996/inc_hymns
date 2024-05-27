@@ -71,7 +71,7 @@
         display: none;
         position: fixed;
         top: 30%;
-        left: 150px; /* Adjust left position as needed */
+        left: 170px; /* Adjust left position as needed */
         background-color: #f9f9f9;
         padding: 8px 16px;
         border: 1px solid #ccc;
