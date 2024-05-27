@@ -17,45 +17,49 @@ class MusicController extends Controller
 {
 // Display a listing of the music entries
 public function index(Request $request)
-{
-    // Get the query string from the request
-    $query = $request->input('query');
-    $categoryIds = $request->input('category_ids', []);
+    {
+        // Get the query string from the request
+        $query = $request->input('query');
+        $categoryIds = $request->input('category_ids', []);
 
-    // Initialize the query builder
-    $queryBuilder = Music::query();
+        // Initialize the query builder
+        $queryBuilder = Music::query();
 
-    // If a search query is provided, filter the records
-    if ($query) {
-        $queryBuilder->where('title', 'like', '%' . $query . '%')
-                    ->orWhere('song_number', 'like', '%' . $query . '%')
-                    ->orWhere('verses_used', 'like', '%' . $query . '%');
+        // If a search query is provided, filter the records
+        if ($query) {
+            $queryBuilder->where('title', 'like', '%' . $query . '%')
+                         ->orWhere('song_number', 'like', '%' . $query . '%')
+                         ->orWhere('verses_used', 'like', '%' . $query . '%');
+        }
+
+        // Filter by selected categories
+        if (!empty($categoryIds)) {
+            $queryBuilder->whereHas('categories', function ($query) use ($categoryIds) {
+                $query->whereIn('categories.id', $categoryIds);
+            });
+        }
+
+        // Fetch all records if no search query is provided
+        $musics = $queryBuilder->latest()->paginate(10)->withQueryString();
+
+        // Fetch other data
+        $churchHymns = ChurchHymn::all();
+        $categories = Category::all();
+
+        // Fetch top 10 categories with most musics
+        $topCategories = Category::select('categories.*')
+                                 ->selectRaw('(SELECT COUNT(*) FROM musics INNER JOIN music_category ON musics.id = music_category.music_id WHERE music_category.category_id = categories.id) AS musics_count')
+                                 ->orderBy('musics_count', 'desc')
+                                 ->limit(10)
+                                 ->get();
+
+        $instrumentations = Instrumentation::all();
+        $ensembleTypes = EnsembleType::all();
+        $languages = Language::all();
+        $creators = MusicCreator::all();
+
+        return view('musics', compact('musics', 'churchHymns', 'categories', 'topCategories', 'instrumentations', 'ensembleTypes', 'languages', 'creators'));
     }
-
-     // Filter by selected categories
-     if (!empty($categoryIds)) {
-        $queryBuilder->whereHas('categories', function ($query) use ($categoryIds) {
-            $query->whereIn('categories.id', $categoryIds);
-        });
-    }
-
-    // Fetch all records if no search query is provided
-    $musics = $queryBuilder->latest()->paginate(10)->withQueryString();
-
-    // Fetch other data
-    $churchHymns = ChurchHymn::all();
-    $categories = Category::all();
-    $topCategories = Category::withCount('musics')
-    ->orderBy('musics_count', 'desc')
-    ->take(10)
-    ->get();
-    $instrumentations = Instrumentation::all();
-    $ensembleTypes = EnsembleType::all();
-    $languages = Language::all();
-    $creators = MusicCreator::all();
-
-    return view('musics', compact('musics','churchHymns','categories','topCategories','instrumentations','ensembleTypes','languages','creators'));
-}
 
     // Show the form for creating a new music entry
     public function create()

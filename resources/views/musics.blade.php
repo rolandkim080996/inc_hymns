@@ -66,60 +66,150 @@
             </div>
         </form>
 
-        
-<div class="mb-4">
+        <style>
+    #context-menu {
+        display: none;
+        position: fixed;
+        top: 30%;
+        left: 150px; /* Adjust left position as needed */
+        background-color: #f9f9f9;
+        padding: 8px 16px;
+        border: 1px solid #ccc;
+        z-index: 9999; /* Ensure menu appears above other content */
+        max-height: 60vh; /* Set maximum height to 60% of viewport height */
+    }
+
+    #categoriesSection {
+        max-height: 60vh; /* Set maximum height to 60% of viewport height */
+        overflow-y: auto; /* Enable vertical scrollbar if content overflows */
+    }
+</style>
+
+
+<!-- Categories Section -->
+<div id="context-menu" class="mb-4 mx-auto" style="width: 1200px;">
+<div id="categoriesSection" class="hidden">
     <h2 class="text-lg font-semibold mb-2">Categories</h2>
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-        @foreach($topCategories as $category)
-            <button class="category-box bg-gray-200 p-2 rounded text-center" data-category-id="{{ $category->id }}">
-                {{ $category->name }} ({{ $category->musics_count }})
-            </button>
+    <div id="topCategories" class="flex flex-wrap -mx-2">
+        @foreach($topCategories as $index => $category)
+            <div class="w-1/2 md:w-1/5 px-2 mb-4">
+            <button id="categoryButton{{ $index }}" style="background-color:#686D76; height:150px; width:150px; border: 2px solid #00215E; border-radius: 0.5rem;" class="category-box bg-teal-400 hover:bg-teal-500 p-2 rounded text-center w-full" data-category-id="{{ $category->id }}" onclick="selectCategory({{ $index }})">
+            <span class="flex items-center justify-center h-full  text-white">{{ $category->name }} ({{ $category->musics_count }})</span>
+        </button>
+
+            </div>
+        @endforeach
+    </div>
+  <button id="hideCategories" class="mt-4 text-blue-500 hidden">Hide</button>
+    <div id="allCategories" class="hidden mt-4 flex flex-wrap -mx-2">
+        @foreach($categories as $index => $category)
+            @if($index >= 10) <!-- Start displaying from the 11th category -->
+                <div class="w-1/2 md:w-1/5 px-2 mb-4">
+                    <button id="categoryButton{{ $index }}" style="background-color:#686D76; height:150px;width:150px; border: 2px solid #00215E; border-radius: 0.5rem;"class="category-box border border-teal-400 hover:border-teal-500 bg-teal-400 hover:bg-teal-500 p-2 rounded text-center w-full" data-category-id="{{ $category->id }}" onclick="selectCategory({{ $index }})">
+                        <span class="flex items-center justify-center h-full text-white">{{ $category->name }} ({{ $category->musics_count }})</span>
+                    </button>
+                </div>
+            @endif
         @endforeach
     </div>
     <button id="viewAllCategories" class="mt-4 text-blue-500">View All</button>
-    <div id="allCategories" class="hidden mt-4 grid grid-cols-2 md:grid-cols-5 gap-4">
-        @foreach($categories as $category)
-            <button class="category-box bg-gray-200 p-2 rounded text-center" data-category-id="{{ $category->id }}">
-                {{ $category->name }} ({{ $category->musics_count }})
-            </button>
-        @endforeach
     </div>
 </div>
 
+
+
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const viewAllCategoriesBtn = document.getElementById('viewAllCategories');
-        const allCategoriesDiv = document.getElementById('allCategories');
+    let selectedCategoryId = null;
 
-        viewAllCategoriesBtn.addEventListener('click', function() {
-            allCategoriesDiv.classList.toggle('hidden');
-        });
-
-        const categoryBoxes = document.querySelectorAll('.category-box');
-
-        categoryBoxes.forEach(box => {
-            box.addEventListener('click', function() {
-                const categoryId = this.getAttribute('data-category-id');
-                fetchMusicsByCategory(categoryId);
-            });
-        });
-
-        function fetchMusicsByCategory(categoryId) {
-            const url = new URL(window.location.href);
-            url.searchParams.set('category_ids[]', categoryId);
-
-            fetch(url)
-                .then(response => response.text())
-                .then(html => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-                    const musicList = doc.getElementById('musicList');
-                    document.getElementById('musicList').innerHTML = musicList.innerHTML;
-                    document.querySelector('.pagination').innerHTML = doc.querySelector('.pagination').innerHTML;
-                });
+    function selectCategory(index) {
+        if (selectedCategoryId !== null) {
+            document.getElementById('categoryButton' + selectedCategoryId).style.backgroundColor = '#686D76';
         }
-    });
+        selectedCategoryId = index;
+        document.getElementById('categoryButton' + index).style.backgroundColor = '#373A40';
+    }
 </script>
+
+<!-- Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const viewAllCategoriesBtn = document.getElementById('viewAllCategories');
+    const hideCategoriesBtn = document.getElementById('hideCategories');
+    const allCategoriesDiv = document.getElementById('allCategories');
+    const showCategoriesBtn = document.getElementById('showCategoriesModal');
+
+    viewAllCategoriesBtn.addEventListener('click', function() {
+        allCategoriesDiv.classList.remove('hidden');
+        viewAllCategoriesBtn.classList.add('hidden');
+        hideCategoriesBtn.classList.remove('hidden');
+    });
+
+  showCategoriesBtn.addEventListener('click', function() {
+
+         var contextMenu = document.getElementById('context-menu');
+        if (contextMenu.style.display === 'block') {
+            contextMenu.style.display = 'none';
+            categoriesSection.classList.add('hidden');
+        } else {
+            contextMenu.style.display = 'block';
+            categoriesSection.classList.remove('hidden');
+        }
+            //categoriesSection.classList.remove('hidden');
+            showCategoriesBtn.innerHTML = '<i class="fas fa-arrow-left"></i>'; // Change arrow direction
+            showCategoriesBtn.removeEventListener('click', showCategories);
+            showCategoriesBtn.addEventListener('click', hideCategories);
+        });
+
+        hideCategoriesBtn.addEventListener('click', function() {
+            categoriesSection.classList.add('hidden');
+            showCategoriesBtn.innerHTML = '<i class="fas fa-arrow-right"></i>'; // Reset arrow direction
+            showCategoriesBtn.removeEventListener('click', hideCategories);
+            showCategoriesBtn.addEventListener('click', showCategories);
+        });
+
+
+        function showCategories() {
+            //categoriesSection.classList.remove('hidden');
+            showCategoriesBtn.innerHTML = '<i class="fas fa-arrow-left"></i>'; // Change arrow direction
+            showCategoriesBtn.removeEventListener('click', showCategories);
+            showCategoriesBtn.addEventListener('click', hideCategories);
+        }
+
+        function hideCategories() {
+           // categoriesSection.classList.add('hidden');
+            showCategoriesBtn.innerHTML = '<i class="fas fa-arrow-right"></i>'; // Reset arrow direction
+            showCategoriesBtn.removeEventListener('click', hideCategories);
+            showCategoriesBtn.addEventListener('click', showCategories);
+        }
+
+        
+    const categoryBoxes = document.querySelectorAll('.category-box');
+
+    categoryBoxes.forEach(box => {
+        box.addEventListener('click', function() {
+            const categoryId = this.getAttribute('data-category-id');
+            fetchMusicsByCategory(categoryId);
+        });
+    });
+
+    function fetchMusicsByCategory(categoryId) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('category_ids[]', categoryId);
+
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const musicList = doc.getElementById('musicList');
+                document.getElementById('musicList').innerHTML = musicList.innerHTML;
+                document.querySelector('.pagination').innerHTML = doc.querySelector('.pagination').innerHTML;
+            });
+    }
+});
+</script>
+
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                 <div class="pagination flex justify-center items-center" style="padding:0px;margin-bottom:10px;">

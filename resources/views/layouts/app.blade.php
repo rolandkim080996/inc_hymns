@@ -20,6 +20,17 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
+
+    @if(Request::is('musics'))
+        <!-- Fixed Icon -->
+        <div id="fixedIcon" class="fixed top-1/2 transform -translate-y-1/2 left-0 z-50" style="margin-top:300px;">
+                <button id="showCategoriesModal" class="text-white bg-gray-800 rounded-full p-3 focus:outline-none hover:bg-gray-700">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+    @endif
+
+
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
 
