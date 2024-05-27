@@ -66,7 +66,6 @@
             </div>
         </form>
 
-
         <style>
     #context-menu {
         display: none;
@@ -93,7 +92,7 @@
 
 <!-- Categories Section -->
 <div id="context-menu" class="mb-4 mx-auto">
-    <div id="categoriesSection" class="hidden">
+    <div id="categoriesSection">
         <h2 class="text-lg font-semibold mb-2">Categories</h2>
         <div id="topCategories" class="flex flex-wrap -mx-2">
             @foreach($topCategories as $index => $category)
@@ -157,8 +156,9 @@
         });
 
         hideCategoriesBtn.addEventListener('click', function() {
-            categoriesSection.classList.add('hidden');
-            showCategoriesBtn.innerHTML = '<i class="fas fa-bars"></i>'; // Reset arrow direction
+            allCategoriesDiv.classList.add('hidden');
+            hideCategoriesBtn.classList.add('hidden');
+            viewAllCategoriesBtn.classList.remove('hidden');
         });
 
         const categoryBoxes = document.querySelectorAll('.category-box');
@@ -186,6 +186,7 @@
         }
     });
 </script>
+
 
 
 
