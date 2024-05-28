@@ -333,35 +333,35 @@
                     </div>
 
 
-<!-- Ensemble Type -->
-<div class="mb-4">
-    <label for="edit_ensembletype_id" class="block text-sm font-bold text-gray-700 mb-2">Ensemble Type:</label>
-    <div class="combo-box">
-        <div class="input-container" onclick="toggleDropdown('ensembleType')">
-            <div id="edit_ensembletype_id" name="edit_ensembletype_id" class="selected-items">
-                <!-- Selected ensembleTypes will appear here -->
-                @foreach($musics->ensembleTypes as $ensembleType)
-                    <script>
-                        appendLoadedItem(document.getElementById('edit_ensembletype_id'), "{{ $ensembleType->name }}", "{{ $ensembleType->id }}", 'ensembleType');
-                    </script>
-                @endforeach
-            </div>
-            <input type="text" id="ensembleType-input" placeholder="Select ensembleTypes...">
-            <div class="dropdown-arrow"></div>
-        </div>
-        <div id="ensembleType-options-container" class="options-container hidden">
-            <!-- Ensemble Type options are populated by JavaScript -->
-            @foreach($ensembleTypes as $ensembleType)
-                <div class="option-item">
-                    <label>
-                        <input type="checkbox" value="{{ $ensembleType->id }}" {{ $musics->ensembleTypes->contains('id', $ensembleType->id) ? 'checked' : '' }} onclick="handleDropdownSelection(this, 'edit_ensembletype_id', 'hidden_ensembletype_ids')">
-                        {{ $ensembleType->name }}
-                    </label>
-                </div>
-            @endforeach
-        </div>
-    </div>
-</div>
+                    <!-- Ensemble Type -->
+                    <div class="mb-4">
+                        <label for="edit_ensembletype_id" class="block text-sm font-bold text-gray-700 mb-2">Ensemble Type:</label>
+                        <div class="combo-box">
+                            <div class="input-container" onclick="toggleDropdown('ensembleType')">
+                                <div id="edit_ensembletype_id" name="edit_ensembletype_id" class="selected-items">
+                                    <!-- Selected ensembleTypes will appear here -->
+                                    @foreach($musics->ensembleTypes as $ensembleType)
+                                        <script>
+                                            appendLoadedItem(document.getElementById('edit_ensembletype_id'), "{{ $ensembleType->name }}", "{{ $ensembleType->id }}", 'ensembletype');
+                                        </script>
+                                    @endforeach
+                                </div>
+                                <input type="text" id="ensembleType-input" placeholder="Select ensembleTypes...">
+                                <div class="dropdown-arrow"></div>
+                            </div>
+                            <div id="ensembleType-options-container" class="options-container hidden">
+                                <!-- Ensemble Type options are populated by JavaScript -->
+                                @foreach($ensembleTypes as $ensembleType)
+                                    <div class="option-item">
+                                        <label>
+                                            <input type="checkbox" value="{{ $ensembleType->id }}" {{ $musics->ensembleTypes->contains('id', $ensembleType->id) ? 'checked' : '' }} onclick="handleDropdownSelection(this, 'edit_ensembletype_id', 'hidden_ensembletype_ids')">
+                                            {{ $ensembleType->name }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
 
 
                     <!-- Hidden input fields to store selected IDs -->
