@@ -53,8 +53,9 @@ Route::post('/musics', [MusicController::class, 'store'])->name('musics.store');
 
 Route::get('/musics/{id}/edit', [MusicController::class, 'edit'])->name('musics.edit');
 Route::put('/musics/{id}', [MusicController::class, 'update'])->name('musics.update');
-Route::delete('/musics/{id}', [MusicController::class, 'destroy'])->name('musics.destroy');
-
+// Route::delete('/musics/{id}', [MusicController::class, 'destroy'])->name('musics.destroy');
+// Route::resource('musics', MusicController::class)->except('destroy');
+Route::delete('/musics/{music}', [MusicController::class, 'destroy'])->name('musics.destroy');
 
 // Route for showing a single music details
 Route::get('/musics/{id}', [MusicController::class, 'show'])->name('musics.show');

@@ -96,7 +96,7 @@
                     <!-- Hidden input fields to store selected IDs -->
                     <input type="hidden" id="selected_category_ids" name="category_id[]" value="">
                     <input type="hidden" id="selected_instrumentation_ids" name="instrumentation_id[]" value="">
-                    <input type="hidden" id="selected_ensemble_type_ids" name="ensemble_type_id[]" value="">               
+                    <input type="hidden" id="selected_ensembletype_ids" name="ensembletype_id[]" value="">               
 
                     <script>
                
@@ -104,190 +104,167 @@
 
                     
 <script>
-// Function to update the hidden input fields with selected IDs
-function updateHiddenInput(dropdownId) {
-    let selectedContainer = document.getElementById(`edit_${dropdownId}_id`);
-    let hiddenInput = document.getElementById(`selected_${dropdownId}_ids`);
-    let selectedIds = [];
+    // Function to update the hidden input fields with selected IDs
+    function updateHiddenInput(dropdownId) {
+        let selectedContainer = document.getElementById(`edit_${dropdownId}_id`);
+        let hiddenInput = document.getElementById(`selected_${dropdownId}_ids`);
+        let selectedIds = [];
 
-    // Collect all selected item IDs
-    selectedContainer.querySelectorAll('.selected-tag').forEach(item => {
-        let itemId = item.getAttribute('data-id');
-        console.log(itemId);
-        if (itemId) {
-            selectedIds.push(itemId);
-        }
-    });
+        // Collect all selected item IDs
+        selectedContainer.querySelectorAll('.selected-tag').forEach(item => {
+            let itemId = item.getAttribute('data-id');
+            
+            if (itemId) {
+                selectedIds.push(itemId);
+                console.log(itemId + '---' + hiddenInput) ;
+            }
+        });
 
-    // Update the hidden input field value
-    hiddenInput.value = selectedIds.join(',');
-    console.log(hiddenInput.value); // Log the hidden input value to debug
-}
-// Function to append a selected item to the selected items container
-function appendLoadedItem(selectedContainer, itemName, itemid, dropdownId) {
+        // Update the hidden input field value
+        hiddenInput.value = selectedIds.join(',');
+        
+        //console.log(hiddenInput.value); // Log the hidden input value to debug
+    }
+
+    // Function to append a selected item to the selected items container
+    function appendLoadedItem(selectedContainer, itemName, itemid, dropdownId) {
                let selectedItem = document.createElement("div");
                selectedItem.className = "selected-tag";
                selectedItem.textContent = itemName;
                selectedItem.setAttribute('data-id', itemid); // Set the data-id attribute
-
+        
                let removeButton = document.createElement("span");
                removeButton.textContent = "×";
                removeButton.className = `remove-${dropdownId}`;
                removeButton.onclick = function () {
-                   // Find the corresponding checkbox
-                   let checkbox = document.querySelector(`#${dropdownId}-options-container input[type="checkbox"][value="${itemid}"]`);
+                    // Find the corresponding checkbox
+                    let checkbox = document.querySelector(`#${dropdownId}-options-container input[type="checkbox"][value="${itemid}"]`);
 
-                   if (checkbox) {
-                       // Uncheck the corresponding checkbox
-                       checkbox.checked = false;
-                   }
-                   // Remove the selected item element
-                   selectedItem.remove();
-                   
-        // Update the hidden input field
-        updateHiddenInput(dropdownId);
+                    if (checkbox) {
+                        // Uncheck the corresponding checkbox
+                        checkbox.checked = false;
+                    }
+                    // Remove the selected item element
+                    selectedItem.remove();
+                    
+                    // Update the hidden input field
+                    updateHiddenInput(dropdownId);
                };
 
                selectedItem.appendChild(removeButton);
                selectedContainer.appendChild(selectedItem);
 
                // Update the hidden input field
-    updateHiddenInput(dropdownId);
+               updateHiddenInput(dropdownId);
            }
-// Generic object to manage selected items
-let selectedDropdownItems = {};
+    // Generic object to manage selected items
+    let selectedDropdownItems = {};
 
-// Function to toggle dropdown visibility
-function toggleDropdown(dropdownId) {
-let dropdownOptionsContainer = document.getElementById(`${dropdownId}-options-container`);
-dropdownOptionsContainer.classList.toggle("active");
-}
-
-// Function to handle item selection in a dropdown
-// function handleDropdownSelection(checkbox, selectedContainerId) {
-// let selectedContainer = document.getElementById(selectedContainerId);
-
-// // Check if the checkbox is checked
-// if (checkbox.checked) {
-// // Append the selected item to the selectedContainer
-// appendSelectedItem(selectedContainer, checkbox);
-// } else {
-// // Remove the item from the selectedContainer
-// removeSelectedItem(selectedContainer, checkbox);
-// }
-// }
-
-
-// Function to handle item selection in a dropdown
-function handleDropdownSelection(checkbox, selectedContainerId, hiddenInputId) {
-    let selectedContainer = document.getElementById(selectedContainerId);
-
-    if (checkbox.checked) {
-        // Append the selected item to the selectedContainer
-        appendSelectedItem(selectedContainer, checkbox);
-    } else {
-        // Remove the item from the selectedContainer
-        removeSelectedItem(selectedContainer, checkbox);
+    // Function to toggle dropdown visibility
+    function toggleDropdown(dropdownId) {
+    let dropdownOptionsContainer = document.getElementById(`${dropdownId}-options-container`);
+    dropdownOptionsContainer.classList.toggle("active");
     }
 
-    // Update the hidden input field
-    updateHiddenInput(hiddenInputId.split('_')[1]);
-}
+    // Function to handle item selection in a dropdown
+    function handleDropdownSelection(checkbox, selectedContainerId, hiddenInputId) {
+        let selectedContainer = document.getElementById(selectedContainerId);
+
+        if (checkbox.checked) {
+            // Append the selected item to the selectedContainer
+            appendSelectedItem(selectedContainer, checkbox);
+        } else {
+            // Remove the item from the selectedContainer
+            removeSelectedItem(selectedContainer, checkbox);
+        }
+
+        // Update the hidden input field
+        updateHiddenInput(hiddenInputId.split('_')[1]);
+    }
+
+    // Function to append a selected item to the selected items container
+    function appendSelectedItem(selectedContainer, checkbox) 
+    {
+        let itemName = checkbox.parentNode.textContent.trim();
+        let itemId = checkbox.value;
+        let selectedItem = document.createElement("div");
+        selectedItem.className = "selected-tag";
+        selectedItem.textContent = itemName;
 
 
-// Function to append a selected item to the selected items container
-function appendSelectedItem(selectedContainer, checkbox) {
-let itemName = checkbox.parentNode.textContent.trim();
-let itemId = checkbox.value;
-let selectedItem = document.createElement("div");
-selectedItem.className = "selected-tag";
-selectedItem.textContent = itemName;
+        let removeButton = document.createElement("span");
+        removeButton.textContent = "×";
+        removeButton.onclick = function () {
+
+        // Uncheck the corresponding checkbox
+        checkbox.checked = false;
+        // Remove the selected item element
+        selectedItem.remove();
+
+        appendLoadedItem(selectedContainer, itemName, itemId, selectedContainer.id.split('_')[1]);
 
 
-let removeButton = document.createElement("span");
-removeButton.textContent = "×";
-removeButton.onclick = function () {
+        };
 
-// Uncheck the corresponding checkbox
-checkbox.checked = false;
-// Remove the selected item element
-selectedItem.remove();
+        selectedItem.appendChild(removeButton);
+        selectedContainer.appendChild(selectedItem);
+    }
 
-appendLoadedItem(selectedContainer, itemName, itemId, selectedContainer.id.split('_')[1]);
+    // Function to remove a selected item from the selected items container
+    function removeSelectedItem(selectedContainer, checkbox) 
+    {
+        Array.from(selectedContainer.children).forEach((tag) => {
+        // Get the text content of the selected item and remove unwanted characters
+        let tagText = tag.textContent.trim().replace(/×/g, "");
 
+        // Get the text content of the checkbox's parent node and remove unwanted characters
+        let checkboxText = checkbox.parentNode.textContent.trim().replace(/×/g, "");
 
-};
+        // Check if the cleaned text content matches between the selected item and checkbox
+        if (tagText === checkboxText) {
+        // Remove the selected item element
+        tag.remove();
+        }
+        });
+    }
 
-selectedItem.appendChild(removeButton);
-selectedContainer.appendChild(selectedItem);
-}
+    // Function to filter options in a dropdown
+    function filterDropdownOptions(inputId, optionsContainerId) 
+    {
+        const input = document.getElementById(inputId).value.trim().toUpperCase();
+        const optionsContainer = document.getElementById(optionsContainerId);
+        const optionItems = optionsContainer.querySelectorAll(".option-item");
 
-// Function to remove a selected item from the selected items container
-function removeSelectedItem(selectedContainer, checkbox) {
-Array.from(selectedContainer.children).forEach((tag) => {
-// Get the text content of the selected item and remove unwanted characters
-let tagText = tag.textContent.trim().replace(/×/g, "");
+        optionItems.forEach((item) => {
+        const text = item.textContent.trim().toUpperCase();
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        if (text.includes(input)) {
+            item.style.display = "";
+            if (checkbox) {
+            checkbox.style.display = "inline-block";
+        }
+        } else {
+            item.style.display = "none";
+            if (checkbox) {
+            checkbox.style.display = "none";
+            }
+        }
+        });
+    }
 
-// Get the text content of the checkbox's parent node and remove unwanted characters
-let checkboxText = checkbox.parentNode.textContent.trim().replace(/×/g, "");
-
-// Check if the cleaned text content matches between the selected item and checkbox
-if (tagText === checkboxText) {
-// Remove the selected item element
-tag.remove();
-}
-});
-}
-
-// Function to filter options in a dropdown
-function filterDropdownOptions(inputId, optionsContainerId) {
-const input = document.getElementById(inputId).value.trim().toUpperCase();
-const optionsContainer = document.getElementById(optionsContainerId);
-const optionItems = optionsContainer.querySelectorAll(".option-item");
-
-optionItems.forEach((item) => {
-const text = item.textContent.trim().toUpperCase();
-const checkbox = item.querySelector('input[type="checkbox"]');
-if (text.includes(input)) {
-item.style.display = "";
-if (checkbox) {
-   checkbox.style.display = "inline-block";
-}
-} else {
-item.style.display = "none";
-if (checkbox) {
-   checkbox.style.display = "none";
-}
-}
-});
-}
-
-// Attach event listeners for document click and input change
-document.addEventListener("click", function (event) {
-// Hide dropdowns when clicking outside of the input containers and options containers
-const allComboBoxes = document.querySelectorAll(".combo-box");
-allComboBoxes.forEach((comboBox) => {
-const inputContainer = comboBox.querySelector(".input-container");
-const optionsContainer = comboBox.querySelector(".options-container");
-if (!inputContainer.contains(event.target) && !optionsContainer.contains(event.target)) {
-optionsContainer.classList.remove("active");
-}
-});
-});
-
-// Function to attach input event listeners for filtering options
-// function attachFilterListeners(inputId, optionsContainerId) {
-// const inputElement = document.getElementById(inputId);
-// inputElement.addEventListener("input", function () {
-// filterDropdownOptions(inputId, optionsContainerId);
-// toggleDropdown(inputId.replace("-input", "")); // Open dropdown if not already open
-// });
-// }
-
-// // Initialize filter listeners for each dropdown
-// attachFilterListeners("lyricist-input", "lyricist-options-container");
-// attachFilterListeners("composer-input", "composer-options-container");
-// attachFilterListeners("arranger-input", "arranger-options-container");
+    // Attach event listeners for document click and input change
+    document.addEventListener("click", function (event) 
+    {
+        //Hide dropdowns when clicking outside of the input containers and options containers
+        const allComboBoxes = document.querySelectorAll(".combo-box");
+        allComboBoxes.forEach((comboBox) => {
+        const inputContainer = comboBox.querySelector(".input-container");
+        const optionsContainer = comboBox.querySelector(".options-container");
+        if (!inputContainer.contains(event.target) && !optionsContainer.contains(event.target)) {
+        optionsContainer.classList.remove("active");
+        }
+        });
+    });
 
 </script>
                     <!-- Category -->
@@ -295,17 +272,17 @@ optionsContainer.classList.remove("active");
                         <label for="edit_category_id" class="block text-sm font-bold text-gray-700 mb-2">Category:</label>
                         <div class="combo-box">
                             <div class="input-container" onclick="toggleDropdown('category')">
-                        <div id="edit_category_id" name="edit_category_id" class="selected-items">
-                            <!-- Selected categories will appear here -->
+                                <div id="edit_category_id" name="edit_category_id" class="selected-items">
+                                    <!-- Selected categories will appear here -->
 
-                            @foreach($musics->categories as $category)
-                            
-                                <script>
-                                    appendLoadedItem(document.getElementById('edit_category_id'), "{{ $category->name }}", "{{ $category->id }}","category");
-                                </script>
-                            @endforeach
+                                    @foreach($musics->categories as $category)
+                                    
+                                        <script>
+                                            appendLoadedItem(document.getElementById('edit_category_id'), "{{ $category->name }}", "{{ $category->id }}","category");
+                                        </script>
+                                    @endforeach
 
-                        </div>
+                                </div>
 
                                 <input type="text" id="category-input" placeholder="Select categories...">
                                 <div class="dropdown-arrow"></div>
@@ -325,8 +302,7 @@ optionsContainer.classList.remove("active");
                         </div>
                     </div>
 
-                    
-                    <!-- Instrumentation-->
+                    <!-- Instrumentation -->
                     <div class="mb-4">
                         <label for="edit_instrumentation_id" class="block text-sm font-bold text-gray-700 mb-2">Instrumentation:</label>
                         <div class="combo-box">
@@ -334,13 +310,11 @@ optionsContainer.classList.remove("active");
                                 <div id="edit_instrumentation_id" name="edit_instrumentation_id" class="selected-items">
                                     <!-- Selected instrumentations will appear here -->
                                     @foreach($musics->instrumentations as $instrumentation)
-                                    
                                         <script>
                                             appendLoadedItem(document.getElementById('edit_instrumentation_id'), "{{ $instrumentation->name }}", "{{ $instrumentation->id }}", 'instrumentation');
                                         </script>
-
                                     @endforeach
-                                <!-- Selected categoies will appear here --></div>
+                                </div>
                                 <input type="text" id="instrumentation-input" placeholder="Select instrumentations...">
                                 <div class="dropdown-arrow"></div>
                             </div>
@@ -350,7 +324,6 @@ optionsContainer.classList.remove("active");
                                     <div class="option-item">
                                         <label>
                                             <input type="checkbox" value="{{ $instrumentation->id }}" {{ $musics->instrumentations->contains('id', $instrumentation->id) ? 'checked' : '' }} onclick="handleDropdownSelection(this, 'edit_instrumentation_id', 'selected_instrumentation_ids')">
-                       
                                             {{ $instrumentation->name }}
                                         </label>
                                     </div>
@@ -359,46 +332,42 @@ optionsContainer.classList.remove("active");
                         </div>
                     </div>
 
-                    <!-- Ensemble Type -->
-                    <div class="mb-4">
-                        <label for="edit_ensemble_type_id" class="block text-sm font-bold text-gray-700 mb-2">Ensemble Type:</label>
-                        <div class="combo-box">
-                            <div class="input-container" onclick="toggleDropdown('ensemble_type')">
-                                <div id="edit_ensemble_type_id" name="edit_ensemble_type_id" class="selected-items">
-                                 <!-- Selected instrumentations will appear here -->
-                                 @foreach($musics->ensembleTypes as $ensembleType)
-                                    
-                                    <script>
-                                        appendLoadedItem(document.getElementById('edit_ensemble_type_id'), "{{ $ensembleType->name }}", "{{ $ensembleType->id }}", 'ensembleType');
-                                    </script>
 
-                                @endforeach
-                            </div>
-                                <input type="text" id="ensemble_type-input" placeholder="Select ensembleTypes...">
-                                <div class="dropdown-arrow"></div>
-                            </div>
-                            <div id="ensemble_type-options-container" class="options-container">
-                                <!-- Ensemble_type options are populated by JavaScript -->
-                                @foreach($ensembleTypes as $ensembleType)
-                                    <div class="option-item">
-                                        <label>
-                                        
-                                            <input type="checkbox" value="{{ $ensembleType->id }}" {{ $musics->ensembleTypes->contains('id', $ensembleType->id) ? 'checked' : '' }} onclick="handleDropdownSelection(this, 'edit_ensemble_type_id','selected_ensemble_type_ids')">
-                       
-                                            {{ $ensembleType->name }}
-                                        </label>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
+<!-- Ensemble Type -->
+<div class="mb-4">
+    <label for="edit_ensembletype_id" class="block text-sm font-bold text-gray-700 mb-2">Ensemble Type:</label>
+    <div class="combo-box">
+        <div class="input-container" onclick="toggleDropdown('ensembleType')">
+            <div id="edit_ensembletype_id" name="edit_ensembletype_id" class="selected-items">
+                <!-- Selected ensembleTypes will appear here -->
+                @foreach($musics->ensembleTypes as $ensembleType)
+                    <script>
+                        appendLoadedItem(document.getElementById('edit_ensembletype_id'), "{{ $ensembleType->name }}", "{{ $ensembleType->id }}", 'ensembleType');
+                    </script>
+                @endforeach
+            </div>
+            <input type="text" id="ensembleType-input" placeholder="Select ensembleTypes...">
+            <div class="dropdown-arrow"></div>
+        </div>
+        <div id="ensembleType-options-container" class="options-container hidden">
+            <!-- Ensemble Type options are populated by JavaScript -->
+            @foreach($ensembleTypes as $ensembleType)
+                <div class="option-item">
+                    <label>
+                        <input type="checkbox" value="{{ $ensembleType->id }}" {{ $musics->ensembleTypes->contains('id', $ensembleType->id) ? 'checked' : '' }} onclick="handleDropdownSelection(this, 'edit_ensembletype_id', 'hidden_ensembletype_ids')">
+                        {{ $ensembleType->name }}
+                    </label>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</div>
 
 
                     <!-- Hidden input fields to store selected IDs -->
                     <input type="hidden" id="selected_lyricist_ids" name="lyricist_id[]" value="">
                     <input type="hidden" id="selected_composer_ids" name="composer_id[]" value="">
                     <input type="hidden" id="selected_arranger_ids" name="arranger_id[]" value="">
-
 
                     <!-- Lyricist Dropdown -->
                     <div class="mb-4">

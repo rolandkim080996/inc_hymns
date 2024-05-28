@@ -19,7 +19,7 @@
       
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <!-- Add Music Button with Icon -->
-    <button id="addMusicButton" class="btn btn-success mb-2">
+    <button id="addMusicButton" class="btn btn-success mb-0">
         <i class="fas fa-plus"></i>
         <span> Music</span>
     </button>
@@ -31,64 +31,68 @@
             window.location.href = '{{ route("musics.create") }}';
         });
     </script>
-
+    
     <!-- Dark overlay -->
     <div id="overlay" class="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 z-50 hidden"></div>
 
         <!-- Search Input and Tabs -->
         <form action="{{ route('musics.index') }}" method="GET" class="mt-4 mb-4">
             <div class="flex items-center justify-between mb-4">
-                        <form method="GET" action="{{ route('musics.index') }}" method="GET" class="mt-4 mb-4">
-                            <input type="text" id="searchInput" name="query" class="form-control" value="{{ request('query') }}" placeholder="Search hymns ...">
-                            
-                            <select name="category_ids[]" style="height:38px;margin-left:2px;margin-right:2px;">
-                                <option value="0" selected disabled>Select category</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ in_array($category->id, request('category_ids', [])) ? 'selected' : '' }}>
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-info">Search</button>
-                            </div>
-                        </form>
-
-
-
-                    <!-- Tabs -->
-                    <div class="flex" style="display:none;">
-                        <button id="tabAll" class="tab-button bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-l focus:outline-none">All</button>
-                        <button id="tabSongs" class="tab-button bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 focus:outline-none">Hymns</button>
-                        <button id="tabPlaylist" class="tab-button bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-r focus:outline-none">Playlist</button>
+                <form method="GET" action="{{ route('musics.index') }}" method="GET" class="mt-4 mb-4">
+                    <input type="text" id="searchInput" name="query" class="form-control" value="{{ request('query') }}" placeholder="Search hymns ...">
+                    
+                    <select name="category_ids[]" style="height:38px;margin-left:2px;margin-right:2px;">
+                        <option value="0" selected disabled>Select category</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ in_array($category->id, request('category_ids', [])) ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-info">Search</button>
                     </div>
+                </form>
+
+                <!-- Tabs -->
+                <div class="flex" style="display:none;">
+                    <button id="tabAll" class="tab-button bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-l focus:outline-none">All</button>
+                    <button id="tabSongs" class="tab-button bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 focus:outline-none">Hymns</button>
+                    <button id="tabPlaylist" class="tab-button bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-r focus:outline-none">Playlist</button>
+                </div>
             </div>
         </form>
 
         <style>
-    #context-menu {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #f9f9f9;
-        padding: 8px 16px;
-        border: 1px solid #ccc;
-        z-index: 9999; /* Ensure menu appears above other content */
-        width: 80%;
-        max-width: 1200px;
-        max-height: 80vh; /* Set maximum height to 80% of viewport height */
-        overflow-y: auto; /* Enable vertical scrollbar if content overflows */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+            #context-menu {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: -100%; /* Start off-screen */
+                transform: translateY(-50%);
+                background-color: #f9f9f9;
+                padding: 8px 16px;
+                border: 1px solid #ccc;
+                z-index: 9999; /* Ensure menu appears above other content */
+                width: 80%;
+                max-width: 1200px;
+                max-height: 80vh; /* Set maximum height to 80% of viewport height */
+                overflow-y: auto; /* Enable vertical scrollbar if content overflows */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s ease-in-out; /* Smooth transition */
+            }
 
-    #categoriesSection {
-        max-height: 70vh; /* Set maximum height to 70% of viewport height */
-        overflow-y: auto; /* Enable vertical scrollbar if content overflows */
-    }
-</style>
+            #context-menu.visible {
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            #categoriesSection {
+                max-height: 70vh; /* Set maximum height to 70% of viewport height */
+                overflow-y: auto; /* Enable vertical scrollbar if content overflows */
+            }
+        </style>
 
 <!-- Categories Section -->
 <div id="context-menu" class="mb-4 mx-auto">
@@ -128,6 +132,18 @@
         }
         selectedCategoryId = index;
         document.getElementById('categoryButton' + index).style.backgroundColor = '#373A40';
+
+        // Hide the context menu
+        const contextMenu = document.getElementById('context-menu');
+        contextMenu.classList.remove('visible');
+        setTimeout(() => {
+            contextMenu.style.display = 'none';
+        }, 300);
+        categoriesSection.classList.add('hidden');
+
+        // Reset the button icon
+        const showCategoriesBtn = document.getElementById('showCategoriesModal');
+        showCategoriesBtn.innerHTML = '<i class="fas fa-bars"></i>';
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -145,14 +161,20 @@
         });
 
         showCategoriesBtn.addEventListener('click', function() {
-            if (contextMenu.style.display === 'block') {
-                contextMenu.style.display = 'none';
+            if (contextMenu.classList.contains('visible')) {
+                contextMenu.classList.remove('visible');
+                setTimeout(() => {
+                    contextMenu.style.display = 'none';
+                }, 300); // Allow time for the slide-out transition
                 categoriesSection.classList.add('hidden');
             } else {
                 contextMenu.style.display = 'block';
+                setTimeout(() => {
+                    contextMenu.classList.add('visible');
+                }, 0); // Allow time for the display to take effect
                 categoriesSection.classList.remove('hidden');
             }
-            showCategoriesBtn.innerHTML = contextMenu.style.display === 'block' ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>'; // Toggle icon between close and menu
+            showCategoriesBtn.innerHTML = contextMenu.classList.contains('visible') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>'; // Toggle icon between close and menu
         });
 
         hideCategoriesBtn.addEventListener('click', function() {
@@ -187,9 +209,6 @@
     });
 </script>
 
-
-
-
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                 <div class="pagination flex justify-center items-center" style="padding:0px;margin-bottom:10px;">
@@ -204,6 +223,7 @@
                                 <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
                                 <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
                                 <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Language</th>
+                                <th scope="col" class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
                             </tr>
                         </thead>
                         <tbody id="musicList" class="bg-white divide-y divide-gray-200">
@@ -211,100 +231,51 @@
                             <tr class="{{ $index % 2 == 0 ? 'bg-gray-50' : 'bg-white' }} hover:bg-gray-200">
                                 <td style="width: 5%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ ($musics->currentPage() - 1) * $musics->perPage() + $loop->iteration }}</td>
                                 
-                                <td class="px-6 py-4 whitespace-nowrap border text-center">
+                                <td class="px-6 py-4 whitespace-nowrap border">
                                     <a href="{{ route('musics.show', $music->id) }}" class="flex items-center">
                                         <i class="fas fa-music" style="margin-right: 12px; margin-left: 4px;"></i>
                                         {{ $music->title }}
                                     </a>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap border text-center">
+                                <td class="px-6 py-4 whitespace-nowrap border">
                                     @foreach($music->categories as $category)
                                         {{ $loop->first ? '' : ', ' }}{{ $category->name }}
                                     @endforeach
                                 </td>
+                                <td class="px-6 py-4 whitespace-nowrap border">
+                                    {{ $music->language->name }}
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap border text-center">
-                                    <div class="flex justify-between items-center">
-                                        <div>{{ $music->language->name }}</div>
-                                        <div class="ml-1">
-                                            <button id="context-menu-trigger-{{ $music->id }}" class="context-menu-trigger focus:outline-none text-lg">
-                                                <span>- - -</span>
+                                    <div class="flex justify-center items-center space-x-4">
+                                        <a href="{{ route('musics.edit', $music->id) }}" class="text-blue-500 hover:text-blue-700">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form id="deleteForm{{$music->id}}" method="POST" action="{{ route('musics.destroy', $music->id) }}" style="display: inline;margin-top:14px;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" onclick="confirmDelete({{$music->id}})" class="text-red-500 hover:text-red-700 focus:outline-none">
+                                                <i class="fas fa-trash"></i>
                                             </button>
-                                            <div id="context-menu-{{ $music->id }}" class="context-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
-                                                <ul class="py-2">
-                                                    <li>
-                                                        <a href="{{ route('musics.edit', $music->id) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Edit</a>
-                                                    </li>
-                                                    <li>
-                                                        <form method="POST" action="{{ route('musics.destroy', $music->id) }}" style="display: inline;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 hover:text-red-700 focus:outline-none" onclick="return confirm('Are you sure you want to delete this music?');">Delete</button>
-                                                        </form>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" id="view-credits-{{ $music->id }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">View Credits</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-
-                                            <div id="credits-menu-{{ $music->id }}" class="credits-menu hidden fixed inset-0  items-center justify-center z-50">
-                                                <div class="bg-white rounded-lg shadow-lg p-4">
-                                                    <h2 class="text-lg font-semibold mb-3">Credits</h2>
-                                                    <ul class="text-sm">
-                                                        <li><strong>Lyricist:</strong> {{ $music->lyricist }}</li>
-                                                        <li><strong>Composer:</strong> {{ $music->composer }}</li>
-                                                        <li><strong>Arranger:</strong> {{ $music->arranger }}</li>
-                                                    </ul>
-                                                    <button id="close-credits-{{ $music->id }}" class="block mt-4 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </td>
 
-                                <style>
-                                    .credits-menu {
-                                        /* Center the menu using fixed positioning */
-                                        position: fixed;
-                                        top: 0;
-                                        left: 0;
-                                        right: 0;
-                                        bottom: 0;
-                                        display: none;
-                                        justify-content: center;
-                                        align-items: center;
-                                        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-                                    }
-
-                                    .credits-menu .bg-white {
-                                        width: 300px; /* Adjust the width as needed */
-                                    }
-                                </style>
-
                                 <script>
-                                    document.addEventListener('DOMContentLoaded', function() {
-                                        const viewCreditsBtn = document.getElementById(`view-credits-{{ $music->id }}`);
-                                        const creditsMenu = document.getElementById(`credits-menu-{{ $music->id }}`);
-                                        const closeCreditsBtn = document.getElementById(`close-credits-{{ $music->id }}`);
-
-                                        if (viewCreditsBtn && creditsMenu && closeCreditsBtn) {
-                                            viewCreditsBtn.addEventListener('click', function(e) {
-                                                e.preventDefault();
-                                                creditsMenu.classList.add('hidden');
-                                            });
-
-                                            closeCreditsBtn.addEventListener('click', function(e) {
-                                                e.preventDefault();
-                                                creditsMenu.classList.add('hidden');
-                                            });
+                                    function confirmDelete(id) {
+                                        if (confirm('Are you sure you want to delete this music?')) {
+                                            document.getElementById('deleteForm' + id).submit();
                                         }
-                                    });
+                                    }
                                 </script>
+
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
+
+                    <!-- Add this script to ensure FontAwesome icons are loaded -->
+                    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
                     </div>
                     <div class="pagination flex justify-center items-center" style="padding:0px;margin-top:10px;">
                         {{ $musics->appends(['query' => request()->query('query')])->links() }}
@@ -409,51 +380,3 @@
 </div>
             </div>
 </x-app-layout>
-            <style>
-                .context-menu {
-                    /* Adjust positioning to match trigger button */
-                    top: 100%;
-                    left: 0;
-                    transform: translateX(-50%);
-                }
-            </style>
-
-            <script>
-                // JavaScript for context menu functionality
-                document.addEventListener('DOMContentLoaded', () => {
-                    const menuTriggers = document.querySelectorAll('.context-menu-trigger');
-
-                    menuTriggers.forEach(trigger => {
-                        const contextMenu = trigger.nextElementSibling;
-
-                        // Show context menu on trigger click
-                        trigger.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            hideAllContextMenus();
-                            contextMenu.classList.toggle('hidden');
-                        });
-
-                        // Hide context menu on document click outside
-                        document.addEventListener('click', (e) => {
-                            if (!contextMenu.contains(e.target) && !trigger.contains(e.target)) {
-                                contextMenu.classList.add('hidden');
-                            }
-                        });
-
-                        // Position context menu based on trigger button
-                        const rect = trigger.getBoundingClientRect();
-                        const menuRect = contextMenu.getBoundingClientRect();
-                        const offsetX = rect.left + (rect.width / 2) - (menuRect.width / 2);
-                        const offsetY = rect.top + rect.height;
-                        contextMenu.style.left = `${offsetX}px`;
-                        contextMenu.style.top = `${offsetY}px`;
-                    });
-
-                    // Hide all context menus
-                    function hideAllContextMenus() {
-                        document.querySelectorAll('.context-menu').forEach(menu => {
-                            menu.classList.add('hidden');
-                        });
-                    }
-                });
-            </script>

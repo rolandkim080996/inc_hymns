@@ -46,6 +46,11 @@ public function index(Request $request)
         $churchHymns = ChurchHymn::all();
         $categories = Category::all();
 
+        $categories = Category::select('categories.*')
+        ->selectRaw('(SELECT COUNT(*) FROM musics INNER JOIN music_category ON musics.id = music_category.music_id WHERE music_category.category_id = categories.id) AS musics_count')
+        ->orderBy('musics_count', 'desc')
+        ->get();
+
         // Fetch top 10 categories with most musics
         $topCategories = Category::select('categories.*')
                                  ->selectRaw('(SELECT COUNT(*) FROM musics INNER JOIN music_category ON musics.id = music_category.music_id WHERE music_category.category_id = categories.id) AS musics_count')
@@ -93,7 +98,7 @@ public function index(Request $request)
             // 'lyrics_path' => 'nullable|file|mimes:pdf|max:10000', // Adjust max file size as needed
             'category_id' => 'nullable|array',
             'instrumentation_id' => 'nullable|array',
-            'ensemble_type_id' => 'nullable|array',
+            'ensembletype_id' => 'nullable|array',
             'lyricist_id' => 'nullable|array',
             'composer_id' => 'nullable|array',
             'arranger_id' => 'nullable|array',
@@ -168,7 +173,7 @@ public function index(Request $request)
             }
         }
 
-        $ensemble_typesIds = $request->input('ensemble_type_id', []);
+        $ensemble_typesIds = $request->input('ensembletype_id', []);
 
         if (!empty($ensemble_typesIds)) {
             // Split the string into individual IDs and remove empty elements
@@ -298,10 +303,10 @@ public function index(Request $request)
         'edit_preludes_mp3_path' => 'nullable|string',
         'category_id' => 'nullable|array',
         'instrumentation_id' => 'nullable|array',
-        'ensemble_type_id' => 'nullable|array',
-        'edit_lyricist_id' => 'nullable|array',
-        'edit_composer_id' => 'nullable|array',
-        'edit_arranger_id' => 'nullable|array',
+        'ensembletype_id' => 'nullable|array',
+        'lyricist_id' => 'nullable|array',
+        'composer_id' => 'nullable|array',
+        'arranger_id' => 'nullable|array',
         'edit_language_id' => 'nullable|integer',
         'edit_versesused' => 'nullable|string',
     ]);
@@ -330,8 +335,8 @@ public function index(Request $request)
     $instrumentationIds = $request->input('instrumentation_id', []);
 
     // Retrieve selected ensemble_type IDs from the request
-    $ensemble_typeIds = $request->input('ensemble_type_id', []);
-    dd( $ensemble_typeIds);
+    $ensemble_typeIds = $request->input('ensembletype_id', []);
+    dd($ensemble_typeIds);
     // Get the existing category IDs associated with the music entry
     $existingCategoryIds = $music->categories()->pluck('id')->toArray();
    
@@ -349,7 +354,7 @@ public function index(Request $request)
     $music->instrumentations()->sync($request->input('edit_instrumentation_id', []));
 
     // Attach related ensemble types to the music model
-    $music->ensembleTypes()->sync($request->input('edit_ensemble_type_id', []));
+    $music->ensembleTypes()->sync($request->input('edit_ensembletype_id', []));
 
     // Attach related lyricists to the music model
     $music->lyricists()->sync($request->input('edit_lyricist_id', []));
