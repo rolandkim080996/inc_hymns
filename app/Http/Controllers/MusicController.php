@@ -330,25 +330,34 @@ public function index(Request $request)
     // Retrieve selected category IDs from the request
     $selectedCategoryIds = $request->input('category_id', []);
     
-
     // Retrieve selected instrumentation IDs from the request
-    $instrumentationIds = $request->input('instrumentation_id', []);
+    $selectedInstrumentationIds = $request->input('instrumentation_id', []);
 
     // Retrieve selected ensemble_type IDs from the request
-    $ensemble_typeIds = $request->input('ensembletype_id', []);
-    dd($ensemble_typeIds);
+    $selectedEnsemble_typeIds = $request->input('ensembletype_id', []);
+
+    // Retrieve selected lyricist IDs from the request
+    $selectedLyricistIds = $request->input('lyricist_id', []);
+
+    // Retrieve selected composer IDs from the request
+    $selectedComposerIds = $request->input('composer_id', []);
+    
+
+    // Retrieve selected arranger IDs from the request
+    $selectedArrangerIds = $request->input('arranger_id', []);
+    
+
     // Get the existing category IDs associated with the music entry
     $existingCategoryIds = $music->categories()->pluck('id')->toArray();
    
     // Add new categories and detach categories that are not selected
     $categoriesToAdd = array_diff($selectedCategoryIds, $existingCategoryIds);
-    $categoriesToDetach = array_diff($existingCategoryIds, $selectedCategoryIds);
 
+  
     // Attach new categories
     $music->categories()->attach($categoriesToAdd);
 
-    // Detach categories that are not selected
-    $music->categories()->detach($categoriesToDetach);
+    dd($categoriesToAdd);
 
     // Attach related instrumentations to the music model
     $music->instrumentations()->sync($request->input('edit_instrumentation_id', []));
