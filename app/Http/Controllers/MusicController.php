@@ -288,95 +288,128 @@ public function index(Request $request)
         return view('musics.edit', compact('musics', 'churchHymns', 'categories', 'instrumentations', 'ensembleTypes', 'languages', 'creators'));
     }
 
+    
     public function update(Request $request, Music $music)
     {
+        // Validate request data
+       
+        $validatedData = $request->validate([
+            'edit_church_hymn_id' => 'required|exists:church_hymns,id',
+            'edit_title' => 'required|max:255',
+            'edit_song_number' => 'nullable|numeric',
+            'edit_music_score_path' => 'nullable|string',
+            'edit_lyrics_path' => 'nullable|string',
+            'edit_vocals_mp3_path' => 'nullable|string',
+            'edit_organ_mp3_path' => 'nullable|string',
+            'edit_preludes_mp3_path' => 'nullable|string',
+            'category_id' => 'nullable|array',
+            'instrumentation_id' => 'nullable|array',
+            'ensembletype_id' => 'nullable|array',
+            'lyricist_id' => 'nullable|array',
+            'composer_id' => 'nullable|array',
+            'arranger_id' => 'nullable|array',
+            'edit_language_id' => 'nullable|integer',
+            'edit_versesused' => 'nullable|string',
+        ]);
+
+        // Process file uploads
+        $filePaths = [];
+        $fileFields = [
+            'vocals_mp3_path',
+            'organ_mp3_path',
+            'preludes_mp3_path',
+            'music_score_path',
+            'lyrics_path',
+        ];
+
+        foreach ($fileFields as $field) {
+            $filePaths[$field] = $this->storeFile($request, 'edit_' . $field);
+        }
+
+        // Remove null values from filePaths
+        $filePaths = array_filter($filePaths);
+
+        // Update the music entry with explicit mapping
+        $music->update([
+            'church_hymn_id' => $request->edit_church_hymn_id,
+            'title' => $request->edit_title,
+            'song_number' => $request->edit_song_number,
+            'verses_used' => $request->edit_versesused,
+            'language_id' => $request->edit_language_id,
+        ] + $filePaths);
+
+        // Retrieve selected IDs from the request
+        $selectedCategoryIds = $request->input('category_id', []);
+        $selectedInstrumentationIds = $request->input('instrumentation_id', []);
+        $selectedEnsembleTypeIds = $request->input('ensemble_type_id', []);
+        $selectedLyricistIds = $request->input('lyricist_id', []);
+        $selectedComposerIds = $request->input('composer_id', []);
+        $selectedArrangerIds = $request->input('arranger_id', []);
+       
+        // // Define a function to update pivot tables
+        $updatePivotTable = function($music, $relation, $foreignKey, $selectedIds) {
+// Convert the comma-separated string to an array
+$selectedIds = explode(',', $selectedIds[0]);
+
+   // Get existing IDs from the pivot table
+   $existingIds = $music->$relation()->pluck($foreignKey)->toArray();
+
+   // Determine which IDs to attach
+   $toAttach = array_diff($selectedIds, $existingIds);
  
-    // Validate request data
-    $validatedData = $request->validate([
-        'edit_church_hymn_id' => 'required|exists:church_hymns,id',
-        'edit_title' => 'required|max:255',
-        'edit_song_number' => 'nullable|numeric',
-        'edit_music_score_path' => 'nullable|string',
-        'edit_lyrics_path' => 'nullable|string',
-        'edit_vocals_mp3_path' => 'nullable|string',
-        'edit_organ_mp3_path' => 'nullable|string',
-        'edit_preludes_mp3_path' => 'nullable|string',
-        'category_id' => 'nullable|array',
-        'instrumentation_id' => 'nullable|array',
-        'ensembletype_id' => 'nullable|array',
-        'lyricist_id' => 'nullable|array',
-        'composer_id' => 'nullable|array',
-        'arranger_id' => 'nullable|array',
-        'edit_language_id' => 'nullable|integer',
-        'edit_versesused' => 'nullable|string',
-    ]);
 
-    // Process file uploads
-    $filePaths = [];
-   
-    // Update file paths if new files are uploaded
-    $filePaths['vocals_mp3_path'] = $this->storeFile($request, 'edit_vocals_mp3_path');
-    $filePaths['organ_mp3_path'] = $this->storeFile($request, 'edit_organ_mp3_path');
-    $filePaths['preludes_mp3_path'] = $this->storeFile($request, 'edit_preludes_mp3_path');
-    $filePaths['music_score_path'] = $this->storeFile($request, 'edit_music_score_path');
-    $filePaths['lyrics_path'] = $this->storeFile($request, 'edit_lyrics_path');
-   
-    // Merge file paths into validated data
-    $validatedData = array_merge($validatedData, $filePaths);
- 
-    // Update music entry
-    $music->update($validatedData);
-    
-    // Retrieve selected category IDs from the request
-    $selectedCategoryIds = $request->input('category_id', []);
-    
-    // Retrieve selected instrumentation IDs from the request
-    $selectedInstrumentationIds = $request->input('instrumentation_id', []);
+            // Attach new IDs if they are not already associated
+            if (!empty($toAttach)) {
+                // Get existing IDs
+                $existingIds = $music->$relation()->pluck($foreignKey)->toArray();
+              
+                // Loop through each ID in $toAttach
+                foreach ($toAttach as $id) {
+                    // Check if the ID is not already in the existing IDs
+                    if (!in_array( $id, $existingIds)) {
+                        //Attach the ID
+                        $music->$relation()->attach([$foreignKey => $id]);
+                    }
+                }
+            }
 
-    // Retrieve selected ensemble_type IDs from the request
-    $selectedEnsemble_typeIds = $request->input('ensembletype_id', []);
+            // Detach IDs that are not in the selected IDs
+            if (!empty($toDetach)) {
+                foreach ($toDetach as $id) {
+                    $music->$relation()->detach($id);
+                }
+            }
+        };
 
-    // Retrieve selected lyricist IDs from the request
-    $selectedLyricistIds = $request->input('lyricist_id', []);
+        // Update pivot tables
+        $updatePivotTable($music, 'categories', 'category_id', $selectedCategoryIds);
+        $updatePivotTable($music, 'instrumentations', 'instrumentation_id', $selectedInstrumentationIds);
+        $updatePivotTable($music, 'ensembleTypes', 'ensemble_type_id', $selectedEnsembleTypeIds);
+        $updatePivotTable($music, 'lyricists', 'lyricist_id', $selectedLyricistIds);
+        $updatePivotTable($music, 'composers', 'composer_id', $selectedComposerIds);
+        $updatePivotTable($music, 'arrangers', 'arranger_id', $selectedArrangerIds);
 
-    // Retrieve selected composer IDs from the request
-    $selectedComposerIds = $request->input('composer_id', []);
-    
+        // Redirect back to index page with success message
+        return redirect()->route('musics.index')->with('success', 'Music entry updated successfully!');
+    }
 
-    // Retrieve selected arranger IDs from the request
-    $selectedArrangerIds = $request->input('arranger_id', []);
-    
+    /**
+     * Handle the file upload.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param string $fieldName
+     * @return string|null
+     */
+    protected function updateFile(Request $request, $fieldName)
+    {
+        if ($request->hasFile($fieldName)) {
+            return $request->file($fieldName)->store('music_files', 'public');
+        }
+        return null;
+    }
 
-    // Get the existing category IDs associated with the music entry
-    $existingCategoryIds = $music->categories()->pluck('id')->toArray();
-   
-    // Add new categories and detach categories that are not selected
-    $categoriesToAdd = array_diff($selectedCategoryIds, $existingCategoryIds);
 
-  
-    // Attach new categories
-    $music->categories()->attach($categoriesToAdd);
 
-    dd($categoriesToAdd);
-
-    // Attach related instrumentations to the music model
-    $music->instrumentations()->sync($request->input('edit_instrumentation_id', []));
-
-    // Attach related ensemble types to the music model
-    $music->ensembleTypes()->sync($request->input('edit_ensembletype_id', []));
-
-    // Attach related lyricists to the music model
-    $music->lyricists()->sync($request->input('edit_lyricist_id', []));
-
-    // Attach related composers to the music model
-    $music->composers()->sync($request->input('edit_composer_id', []));
-
-    // Attach related arrangers to the music model
-    $music->arrangers()->sync($request->input('edit_arranger_id', []));
-
-    // Redirect back to index page with success message
-    return redirect()->route('musics.index')->with('success', 'Music entry updated successfully!');
-}
 
 
     // Delete the specified music entry from the database

@@ -13,11 +13,11 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                 <!-- Edit Music Form -->
-                <form method="POST" action="{{ route('musics.update', ['id' => $musics->id]) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('musics.update', ['music' => $musics->id]) }}" enctype="multipart/form-data">
 
                     @csrf
                     @method('PUT')
-
+                
                     <div class="flex flex-wrap">
                     <div class="w-full md:w-1/3 px-4">
                         <!-- Church Hymn -->
@@ -155,7 +155,7 @@
                selectedContainer.appendChild(selectedItem);
 
                // Update the hidden input field
-               updateHiddenInput(dropdownId);
+              updateHiddenInput(dropdownId);
            }
     // Generic object to manage selected items
     let selectedDropdownItems = {};
@@ -185,13 +185,13 @@
     // Function to append a selected item to the selected items container
     function appendSelectedItem(selectedContainer, checkbox) 
     {
+       
         let itemName = checkbox.parentNode.textContent.trim();
         let itemId = checkbox.value;
         let selectedItem = document.createElement("div");
         selectedItem.className = "selected-tag";
         selectedItem.textContent = itemName;
-
-
+       
         let removeButton = document.createElement("span");
         removeButton.textContent = "×";
         removeButton.onclick = function () {
@@ -200,14 +200,19 @@
         checkbox.checked = false;
         // Remove the selected item element
         selectedItem.remove();
-
-        appendLoadedItem(selectedContainer, itemName, itemId, selectedContainer.id.split('_')[1]);
-
+        
 
         };
 
+
+       // Check if the item already exists in the selected container
+        let alreadySelected = Array.from(selectedContainer.children).some(child => child.textContent.trim() === itemName);
+        if (!alreadySelected) {
+            appendLoadedItem(selectedContainer, itemName, itemId, selectedContainer.id.split('_')[1]);
+        }
+
         selectedItem.appendChild(removeButton);
-        selectedContainer.appendChild(selectedItem);
+        //selectedContainer.appendChild(selectedItem);
     }
 
     // Function to remove a selected item from the selected items container
@@ -490,7 +495,7 @@
                     <!-- Verses Used -->
                     <div class="mb-4">
                         <label for="edit_versesused" class="block text-sm font-bold text-gray-700 mb-2">Reference Verses:</label>
-                        <textarea id="edit_versesused" name="versesused" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{ $musics->verses_used }}</textarea>
+                        <textarea id="edit_versesused" name="edit_versesused" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{ $musics->verses_used }}</textarea>
                     </div>
 
                     <!-- Buttons to submit or close modal -->

@@ -52,7 +52,7 @@ Route::get('/musics/create', [MusicController::class, 'create'])->name('musics.c
 Route::post('/musics', [MusicController::class, 'store'])->name('musics.store');
 
 Route::get('/musics/{id}/edit', [MusicController::class, 'edit'])->name('musics.edit');
-Route::put('/musics/{id}', [MusicController::class, 'update'])->name('musics.update');
+Route::put('/musics/{music}', [MusicController::class, 'update'])->name('musics.update');
 // Route::delete('/musics/{id}', [MusicController::class, 'destroy'])->name('musics.destroy');
 // Route::resource('musics', MusicController::class)->except('destroy');
 Route::delete('/musics/{music}', [MusicController::class, 'destroy'])->name('musics.destroy');
