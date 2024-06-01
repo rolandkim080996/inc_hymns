@@ -12,6 +12,7 @@ use App\Models\Language;
 use App\Models\MusicCreator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class MusicController extends Controller
 {
@@ -59,11 +60,11 @@ public function index(Request $request)
                                  ->get();
 
         $instrumentations = Instrumentation::all();
-        $ensembleTypes = EnsembleType::all();
+        $ensemble_Types = EnsembleType::all();
         $languages = Language::all();
         $creators = MusicCreator::all();
 
-        return view('musics', compact('musics', 'churchHymns', 'categories', 'topCategories', 'instrumentations', 'ensembleTypes', 'languages', 'creators'));
+        return view('musics', compact('musics', 'churchHymns', 'categories', 'topCategories', 'instrumentations', 'ensemble_Types', 'languages', 'creators'));
     }
 
     // Show the form for creating a new music entry
@@ -325,7 +326,7 @@ public function index(Request $request)
         foreach ($fileFields as $field) {
             $filePaths[$field] = $this->storeFile($request, 'edit_' . $field);
         }
-
+        dd($fileFields);
         // Remove null values from filePaths
         $filePaths = array_filter($filePaths);
 
@@ -346,23 +347,28 @@ public function index(Request $request)
         $selectedComposerIds = $request->input('composer_id', []);
         $selectedArrangerIds = $request->input('arranger_id', []);
        
+
         // // Define a function to update pivot tables
-        $updatePivotTable = function($music, $relation, $foreignKey, $selectedIds) {
-// Convert the comma-separated string to an array
-$selectedIds = explode(',', $selectedIds[0]);
+        $updatePivotTable = function($music, $relation, $foreignKey, $selectedIds) 
+        {
+            // Convert the comma-separated string to an array
+            Log::info("SELECTED IDS: " . $relation);
+            $selectedIds = explode(',', $selectedIds[0]);
 
-   // Get existing IDs from the pivot table
-   $existingIds = $music->$relation()->pluck($foreignKey)->toArray();
+            // Get existing IDs from the pivot table
+            $existingIds = $music->$relation()->pluck($foreignKey)->toArray();
 
-   // Determine which IDs to attach
-   $toAttach = array_diff($selectedIds, $existingIds);
- 
+            // Determine which IDs to attach
+            $toAttach = array_diff($selectedIds, $existingIds);
+            
+            $toDetach = array_diff($existingIds, $selectedIds);
+            //dd($toDetach);
 
             // Attach new IDs if they are not already associated
             if (!empty($toAttach)) {
                 // Get existing IDs
                 $existingIds = $music->$relation()->pluck($foreignKey)->toArray();
-              
+                
                 // Loop through each ID in $toAttach
                 foreach ($toAttach as $id) {
                     // Check if the ID is not already in the existing IDs
@@ -392,25 +398,6 @@ $selectedIds = explode(',', $selectedIds[0]);
         // Redirect back to index page with success message
         return redirect()->route('musics.index')->with('success', 'Music entry updated successfully!');
     }
-
-    /**
-     * Handle the file upload.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param string $fieldName
-     * @return string|null
-     */
-    protected function updateFile(Request $request, $fieldName)
-    {
-        if ($request->hasFile($fieldName)) {
-            return $request->file($fieldName)->store('music_files', 'public');
-        }
-        return null;
-    }
-
-
-
-
 
     // Delete the specified music entry from the database
     public function destroy(Music $music)

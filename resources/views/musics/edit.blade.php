@@ -50,8 +50,8 @@
                         </div>
                     </div>
 
+                    <!-- File Inputs -->
                     <div class="flex flex-wrap">
-                        <!-- File Inputs -->
                         <!-- Left Column -->
                         <div class="w-full md:w-1/2 px-4">
                             <div class="mb-4">
@@ -86,6 +86,29 @@
                         </div>
                     </div>
 
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const fileInputs = [
+                                {inputId: 'edit_vocals_mp3_path', labelId: 'edit_vocals_mp3_path_label'},
+                                {inputId: 'edit_organ_mp3_path', labelId: 'edit_organ_mp3_path_label'},
+                                {inputId: 'edit_preludes_mp3_path', labelId: 'edit_preludes_mp3_path_label'},
+                                {inputId: 'edit_music_score_path', labelId: 'edit_music_score_path_label'},
+                                {inputId: 'edit_lyrics_path', labelId: 'edit_lyrics_path_label'}
+                            ];
+
+                            fileInputs.forEach(fileInput => {
+                                const inputElement = document.getElementById(fileInput.inputId);
+                                const labelElement = document.getElementById(fileInput.labelId);
+
+                                inputElement.addEventListener('change', function(event) {
+                                    const fileName = event.target.files[0] ? event.target.files[0].name : 'No file selected';
+                                    labelElement.innerHTML = `Filename: <b>${fileName}</b>`;
+                                });
+                            });
+                        });
+                    </script>
+
+
 
 
                     <div class="flex flex-wrap">
@@ -96,7 +119,7 @@
                     <!-- Hidden input fields to store selected IDs -->
                     <input type="hidden" id="selected_category_ids" name="category_id[]" value="">
                     <input type="hidden" id="selected_instrumentation_ids" name="instrumentation_id[]" value="">
-                    <input type="hidden" id="selected_ensembletype_ids" name="ensembletype_id[]" value="">               
+                    <input type="hidden" id="selected_ensembletype_ids" name="ensemble_type_id[]" value="">               
 
                     <script>
                
