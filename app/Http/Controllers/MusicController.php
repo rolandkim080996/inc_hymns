@@ -93,10 +93,6 @@ public function index(Request $request)
             'preludes_mp3_path' => 'nullable|file|mimes:mp3',
             'music_score_path' => 'nullable|file|mimes:pdf',
             'lyrics_path' => 'nullable|file|mimes:pdf',
-            // 'organ_mp3_path' => 'nullable|file|mimes:mp3|max:50000', // Adjust max file size as needed
-            // 'preludes_mp3_path' => 'nullable|file|mimes:mp3|max:50000', // Adjust max file size as needed
-            // 'music_score_path' => 'nullable|file|mimes:pdf|max:10000', // Adjust max file size as needed
-            // 'lyrics_path' => 'nullable|file|mimes:pdf|max:10000', // Adjust max file size as needed
             'category_id' => 'nullable|array',
             'instrumentation_id' => 'nullable|array',
             'ensembletype_id' => 'nullable|array',
@@ -292,17 +288,17 @@ public function index(Request $request)
     
     public function update(Request $request, Music $music)
     {
+        
         // Validate request data
-       
         $validatedData = $request->validate([
             'edit_church_hymn_id' => 'required|exists:church_hymns,id',
             'edit_title' => 'required|max:255',
             'edit_song_number' => 'nullable|numeric',
-            'edit_music_score_path' => 'nullable|string',
-            'edit_lyrics_path' => 'nullable|string',
-            'edit_vocals_mp3_path' => 'nullable|string',
-            'edit_organ_mp3_path' => 'nullable|string',
-            'edit_preludes_mp3_path' => 'nullable|string',
+            'edit_vocals_mp3_path' => 'file|mimes:mp3,audio/mpeg|max:50000',
+            'edit_organ_mp3_path' => 'nullable|file|mimes:mp3',
+            'edit_preludes_mp3_path' => 'nullable|file|mimes:mp3',
+            'edit_music_score_path' => 'nullable|file|mimes:pdf',
+            'edit_lyrics_path' => 'nullable|file|mimes:pdf',
             'category_id' => 'nullable|array',
             'instrumentation_id' => 'nullable|array',
             'ensembletype_id' => 'nullable|array',
@@ -313,20 +309,42 @@ public function index(Request $request)
             'edit_versesused' => 'nullable|string',
         ]);
 
+      
         // Process file uploads
-        $filePaths = [];
         $fileFields = [
-            'vocals_mp3_path',
-            'organ_mp3_path',
-            'preludes_mp3_path',
-            'music_score_path',
-            'lyrics_path',
+            'edit_vocals_mp3_path' => 'vocals_mp3_path',
+            'edit_organ_mp3_path' => 'organ_mp3_path',
+            'edit_preludes_mp3_path' => 'preludes_mp3_path',
+            'edit_music_score_path' => 'music_score_path',
+            'edit_lyrics_path' => 'lyrics_path',
         ];
-
-        foreach ($fileFields as $field) {
-            $filePaths[$field] = $this->storeFile($request, 'edit_' . $field);
+      
+        $filePaths = [];
+        foreach ($fileFields as $inputName => $dbField) {
+            if ($request->hasFile($inputName)) {
+                Log::info('Processing file upload for: ' . $inputName);
+    
+                // Check if the previous file exists and delete it
+                if ($music->$dbField) {
+                    $existingFilePath = public_path($music->$dbField);
+                    if (file_exists($existingFilePath)) {
+                        unlink($existingFilePath);
+                        Log::info('Deleted previous file: ' . $existingFilePath);
+                    }
+                }
+    
+                $uploadedFile = $request->file($inputName);
+                $originalName = $uploadedFile->getClientOriginalName();
+                
+                // Store the file in the 'public/music_files' directory
+                $storedFilePath = $uploadedFile->storeAs('music_files', $originalName, 'public');
+                $filePaths[$dbField] =  $storedFilePath;
+    
+                Log::info('Stored file path: ' . $filePaths[$dbField]);
+            }
         }
-        dd($fileFields);
+
+       
         // Remove null values from filePaths
         $filePaths = array_filter($filePaths);
 

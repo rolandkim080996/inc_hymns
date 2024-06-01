@@ -16,38 +16,229 @@
                 
 
 
-<div class="music-container">
+                
+
+<!-- Show Music Details Button -->
+<button id="showMusicDetailsBtn" class="show-details-btn">
+    <i class="fas fa-arrow-right"></i>
+</button>
 <!-- Display Music Details -->
-<div class="music-details">
-
-<div class="music-player">
-        <!-- Tab buttons -->
-        <div class="tab-buttons">
-            <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->vocals_mp3_path) }}">Vocals</button>
-            <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->organ_mp3_path) }}">Organ</button>
-            <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->preludes_mp3_path) }}">Preludes</button>
-        </div>
-
-        <!-- Audio player -->
-        <audio id="musicPlayer" controls class="w-64" preload="auto">
-            Your browser does not support the audio element.
-            <!-- Include source elements -->
-            <source id="audioSource" src="#" type="audio/mpeg">
-        </audio>
-
-        <!-- Playback control buttons -->
-        <div class="flex mt-2">
-            <button onclick="rewindAudio()" class="custom-btn mr-4">
-                <i class="fas fa-backward"></i>
-            </button>
-            <button onclick="fastForwardAudio()" class="custom-btn ml-4">
-                <i class="fas fa-forward"></i>
-            </button>
-        </div>
+<div id="musicDetails" class="music-details hidden">
+    <!-- Title -->
+    <div class="mb-4">
+        <p class="font-semibold text-lg">Title:</p>
+        <p><i>{{ $music->title }}</i></p>
     </div>
 
-    <!-- JavaScript to handle dropdown and audio playback -->
-    <script>
+    <!-- Song Number -->
+    <div class="mb-4">
+        <p class="font-semibold text-lg">Hymn Number:</p>
+        <p>{{ $music->song_number }}</p>
+    </div>
+
+    <!-- Categories -->
+    <div class="mb-4">
+        <p class="font-semibold text-lg">Category:</p>
+        <ul class="list-disc list-inside" id="categoriesList">
+            @foreach ($music->categories->take(3) as $category)
+                <li>{{ $category->name }}</li>
+            @endforeach
+            @foreach ($music->categories->skip(3) as $category)
+                <li class="hidden">{{ $category->name }}</li>
+            @endforeach
+        </ul>
+        @if ($music->categories->count() > 3)
+            <button onclick="toggleList('categoriesList', this)">See More</button>
+        @endif
+    </div>
+
+    <!-- Instrumentation -->
+    <div class="mb-4">
+        <p class="font-semibold text-lg">Instrumentation:</p>
+        <ul class="list-disc list-inside" id="instrumentationList">
+            @foreach ($music->instrumentations->take(3) as $instrumentation)
+                <li>{{ $instrumentation->name }}</li>
+            @endforeach
+            @foreach ($music->instrumentations->skip(3) as $instrumentation)
+                <li class="hidden">{{ $instrumentation->name }}</li>
+            @endforeach
+        </ul>
+        @if ($music->instrumentations->count() > 3)
+            <button onclick="toggleList('instrumentationList', this)">See More</button>
+        @endif
+    </div>
+
+    <!-- Ensemble Type -->
+    <div class="mb-4">
+        <p class="font-semibold text-lg">Ensemble Type:</p>
+        <ul class="list-disc list-inside" id="ensembleTypeList">
+            @foreach ($music->ensembleTypes->take(3) as $ensembleType)
+                <li>{{ $ensembleType->name }}</li>
+            @endforeach
+            @foreach ($music->ensembleTypes->skip(3) as $ensembleType)
+                <li class="hidden">{{ $ensembleType->name }}</li>
+            @endforeach
+        </ul>
+        @if ($music->ensembleTypes->count() > 3)
+            <button onclick="toggleList('ensembleTypeList', this)">See More</button>
+        @endif
+    </div>
+
+    <!-- Lyricists -->
+    <div class="mb-4">
+        <p class="font-semibold text-lg">Lyricist:</p>
+        <ul class="list-disc list-inside" id="lyricistsList">
+            @foreach ($music->lyricists->take(3) as $lyricist)
+                <li>{{ $lyricist->name }}</li>
+            @endforeach
+            @foreach ($music->lyricists->skip(3) as $lyricist)
+                <li class="hidden">{{ $lyricist->name }}</li>
+            @endforeach
+        </ul>
+        @if ($music->lyricists->count() > 3)
+            <button onclick="toggleList('lyricistsList', this)">See More</button>
+        @endif
+    </div>
+
+    <!-- Composer -->
+    <div class="mb-4">
+        <p class="font-semibold text-lg">Composer:</p>
+        <ul class="list-disc list-inside" id="composerList">
+            @foreach ($music->composers->take(3) as $composer)
+                <li>{{ $composer->name }}</li>
+            @endforeach
+            @foreach ($music->composers->skip(3) as $composer)
+                <li class="hidden">{{ $composer->name }}</li>
+            @endforeach
+        </ul>
+        @if ($music->composers->count() > 3)
+            <button onclick="toggleList('composerList', this)">See More</button>
+        @endif
+    </div>
+
+    <!-- Arranger -->
+    <div class="mb-4">
+        <p class="font-semibold text-lg">Arranger:</p>
+        <ul class="list-disc list-inside" id="arrangerList">
+            @foreach ($music->arrangers->take(3) as $arranger)
+                <li>{{ $arranger->name }}</li>
+            @endforeach
+            @foreach ($music->arrangers->skip(3) as $arranger)
+                <li class="hidden">{{ $arranger->name }}</li>
+            @endforeach
+        </ul>
+        @if ($music->arrangers->count() > 3)
+            <button onclick="toggleList('arrangerList', this)">See More</button>
+        @endif
+    </div>
+
+    <!-- Language -->
+    <div class="mb-4">
+        <p class="font-semibold text-lg">Language:</p>
+        <p>{{ $music->language->name }}</p>
+    </div>
+
+    <!-- Verses Used -->
+    <div class="mb-4">
+        <p class="font-semibold text-lg">Verses Used:</p>
+        <p>{{ $music->verses_used }}</p>
+    </div>
+</div>
+
+<script>
+function toggleList(listId, button) {
+    const list = document.getElementById(listId);
+    const items = list.querySelectorAll('li.hidden');
+
+    if (list.classList.contains('expanded')) {
+        list.classList.remove('expanded');
+        items.forEach(item => {
+            item.style.display = 'none';
+        });
+        button.innerText = 'See More';
+    } else {
+        list.classList.add('expanded');
+        items.forEach(item => {
+            item.style.display = 'list-item';
+        });
+        button.innerText = 'See Less';
+    }
+}
+
+document.getElementById('showMusicDetailsBtn').addEventListener('click', function() {
+    const musicDetails = document.getElementById('musicDetails');
+    musicDetails.classList.toggle('hidden');
+
+    const icon = this.querySelector('i');
+    if (musicDetails.classList.contains('hidden')) {
+        icon.classList.remove('fa-arrow-left');
+        icon.classList.add('fa-arrow-right');
+    } else {
+        icon.classList.remove('fa-arrow-right');
+        icon.classList.add('fa-arrow-left');
+    }
+});
+
+
+</script>
+
+<style>
+.music-details {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    max-height: 95vh; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    position: fixed;
+    top: 50%;
+    left: 50px; /* Adjust this value as needed */
+    transform: translateY(-50%);
+    z-index: 1000;
+}
+
+.show-details-btn {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.show-details-btn:hover {
+    background-color: #0056b3;
+}
+
+.show-details-btn i {
+    font-size: 18px;
+}
+
+.list-inside {
+    max-height: 90px; /* Set the max height to show 3 items by default */
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.list-inside.expanded {
+    max-height: none; /* Allow full height when expanded */
+}
+
+
+</style>
+
+
+
+<div class="music-container">
+
+ <!-- JavaScript to handle dropdown and audio playback -->
+ <script>
         document.addEventListener('DOMContentLoaded', function() {
             const musicPlayer = document.getElementById('musicPlayer');
 
@@ -115,206 +306,117 @@ musicPlayer.addEventListener('click', seekAudio);
         }
     </script>
 
-    <!-- Title -->
-    <div class="mb-4">
-        <p class="font-semibold text-lg">Title:</p>
-        <p><i>{{ $music->title }}</i></p>
-    </div>
 
-    <!-- Song Number -->
-    <div class="mb-4">
-        <p class="font-semibold text-lg">Hymn Number:</p>
-        <p>{{ $music->song_number }}</p>
-    </div>
 
-    
-    <!-- Categories -->
-    <div class="mb-4">
-        <p class="font-semibold text-lg">Category:</p>
-        <ul class="list-disc list-inside" id="categoriesList">
-            <?php
-                $categories = $music->categories->take(3); // Limit to the first three items
-                foreach($categories as $category) {
-                    echo "<li>{$category->name}</li>";
-                }
-            ?>
-            <?php foreach($music->categories->skip(3) as $category): ?>
-                <li class="hidden"><?php echo $category->name; ?></li>
-            <?php endforeach; ?>
-        </ul>
-        <?php if (count($music->categories) > 3): ?>
-            <button onclick="toggleList('categoriesList', this)">See More</button>
-        <?php endif; ?>
-    </div>
 
-    <!-- Instrumentation -->
-    <div class="mb-4">
-        <p class="font-semibold text-lg">Instrumentation:</p>
-        <ul class="list-disc list-inside" id="instrumentationList">
-            <?php
-                $instrumentations = $music->instrumentations->take(3); // Limit to the first three items
-                foreach($instrumentations as $instrumentation) {
-                    echo "<li>{$instrumentation->name}</li>";
-                }
-            ?>
-            <?php foreach($music->instrumentations->skip(3) as $instrumentation): ?>
-                <li class="hidden"><?php echo $instrumentation->name; ?></li>
-            <?php endforeach; ?>
-        </ul>
-        <?php if (count($music->instrumentations) > 3): ?>
-            <button onclick="toggleList('instrumentationList', this)">See More</button>
-        <?php endif; ?>
-    </div>
+    <div class="music-player-details">
 
-    <!-- Ensemble Type -->
-    <div class="mb-4">
-        <p class="font-semibold text-lg">Ensemble Type:</p>
-        <ul class="list-disc list-inside" id="ensembleTypeList">
-            <?php
-                $ensembleTypes = $music->ensembleTypes->take(3); // Limit to the first three items
-                foreach($ensembleTypes as $ensembleType) {
-                    echo "<li>{$ensembleType->name}</li>";
-                }
-            ?>
-            <?php foreach($music->ensembleTypes->skip(3) as $ensembleType): ?>
-                <li class="hidden"><?php echo $ensembleType->name; ?></li>
-            <?php endforeach; ?>
-        </ul>
-        <?php if (count($music->ensembleTypes) > 3): ?>
-            <button onclick="toggleList('ensembleTypeList', this)">See More</button>
-        <?php endif; ?>
-    </div>
-
-    <!-- Lyricists -->
-    <div class="mb-4">
-        <p class="font-semibold text-lg">Lyricist:</p>
-        <ul class="list-disc list-inside" id="lyricistsList">
-            <?php
-                $lyricists = $music->lyricists->take(3); // Limit to the first three items
-                foreach($lyricists as $lyricist) {
-                    echo "<li>{$lyricist->name}</li>";
-                }
-            ?>
-            <?php foreach($music->lyricists->skip(3) as $lyricist): ?>
-                <li class="hidden"><?php echo $lyricist->name; ?></li>
-            <?php endforeach; ?>
-        </ul>
-        <?php if (count($music->lyricists) > 3): ?>
-            <button onclick="toggleList('lyricistsList', this)">See More</button>
-        <?php endif; ?>
-    </div>
-
-    <!-- Composer -->
-    <div class="mb-4">
-        <p class="font-semibold text-lg">Composer:</p>
-        <ul class="list-disc list-inside" id="composerList">
-            <?php
-                $composers = $music->composers->take(3); // Limit to the first three items
-                foreach($composers as $composer) {
-                    echo "<li>{$composer->name}</li>";
-                }
-            ?>
-            <?php foreach($music->composers->skip(3) as $composer): ?>
-                <li class="hidden"><?php echo $composer->name; ?></li>
-            <?php endforeach; ?>
-        </ul>
-        <?php if (count($music->composers) > 3): ?>
-            <button onclick="toggleList('composerList', this)">See More</button>
-        <?php endif; ?>
-    </div>
-
-    <!-- Arranger -->
-    <div class="mb-4">
-        <p class="font-semibold text-lg">Arranger:</p>
-        <ul class="list-disc list-inside" id="arrangerList">
-            <?php
-                $arrangers = $music->arrangers->take(3); // Limit to the first three items
-                foreach($arrangers as $arranger) {
-                    echo "<li>{$arranger->name}</li>";
-                }
-            ?>
-            <?php foreach($music->arrangers->skip(3) as $arranger): ?>
-                <li class="hidden"><?php echo $arranger->name; ?></li>
-            <?php endforeach; ?>
-        </ul>
-        <?php if (count($music->arrangers) > 3): ?>
-            <button onclick="toggleList('arrangerList', this)">See More</button>
-        <?php endif; ?>
-    </div>
-
-    <script>
-        function toggleList(listId, button) {
-            const list = document.getElementById(listId);
-            const items = list.querySelectorAll('li.hidden');
-
-            if (list.classList.contains('expanded')) {
-                list.classList.remove('expanded');
-                items.forEach(item => {
-                    item.style.display = 'none';
-                });
-                button.innerText = 'See More';
-            } else {
-                list.classList.add('expanded');
-                items.forEach(item => {
-                    item.style.display = 'list-item';
-                });
-                button.innerText = 'See Less';
-            }
-        }
-    </script>
 
     <style>
-        .list-inside {
-            max-height: 90px; /* Set the max height to show 3 items by default */
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
+        .music-player, .music-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    text-align: center; /* Center text */
+}
 
-        .list-inside.expanded {
-            max-height: none; /* Allow full height when expanded */
-        }
+.tab-buttons {
+    margin-bottom: 10px; /* Add some space below the tab buttons */
+}
 
-        li.hidden {
-            display: none;
-        }
-    </style>
+#musicPlayer {
+    width: 100%; /* Make the audio player full width */
+    max-width: 300px; /* Limit the maximum width */
+    margin-top: 10px; /* Add some space above the audio player */
+}
 
-    <!-- Language -->
-    <div class="mb-4">
-        <p class="font-semibold text-lg">Language:</p>
-        <p>{{ $music->language->name }}</p>
+
+</style>
+            <div class="music-player">
+                <!-- Tab buttons -->
+                <div class="tab-buttons">
+                    <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->vocals_mp3_path) }}">Vocals</button>
+                    <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->organ_mp3_path) }}">Organ</button>
+                    <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->preludes_mp3_path) }}">Preludes</button>
+                </div>
+
+                <!-- Audio player -->
+                <audio id="musicPlayer" controls class="w-64" preload="auto">
+                    Your browser does not support the audio element.
+                    <!-- Include source elements -->
+                    <source id="audioSource" src="#" type="audio/mpeg">
+                </audio>
+
+                <!-- Playback control buttons -->
+                <div class="flex mt-2 mb-2" style="display:none;">
+                    <button onclick="rewindAudio()" class="custom-btn mr-4">
+                        <i class="fas fa-backward"></i>
+                    </button>
+                    <button onclick="fastForwardAudio()" class="custom-btn ml-4">
+                        <i class="fas fa-forward"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Music Score (Right Side) -->
+            <div class="music-score">
+                <!-- Tab buttons -->
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-path="{{ asset('storage/' . $music->music_score_path) }}">Music Score</button>
+                    <button class="tab-button" data-path="{{ asset('storage/' . $music->lyrics_path) }}">Lyrics Only</button>
+                </div>
+
+                <!-- PDF or Lyrics Container -->
+                <div class="pdf-container">
+                    <!-- Canvas for PDF rendering -->
+                    <div id="pdf-container"></div>
+                </div>
+            </div>
+
     </div>
-
-    <!-- Verses Used -->
-    <div class="mb-4">
-        <p class="font-semibold text-lg">Verses Used:</p>
-        <p>{{ $music->verses_used }}</p>
-    </div>
-
-</div>
-
-
-<!-- Music Score (Right Side) -->
-<div class="music-score">
-    <!-- Tab buttons -->
-    <div class="tab-buttons">
-        <button class="tab-button active" data-path="{{ asset('storage/' . $music->music_score_path) }}">Music Score</button>
-        <button class="tab-button" data-path="{{ asset('storage/' . $music->lyrics_path) }}">Lyrics Only</button>
-    </div>
-
-    <!-- PDF or Lyrics Container -->
-    <div class="pdf-container">
-        <!-- Canvas for PDF rendering -->
-        <div id="pdf-container"></div>
-    </div>
-</div>
-
-
 </div>
 
 
 <style>
     /* Custom CSS styles for music details section */
+
+    .music-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px; /* Adjust the gap between left and right sections */
+}
+
+.music-player-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Make the music-player-details take the full width of the container */
+}
+
+.music-player, .music-score {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.music-details {
+    flex: 1; /* Expand to fill available space */
+}
+#musicPlayer {
+    width: 100%;
+    max-width: 300px; /* Optional: limit the max width of the audio player */
+}
     .tab-buttons {
         display: flex;
         justify-content: start;
@@ -366,21 +468,6 @@ musicPlayer.addEventListener('click', seekAudio);
         background-color: #303639; /* Blue background for active tab */
         
         color: #f9f9f9;
-    }
-    .music-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px; /* Adjust the gap between left and right sections */
-}
-
-.music-details {
-    flex: 1; /* Expand to fill available space */
-}
-.music-score {
-        display: flex;
-        flex-direction: column;
-        flex-basis: 60%; /* Set width for the right side (music score) */
     }
 
 /* Ensure the PDF container is responsive */
