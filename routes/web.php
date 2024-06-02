@@ -62,6 +62,8 @@ Route::get('/musics/{id}', [MusicController::class, 'show'])->name('musics.show'
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
+Route::resource('users', UserController::class);
+
 Route::get('music_management/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::post('music_management/categories', [CategoryController::class, 'store'])->name('categories.store'); // Updated route for storing a new category
 Route::get('music_management/categories/{categories}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
