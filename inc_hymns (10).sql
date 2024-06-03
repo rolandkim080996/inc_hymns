@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2024 at 01:15 PM
+-- Generation Time: Jun 03, 2024 at 10:31 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -254,7 +254,7 @@ CREATE TABLE `musics` (
 --
 
 INSERT INTO `musics` (`id`, `church_hymn_id`, `title`, `song_number`, `music_score_path`, `lyrics_path`, `vocals_mp3_path`, `organ_mp3_path`, `preludes_mp3_path`, `language_id`, `verses_used`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(64, 1, 'DARATING DIN ANG KAGALAKAN', '456', 'music_files/FILIPINO_HYMNS_AWS_1_526_551_594forprinting_23October2023_526.pdf', 'music_files/456.pdf', 'music_files/456.mp3', NULL, 'music_files/P456.mp3', 2, 'Gawa 20:28', 1, 1, '2024-05-23 21:31:37', '2024-05-30 21:05:09');
+(64, 1, 'DARATING DIN ANG KAGALAKAN', '456', 'music_files/FILIPINO_HYMNS_AWS_1_526_551_594forprinting_23October2023_526.pdf', 'music_files/456.pdf', 'music_files/456 organ.mp3', 'music_files/456.mp3', 'music_files/P456.mp3', 1, 'Gawa 20:28; Roma 16:16', 1, 1, '2024-05-23 21:31:37', '2024-06-02 23:44:48');
 
 -- --------------------------------------------------------
 
@@ -278,11 +278,8 @@ INSERT INTO `music_arranger` (`id`, `music_id`, `arranger_id`, `created_at`, `up
 (118, 64, 12, NULL, NULL),
 (119, 64, 13, NULL, NULL),
 (120, 64, 14, NULL, NULL),
-(121, 64, 27, NULL, NULL),
 (122, 64, 28, NULL, NULL),
-(123, 64, 39, NULL, NULL),
-(124, 64, 40, NULL, NULL),
-(132, 64, 1, NULL, NULL);
+(123, 64, 39, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -301,8 +298,7 @@ CREATE TABLE `music_category` (
 
 INSERT INTO `music_category` (`music_id`, `category_id`) VALUES
 (64, 1),
-(64, 2),
-(64, 3);
+(64, 2);
 
 -- --------------------------------------------------------
 
@@ -325,7 +321,8 @@ CREATE TABLE `music_composer` (
 INSERT INTO `music_composer` (`id`, `music_id`, `composer_id`, `created_at`, `updated_at`) VALUES
 (92, 64, 1, NULL, NULL),
 (93, 64, 3, NULL, NULL),
-(94, 64, 4, NULL, NULL);
+(94, 64, 4, NULL, NULL),
+(103, 64, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -470,8 +467,7 @@ CREATE TABLE `music_ensemble_type` (
 --
 
 INSERT INTO `music_ensemble_type` (`music_id`, `ensemble_type_id`) VALUES
-(64, 1),
-(64, 2);
+(64, 1);
 
 -- --------------------------------------------------------
 
@@ -561,9 +557,12 @@ CREATE TABLE `personal_access_tokens` (
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `permissions` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `activated` tinyint(1) NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -573,9 +572,20 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Felix Pareja', 'felixpareja.pmdit07@gmail.com', NULL, '$2y$12$sAqXyyv2afDq.Na6cG8mF.6VOFFlvNFH9vse/l3L3KFhfpfR86rdW', NULL, '2024-04-16 21:46:25', '2024-04-23 20:29:35'),
-(2, 'Roland Kim Amaro', 'amarorolandkim@gmail.com', NULL, '$2y$12$f4dLcthxGh7XpqMz69XQiOzHjF5GhCLVVJlJRwBlhk0EREtn/XDn.', NULL, '2024-04-22 19:21:12', '2024-04-22 19:21:12');
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_verified_at`, `password`, `permissions`, `activated`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Felix Pareja', 'fmpareja', 'felixpareja.pmdit07@gmail.com', NULL, '$2y$12$oXj7Jb0Mq2ubIdW6FnqIH.Y5QJEWSHNxkImnSGf25eEuMripxrKd.', NULL, 0, NULL, '2024-04-16 21:46:25', '2024-06-02 22:44:47'),
+(3, 'Kim Amaro', 'kamaro', 'kimamaro@gmail.com', NULL, '$2y$12$gdJNOpmcVydXmnStkBxnHe1oPVIpWlFtfNPx9c3GsHA/sycQn94ie', NULL, 0, NULL, '2024-06-02 23:08:48', '2024-06-02 23:10:22');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_groups`
+--
+
+CREATE TABLE `users_groups` (
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `group_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -707,6 +717,12 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Indexes for table `users_groups`
+--
+ALTER TABLE `users_groups`
+  ADD UNIQUE KEY `user_id` (`user_id`,`group_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -762,13 +778,13 @@ ALTER TABLE `musics`
 -- AUTO_INCREMENT for table `music_arranger`
 --
 ALTER TABLE `music_arranger`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `music_composer`
 --
 ALTER TABLE `music_composer`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `music_creators`
@@ -780,7 +796,7 @@ ALTER TABLE `music_creators`
 -- AUTO_INCREMENT for table `music_lyricist`
 --
 ALTER TABLE `music_lyricist`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -792,7 +808,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
