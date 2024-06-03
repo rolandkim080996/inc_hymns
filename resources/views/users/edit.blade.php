@@ -31,13 +31,13 @@
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
 
-                        <div class="mt-4">
+                        <div class="mt-4 sm:hidden">
                             <x-input-label for="password" :value="__('Password')" />
                             <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" />
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                         </div>
 
-                        <div class="mt-4">
+                        <div class="mt-4 sm:hidden">
                             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
                             <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" />
                         </div>
@@ -46,6 +46,10 @@
                             <x-primary-button class="ml-4">
                                 {{ __('Update User') }}
                             </x-primary-button>
+
+                            <a href="{{ route('users.index') }}" class="btn btn-secondary ml-4">
+                                {{ __('Cancel') }}
+                            </a>
                         </div>
                     </form>
                 </div>

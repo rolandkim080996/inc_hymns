@@ -47,10 +47,16 @@
                     {{ __('Ensemble Types') }}
                 </x-nav-link>
             </li>
-                        <!-- List of Ensemble Types -->
-                        <li class="opacity-10 transform scale-0 transition-all duration-300 delay-300">
+            <!-- List of Ensemble Types -->
+            <li class="opacity-10 transform scale-0 transition-all duration-300 delay-300">
                 <x-nav-link :href="route('credits.index')" :active="request()->routeIs('credits.index')">
                     {{ __('Credits') }}
+                </x-nav-link>
+            </li>
+                        <!-- List of Ensemble Types -->
+                        <li class="opacity-10 transform scale-0 transition-all duration-300 delay-300">
+                <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                    {{ __('Users') }}
                 </x-nav-link>
             </li>
         </ul>

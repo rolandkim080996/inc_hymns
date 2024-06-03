@@ -11,6 +11,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InstrumentationController;
 use App\Http\Controllers\EnsembleTypeController;
 use App\Http\Controllers\MusicCreatorController;
+
+use App\Http\Controllers\Auth\RegisteredUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,6 +65,11 @@ Route::get('/musics/{id}', [MusicController::class, 'show'])->name('musics.show'
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
 Route::resource('users', UserController::class);
+Route::resource('groups', UserController::class);
+
+Route::get('/register', [RegisteredUserController::class, 'create'])
+    ->name('register'); // No middleware to allow access for both guests and authenticated users
+Route::post('/register', [RegisteredUserController::class, 'store']);
 
 Route::get('music_management/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::post('music_management/categories', [CategoryController::class, 'store'])->name('categories.store'); // Updated route for storing a new category

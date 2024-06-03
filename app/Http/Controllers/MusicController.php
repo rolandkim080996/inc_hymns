@@ -364,9 +364,8 @@ public function index(Request $request)
         $selectedLyricistIds = $request->input('lyricist_id', []);
         $selectedComposerIds = $request->input('composer_id', []);
         $selectedArrangerIds = $request->input('arranger_id', []);
-       
-
-        // // Define a function to update pivot tables
+        
+        // Define a function to update pivot tables
         $updatePivotTable = function($music, $relation, $foreignKey, $selectedIds) 
         {
             // Convert the comma-separated string to an array
