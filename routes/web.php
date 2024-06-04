@@ -14,6 +14,8 @@ use App\Http\Controllers\MusicCreatorController;
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\PermissionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -70,6 +72,10 @@ Route::resource('users', UserController::class);
 Route::resource('groups', GroupController::class);
 
 Route::get('groups/{group}/users', [GroupController::class, 'showUsers'])->name('groups.users');
+
+
+Route::resource('permissions', PermissionController::class);
+Route::get('permissions/show', [PermissionController::class, 'showPermissions'])->name('permissions.show');
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
     ->name('register'); // No middleware to allow access for both guests and authenticated users

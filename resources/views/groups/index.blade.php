@@ -15,12 +15,20 @@
             <div>
                 <a href="{{ route('groups.create') }}" class="btn btn-primary ml-3">Create New</a>
                 
-                <a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back</a>
             </div>
         </div>
     </x-slot>
 
-    <div class="container mx-auto mt-6">
+    <div class="py-12">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    @if(session('success'))
+                        <div class="mb-4 font-medium text-sm text-green-600">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
 
     <table class="w-full max-w-full table-auto border divide-y divide-gray-200">
@@ -34,26 +42,40 @@
         </thead>
         <tbody>
             @foreach($groups as $group)
-                <tr>
-                    <td class="py-2">
-                        <a href="{{ route('groups.users', $group->id) }}" class="text-blue-600">{{ $group->name }}</a>
-                    </td>
-                    <td class="py-2 text-center">{{ $group->users_count }}</td>
-                    <td class="py-2 text-center">{{ $group->created_at->format('Y-m-d') }}</td>
-                    <td class="py-2 text-center">
+            <tr>
+                <td class="px-6 py-1 whitespace-nowrap border text-center">
+                    <a href="{{ route('groups.users', $group->id) }}" class="text-blue-600" style="color:#3c8dbc">{{ $group->name }}</a>
+                </td>
+                <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $group->users_count }}</td>
+                <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $group->created_at->format('Y-m-d h:i A') }}</td>
+    <td class="px-6 py-1 whitespace-nowrap border text-center">
+                    <div class="flex justify-center items-center space-x-2">
                         <a href="{{ route('groups.edit', $group->id) }}" class="btn btn-primary btn-sm edit-Credit"><i class="fas fa-edit"></i></a>
-                        <form action="{{ route('groups.destroy', $group->id) }}" method="POST" class="inline-block">
+                        <form action="{{ route('groups.destroy', $group->id) }}" method="POST" class="inline-block" onsubmit="return confirmDelete(event)">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')" style="margin-top:16px;margin-left:5px;">
+                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded" style="margin-top:16px;margin-left:5px;">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </form>
-                    </td>
-                </tr>
+                    </div>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>
+
+    <script>
+                    function confirmDelete(event) {
+                        event.preventDefault(); // Prevent the form from submitting immediately
+                        if (confirm('Are you sure you want to delete this group?')) {
+                            event.target.submit(); // Submit the form if the user confirms
+                        }
+                    }
+                </script>
+</div>
+</div>
+</div>
 </div>
 
     </x-app-layout>

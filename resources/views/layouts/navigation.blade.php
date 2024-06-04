@@ -53,10 +53,16 @@
                     {{ __('Credits') }}
                 </x-nav-link>
             </li>
-                        <!-- List of Ensemble Types -->
-                        <li class="opacity-10 transform scale-0 transition-all duration-300 delay-300">
-                <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
-                    {{ __('Users') }}
+            <!-- List of Permissions -->
+            <li class="opacity-10 transform scale-0 transition-all duration-300 delay-300">
+                <x-nav-link :href="route('permissions.index')" :active="request()->routeIs('permissions.index')">
+                    {{ __('Permissions') }}
+                </x-nav-link>
+            </li>
+            <!-- List of Groups -->
+            <li class="opacity-10 transform scale-0 transition-all duration-300 delay-300">
+                <x-nav-link :href="route('groups.index')" :active="request()->routeIs('groups.index')">
+                    {{ __('Groups') }}
                 </x-nav-link>
             </li>
         </ul>
@@ -98,6 +104,33 @@
 
             </div>
 
+
+       <!-- Create New Hymn and User -->
+       <div class="hidden sm:flex sm:items-center sm:ml-6 ml-4" style="margin-right: 2px;">
+                <x-dropdown align="right" width="48">
+                    <x-slot name="trigger">
+                        <button class="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition duration-150 ease-in-out">
+                            <div class="font-medium text-base text-gray-800 dark:text-gray-200">Create New</div>
+                            <div class="ml-1">
+                                <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 111.414 1.414l-4 4a1 1 01-1.414 0l-4-4a1 1 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </button>
+                    </x-slot>
+                    <x-slot name="content">
+                        <!-- Hymn Create Link -->
+                        <x-responsive-nav-link :href="route('musics.create')" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                            {{ __('Hymn') }}
+                        </x-responsive-nav-link>
+                        <!-- User Create Link -->
+                        <x-responsive-nav-link :href="route('users.create')" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                            {{ __('User') }}
+                        </x-responsive-nav-link>
+                    </x-slot>
+                </x-dropdown>
+            </div>
+
             <!-- User Profile Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
@@ -106,18 +139,16 @@
                             <div>{{ Auth::user()->name }}</div>
                             <div class="ml-1">
                                 <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 011.414 0L10 10.586l3.293-3.293a1 1 111.414 1.414l-4 4a1 1 01-1.414 0l-4-4a1 1 010-1.414z" clip-rule="evenodd" />
                                 </svg>
                             </div>
                         </button>
                     </x-slot>
-
                     <x-slot name="content">
                         <!-- User Profile -->
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -159,6 +190,25 @@
                 {{ __('Users') }}
             </x-responsive-nav-link>
         </div>
+
+
+         <!-- Create New Hymn and User -->
+         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+            <div class="px-4">
+                <div class="font-medium text-base text-gray-800 dark:text-gray-200">Create New</div>
+            </div>
+            <div class="mt-3 space-y-1">
+                <!-- Hymn Create Link -->
+                <x-responsive-nav-link :href="route('musics.create')" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                    {{ __('Hymn') }}
+                </x-responsive-nav-link>
+                <!-- User Create Link -->
+                <x-responsive-nav-link :href="route('users.create')" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                    {{ __('User') }}
+                </x-responsive-nav-link>
+            </div>
+        </div>
+
 
         <!-- User Profile and Logout -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">

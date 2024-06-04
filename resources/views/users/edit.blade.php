@@ -42,12 +42,21 @@
                             <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" />
                         </div>
 
+                        <div class="mt-4">
+                            <x-input-label for="groups" :value="__('Groups')" />
+                            <select id="groups" name="groups[]" multiple class="block mt-1 w-full">
+                                @foreach ($groups as $group)
+                                    <option value="{{ $group->id }}" {{ $user->groups->contains($group) ? 'selected' : '' }}>{{ $group->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="flex items-center justify-end mt-4">
                             <x-primary-button class="ml-4">
                                 {{ __('Update User') }}
                             </x-primary-button>
 
-                            <a href="{{ route('users.index') }}" class="btn btn-secondary ml-4">
+                            <a href="{{ route('groups.users', $group->id) }}" class="btn btn-secondary ml-4">
                                 {{ __('Cancel') }}
                             </a>
                         </div>

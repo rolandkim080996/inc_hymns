@@ -9,11 +9,22 @@
 
 
 <x-app-layout>
+
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Users') }}
-        </h2>
+        <div class="flex justify-between items-center my-8">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ $group->name }} Users
+            </h2>
+            <div>
+                <a href="{{ route('groups.create') }}" class="btn btn-primary ml-3">Create New</a>
+                
+                <a href="{{ route('groups.index') }}" class="btn btn-secondary">
+                                {{ __('Cancel') }}
+                            </a>
+            </div>
+        </div>
     </x-slot>
+
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -26,7 +37,7 @@
                     @endif
 
                     <div class="mb-4">
-                        <a href="{{ route('register') }}" class="btn btn-success">
+                        <a href="{{ route('users.create') }}" class="btn btn-success">
                             Add User
                         </a>
                     </div>
@@ -35,8 +46,9 @@
                     <thead>
                         <tr>
                             <th scope="col" style="width: 25%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Name</th>
-                            <th scope="col" style="width: 25%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Username</th>
                             <th scope="col" style="width: 25%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Email</th>
+                            <th scope="col" style="width: 25%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Username</th>
+                            <th scope="col" style="width: 25%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Group</th>
                             <th scope="col" style="width: 15%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider"></th>
                         </tr>
                     </thead>
@@ -44,8 +56,10 @@
                         @foreach($users as $user)
                             <tr>
                                 <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $user->name }}</td>
-                                <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $user->username }}</td>
                                 <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $user->email }}</td>
+                                <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $user->username }}</td>
+                                <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $group->name }}</td>
+                                
                                 <td class="px-6 py-1 whitespace-nowrap border text-center">
                                     <div class="flex justify-center items-center space-x-2">
                                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm edit-Credit">
