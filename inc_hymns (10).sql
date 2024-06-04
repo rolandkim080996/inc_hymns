@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2024 at 10:31 AM
+-- Generation Time: Jun 04, 2024 at 10:37 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -142,6 +142,18 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `group_permission`
+--
+
+CREATE TABLE `group_permission` (
+  `group_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `instrumentations`
 --
 
@@ -223,7 +235,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2024_04_21_043736_create_music_category_table', 3),
 (16, '2024_04_21_043742_create_music_instrumentation_table', 3),
 (17, '2024_04_21_043748_create_music_ensemble_type_table', 3),
-(18, '2024_04_21_044619_modify_musics_table', 4);
+(18, '2024_04_21_044619_modify_musics_table', 4),
+(19, '2024_06_04_062006_create_permissions_table', 5);
 
 -- --------------------------------------------------------
 
@@ -532,6 +545,152 @@ INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'superuser', 'Super User', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(2, 'admin', 'Admin', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(3, 'csv_import', 'CSV Import', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(4, 'dashboard', 'Dashboard', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(5, 'musics.view', 'View', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(6, 'musics.create', 'Create', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(7, 'musics.edit', 'Edit', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(8, 'musics.delete', 'Delete', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(9, 'musics.view_hymn', 'View Hymn', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(10, 'music_details.view', 'View', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(11, 'music_details.download', 'Download', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(12, 'music_details.play', 'Play', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(13, 'categories.view', 'View', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(14, 'categories.create', 'Create', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(15, 'categories.edit', 'Edit', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(16, 'categories.delete', 'Delete', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(17, 'instrumentations.view', 'View', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(18, 'instrumentations.create', 'Create', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(19, 'instrumentations.edit', 'Edit', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(20, 'instrumentations.delete', 'Delete', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(21, 'ensemble_types.view', 'View', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(22, 'ensemble_types.create', 'Create', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(23, 'ensemble_types.edit', 'Edit', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(24, 'ensemble_types.delete', 'Delete', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(25, 'credits.view', 'View', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(26, 'credits.create', 'Create', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(27, 'credits.edit', 'Edit', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(28, 'credits.delete', 'Delete', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(29, 'groups.view', 'View', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(30, 'groups.create', 'Create', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(31, 'groups.edit', 'Edit', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(32, 'groups.delete', 'Delete', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(33, 'users.view', 'View', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(34, 'users.create', 'Create', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(35, 'users.edit', 'Edit', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(36, 'users.delete', 'Delete', '2024-06-03 23:56:00', '2024-06-03 23:56:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permission_categories`
+--
+
+CREATE TABLE `permission_categories` (
+  `id` int(11) NOT NULL,
+  `permission_id` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `permission_categories`
+--
+
+INSERT INTO `permission_categories` (`id`, `permission_id`, `category_id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, 'Global', NULL, '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(2, 1, 1, NULL, NULL, NULL, NULL),
+(3, 2, 1, NULL, NULL, NULL, NULL),
+(4, 3, 1, NULL, NULL, NULL, NULL),
+(5, 4, 1, NULL, NULL, NULL, NULL),
+(6, NULL, NULL, 'Musics', NULL, '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(7, 5, 6, NULL, NULL, NULL, NULL),
+(8, 6, 6, NULL, NULL, NULL, NULL),
+(9, 7, 6, NULL, NULL, NULL, NULL),
+(10, 8, 6, NULL, NULL, NULL, NULL),
+(11, 9, 6, NULL, NULL, NULL, NULL),
+(12, NULL, NULL, 'Music Details', NULL, '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(13, 10, 12, NULL, NULL, NULL, NULL),
+(14, 11, 12, NULL, NULL, NULL, NULL),
+(15, 12, 12, NULL, NULL, NULL, NULL),
+(16, NULL, NULL, 'Categories', NULL, '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(17, 13, 16, NULL, NULL, NULL, NULL),
+(18, 14, 16, NULL, NULL, NULL, NULL),
+(19, 15, 16, NULL, NULL, NULL, NULL),
+(20, 16, 16, NULL, NULL, NULL, NULL),
+(21, NULL, NULL, 'Instrumentations', NULL, '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(22, 17, 21, NULL, NULL, NULL, NULL),
+(23, 18, 21, NULL, NULL, NULL, NULL),
+(24, 19, 21, NULL, NULL, NULL, NULL),
+(25, 20, 21, NULL, NULL, NULL, NULL),
+(26, NULL, NULL, 'Ensemble Types', NULL, '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(27, 21, 26, NULL, NULL, NULL, NULL),
+(28, 22, 26, NULL, NULL, NULL, NULL),
+(29, 23, 26, NULL, NULL, NULL, NULL),
+(30, 24, 26, NULL, NULL, NULL, NULL),
+(31, NULL, NULL, 'Credits', NULL, '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(32, 25, 31, NULL, NULL, NULL, NULL),
+(33, 26, 31, NULL, NULL, NULL, NULL),
+(34, 27, 31, NULL, NULL, NULL, NULL),
+(35, 28, 31, NULL, NULL, NULL, NULL),
+(36, NULL, NULL, 'Groups', NULL, '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(37, 29, 36, NULL, NULL, NULL, NULL),
+(38, 30, 36, NULL, NULL, NULL, NULL),
+(39, 31, 36, NULL, NULL, NULL, NULL),
+(40, 32, 36, NULL, NULL, NULL, NULL),
+(41, NULL, NULL, 'Users', NULL, '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(42, 33, 41, NULL, NULL, NULL, NULL),
+(43, 34, 41, NULL, NULL, NULL, NULL),
+(44, 35, 41, NULL, NULL, NULL, NULL),
+(45, 36, 41, NULL, NULL, NULL, NULL),
+(46, 37, 1, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permission_groups`
+--
+
+CREATE TABLE `permission_groups` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `permissions` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `permission_groups`
+--
+
+INSERT INTO `permission_groups` (`id`, `name`, `permissions`, `created_at`, `updated_at`) VALUES
+(1, 'PMD-IT', '{\"superuser\":\"1\",\"admin\":\"0\",\"csv_import\":\"0\",\"dashboard\":\"0\",\"musics.view\":\"1\",\"musics.create\":\"1\",\"musics.edit\":\"1\",\"musics.delete\":\"1\",\"musics.view_hymn\":\"1\",\"music_details.view\":\"1\",\"music_details.download\":\"1\",\"music_details.play\":\"1\",\"categories.view\":\"1\",\"categories.create\":\"1\",\"categories.edit\":\"1\",\"categories.delete\":\"1\",\"instrumentations.view\":\"1\",\"instrumentations.create\":\"1\",\"instrumentations.edit\":\"1\",\"instrumentations.delete\":\"1\",\"ensemble_types.view\":\"1\",\"ensemble_types.create\":\"1\",\"ensemble_types.edit\":\"1\",\"ensemble_types.delete\":\"1\",\"credits.view\":\"1\",\"credits.create\":\"1\",\"credits.edit\":\"1\",\"credits.delete\":\"1\",\"groups.view\":\"1\",\"groups.create\":\"1\",\"groups.edit\":\"1\",\"groups.delete\":\"1\",\"users.view\":\"1\",\"users.create\":\"1\",\"users.edit\":\"1\",\"users.delete\":\"1\"}', '2024-06-03 18:27:24', '2024-06-03 21:56:42'),
+(2, 'VIP', '{\"superuser\":\"0\",\"admin\":\"0\",\"csv_import\":\"0\",\"dashboard\":\"0\",\"musics.view\":\"1\",\"musics.create\":\"0\",\"musics.edit\":\"0\",\"musics.delete\":\"0\",\"musics.view_hymn\":\"1\",\"music_details.view\":\"1\",\"music_details.download\":\"1\",\"music_details.play\":\"1\",\"categories.view\":\"0\",\"categories.create\":\"0\",\"categories.edit\":\"0\",\"categories.delete\":\"0\",\"instrumentations.view\":\"0\",\"instrumentations.create\":\"0\",\"instrumentations.edit\":\"0\",\"instrumentations.delete\":\"0\",\"ensemble_types.view\":\"0\",\"ensemble_types.create\":\"0\",\"ensemble_types.edit\":\"0\",\"ensemble_types.delete\":\"0\",\"credits.view\":\"0\",\"credits.create\":\"0\",\"credits.edit\":\"0\",\"credits.delete\":\"0\",\"groups.view\":\"0\",\"groups.create\":\"0\",\"groups.edit\":\"0\",\"groups.delete\":\"0\",\"users.view\":\"0\",\"users.create\":\"0\",\"users.edit\":\"0\",\"users.delete\":\"0\"}', '2024-06-03 21:30:05', '2024-06-03 21:30:05');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `personal_access_tokens`
 --
 
@@ -562,7 +721,7 @@ CREATE TABLE `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `permissions` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `activated` tinyint(1) NOT NULL,
+  `activated` tinyint(1) DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -574,7 +733,11 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_verified_at`, `password`, `permissions`, `activated`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Felix Pareja', 'fmpareja', 'felixpareja.pmdit07@gmail.com', NULL, '$2y$12$oXj7Jb0Mq2ubIdW6FnqIH.Y5QJEWSHNxkImnSGf25eEuMripxrKd.', NULL, 0, NULL, '2024-04-16 21:46:25', '2024-06-02 22:44:47'),
-(3, 'Kim Amaro', 'kamaro', 'kimamaro@gmail.com', NULL, '$2y$12$gdJNOpmcVydXmnStkBxnHe1oPVIpWlFtfNPx9c3GsHA/sycQn94ie', NULL, 0, NULL, '2024-06-02 23:08:48', '2024-06-02 23:10:22');
+(3, 'Kim Amaro', 'kamaro', 'kimamaro@gmail.com', NULL, '$2y$12$gdJNOpmcVydXmnStkBxnHe1oPVIpWlFtfNPx9c3GsHA/sycQn94ie', NULL, 0, NULL, '2024-06-02 23:08:48', '2024-06-02 23:10:22'),
+(4, 'Roland Kim Amaro', 'rkamaro', 'rkamaro@gmail.com', NULL, '$2y$12$X6mlU56RRbC5zxyy5IVGde/q0Tsr9MgUQt4afweD2JbZKokf1Nbo2', NULL, NULL, NULL, '2024-06-03 19:42:53', '2024-06-03 21:38:36'),
+(5, 'Eduardo V. Manalo', 'evm', 'evm@gmail.com', NULL, '$2y$12$Cp0HvJC.wabZ/NtmJ8TyquM0wSDUpNKxblvJix3j1zl0AblSLbyp.', NULL, NULL, NULL, '2024-06-03 21:31:13', '2024-06-03 21:37:47'),
+(6, 'Antonio  T. de Guzman', 'atg', 'atg@gmail.com', NULL, '$2y$12$u3ikFSmmBU44bVQ9vK160emXzhh98nLkiGTCnO7Gdo5ClMlOcFcPe', NULL, NULL, NULL, '2024-06-03 21:34:13', '2024-06-03 21:38:06'),
+(7, 'Gemma M. de Guzman', 'gmg', 'gmg@gmail.com', NULL, '$2y$12$T7j3WfGYbg7Po9iFTI474epUuzRwS2sFtgLsdQNGD06imTmKxC4Im', NULL, NULL, NULL, '2024-06-03 21:53:50', '2024-06-03 21:53:50');
 
 -- --------------------------------------------------------
 
@@ -586,6 +749,18 @@ CREATE TABLE `users_groups` (
   `user_id` int(10) UNSIGNED NOT NULL,
   `group_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users_groups`
+--
+
+INSERT INTO `users_groups` (`user_id`, `group_id`) VALUES
+(1, 1),
+(3, 1),
+(4, 1),
+(5, 2),
+(6, 2),
+(7, 2);
 
 --
 -- Indexes for dumped tables
@@ -702,6 +877,25 @@ ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Indexes for table `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `permissions_name_unique` (`name`);
+
+--
+-- Indexes for table `permission_categories`
+--
+ALTER TABLE `permission_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `permission_groups`
+--
+ALTER TABLE `permission_groups`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
@@ -766,7 +960,7 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `musics`
@@ -799,6 +993,24 @@ ALTER TABLE `music_lyricist`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
+-- AUTO_INCREMENT for table `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `permission_categories`
+--
+ALTER TABLE `permission_categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
+--
+-- AUTO_INCREMENT for table `permission_groups`
+--
+ALTER TABLE `permission_groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
@@ -808,7 +1020,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
