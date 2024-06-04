@@ -13,6 +13,7 @@ use App\Http\Controllers\EnsembleTypeController;
 use App\Http\Controllers\MusicCreatorController;
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\GroupController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,7 +66,10 @@ Route::get('/musics/{id}', [MusicController::class, 'show'])->name('musics.show'
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
 Route::resource('users', UserController::class);
-Route::resource('groups', UserController::class);
+
+Route::resource('groups', GroupController::class);
+
+Route::get('groups/{group}/users', [GroupController::class, 'showUsers'])->name('groups.users');
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
     ->name('register'); // No middleware to allow access for both guests and authenticated users
