@@ -15,11 +15,24 @@
         </h2>
     </x-slot>
 
+    <x-slot name="header">
+        <div class="flex justify-between items-center my-8">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Permission Management') }}
+            </h2>
+            <div>
+                <a href="{{ route('permissions.create') }}" class="btn btn-primary ml-3">Add Permission</a>
+                
+                <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back</a>
+            </div>
+        </div>
+    </x-slot>
+
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <a href="{{ route('permissions.create') }}" class="btn btn-primary mb-4">{{ __('Add Permission') }}</a>
                     @if ($categories->isNotEmpty())
                         @foreach ($categories as $category)
                             @if ($category->permissions->isNotEmpty())
