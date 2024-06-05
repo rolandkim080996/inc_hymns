@@ -4,12 +4,12 @@
 
 
 </head>
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Hymn Management - Add') }}
         </h2>
+        
     </x-slot>
 
     <div class="py-10 mt-4">
@@ -285,7 +285,7 @@
 
                 <!-- Buttons to submit or close modal -->
                     <div class="flex justify-end">
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        <button type="submit" class="btn btn-success">
                             Add
                         </button>
                         <button type="button" class="bg-gray-600 hover:bg-gray-800 text-black font-bold py-2 px-4 rounded ml-2 focus:outline-none focus:shadow-outline" onclick="closeAddMusicModal()">

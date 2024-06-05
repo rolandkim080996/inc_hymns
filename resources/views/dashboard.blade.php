@@ -24,48 +24,52 @@
     <!-- Total Church Hymns -->
     @php
         $colors = ['0A6847', 'F6F5F2', 'C40C0C', 'FFBB70'];
-        $colorText = ['EEEEEE', '32012F','EEEEEE','EEEEEE'];
+        $colorText = ['EEEEEE', '32012F', 'EEEEEE', 'EEEEEE'];
         $colorIndex = 0;
     @endphp
 
     @foreach($totalChurchHymns as $hymn)
-        <div class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #{{ $colors[$colorIndex] }}; border: 2px solid #686D76;">
-            @php
-                $serviceName = '';
-                switch($hymn->name) {
-                    case 'AWS':
-                        $serviceName = 'Adult Worship Service';
-                        break;
-                    case 'CWS':
-                        $serviceName = 'Children Worship Service';
-                        break;
-                    case 'EM':
-                        $serviceName = 'Evanglical Mission';
-                        break;
-                    case 'Wedding':
-                        $serviceName = 'Wedding';
-                        break;
-                }
-                $currentTextColor = $colorText[$colorIndex];
-                $colorIndex = ($colorIndex + 1) % count($colors);
+        @php
+            $serviceName = '';
+            switch($hymn->name) {
+                case 'AWS':
+                    $serviceName = 'Adult Worship Service';
+                    break;
+                case 'CWS':
+                    $serviceName = 'Children Worship Service';
+                    break;
+                case 'EM':
+                    $serviceName = 'Evanglical Mission';
+                    break;
+                case 'Wedding':
+                    $serviceName = 'Wedding';
+                    break;
+            }
+            $currentTextColor = $colorText[$colorIndex];
+           
             @endphp
-            <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" class="font-bold text-center mb-2" style="color: #{{ $currentTextColor }}; font-size: 45px;">{{ $hymn->musics_count }}</a>
+        <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #{{ $colors[$colorIndex] }}; border: 2px solid #686D76; text-decoration: none;">
+            <span class="font-bold text-center mb-2" style="color: #{{ $currentTextColor }}; font-size: 45px;">{{ $hymn->musics_count }}</span>
             <h4 class="font-semibold text-center" style="color: #{{ $currentTextColor }}; font-size: 15px;">{{ $serviceName }}</h4>
-        </div>
+        </a>
+        @php
+        $colorIndex = ($colorIndex+ 1) % count($colors);
+        @endphp
     @endforeach
 
     <!-- Hymns of Music Count -->
-    <div class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #03AED2; border: 2px solid #686D76;">
-        <a href="{{ route('musics.index') }}" class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</a>
+    <a href="{{ route('musics.index') }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #03AED2; border: 2px solid #686D76; text-decoration: none;">
+        <span class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</span>
         <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Hymns</h4>
-    </div>
+    </a>
 
     <!-- Users Count -->
-    <div class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #121481; border: 2px solid #686D76;">
-        <a href="{{ route('users.index') }}" class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalUsers }}</a>
+    <a href="{{ route('users.index') }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #121481; border: 2px solid #686D76; text-decoration: none;">
+        <span class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalUsers }}</span>
         <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Users</h4>
-    </div>
+    </a>
 </div>
+
 
 
                     <div class="flex mt-8 gap-4 mt-4">

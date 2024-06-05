@@ -498,7 +498,6 @@ musicPlayer.addEventListener('click', seekAudio);
     </div>
 </div>
 
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
 <!-- JavaScript/jQuery to handle tab switching -->
