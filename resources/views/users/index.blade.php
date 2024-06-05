@@ -12,9 +12,10 @@
 
     <x-slot name="header">
         <div class="flex justify-between items-center my-8">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $group->name }} Users
-            </h2>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ !empty($group->name) ? $group->name : 'Current' }} Users
+        </h2>
+
             <div>
                 <a href="{{ route('groups.create') }}" class="btn btn-primary ml-3">Create New</a>
                 
@@ -45,6 +46,7 @@
                     <table class="w-full max-w-full table-auto border divide-y divide-gray-200">
                     <thead>
                         <tr>
+                            <th scope="col" style="width: 5%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">#</th>
                             <th scope="col" style="width: 25%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Name</th>
                             <th scope="col" style="width: 25%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Email</th>
                             <th scope="col" style="width: 25%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Username</th>
@@ -55,10 +57,20 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach($users as $user)
                             <tr>
+                                <td style="width: 5%;" class="px-6 py-1 whitespace-nowrap border text-center">{{ $loop->iteration }}</td>
                                 <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $user->name }}</td>
                                 <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $user->email }}</td>
                                 <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $user->username }}</td>
-                                <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $group->name }}</td>
+                                <td class="px-6 py-1 whitespace-nowrap border text-center">
+                                    @if($user->groups->isEmpty())
+                                        Current
+                                    @else
+                                        @foreach($user->groups as $group)
+                                            {{ $group->name }}
+                                            @if(!$loop->last), @endif
+                                        @endforeach
+                                    @endif
+                                </td>
                                 
                                 <td class="px-6 py-1 whitespace-nowrap border text-center">
                                     <div class="flex justify-center items-center space-x-2">

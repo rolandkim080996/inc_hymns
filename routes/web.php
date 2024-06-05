@@ -15,6 +15,7 @@ use App\Http\Controllers\MusicCreatorController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,3 +109,6 @@ Route::get('music_management/credits/{credits}/edit', [MusicCreatorController::c
 Route::put('music_management/credits/{credit}', [MusicCreatorController::class, 'update'])->name('credits.update');
 
 Route::delete('music_management/credits/{credit}', [MusicCreatorController::class, 'destroy'])->name('credits.destroy');
+
+
+Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.settings');

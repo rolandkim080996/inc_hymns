@@ -10,9 +10,18 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Credits List') }}
-        </h2>
+        <div class="flex justify-between items-center my-8">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Credits List') }}
+            </h2>
+            <div>
+                 <button id="addCreditButton" data-toggle="modal" data-target="#addCreditModal" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Credit
+                </button>
+                
+                <a href="{{ route('admin.settings') }}" class="btn btn-secondary">Back</a>
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -43,9 +52,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 
             <div class="p-6">
-                <button id="addCreditButton" data-toggle="modal" data-target="#addCreditModal" class="btn btn-success">
-                    <i class="fas fa-plus"></i> Credit
-                </button>
+
 
                 <form action="{{ route('credits.index') }}" method="GET" class="mt-4 mb-4">
                     <div class="input-group">

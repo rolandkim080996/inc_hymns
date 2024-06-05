@@ -1,11 +1,23 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
+<!-- Include Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Include jQuery before Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Music Details') }}
-        </h2>
+    <div class="flex justify-between items-center my-8">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Music Details') }}
+            </h2>
+            <div>
+            
+                <a href="{{ route('musics.index') }}" class="btn btn-secondary">Back</a>
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-10 mt-4">
@@ -14,14 +26,11 @@
                 <div class="p-6">
 
                 
-
-
-                
-
 <!-- Show Music Details Button -->
 <button id="showMusicDetailsBtn" class="show-details-btn">
     <i class="fas fa-arrow-right"></i>
 </button>
+
 <!-- Display Music Details -->
 <div id="musicDetails" class="music-details hidden">
     <!-- Title -->
@@ -233,8 +242,6 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
 
 </style>
 
-
-
 <div class="music-container">
 
  <!-- JavaScript to handle dropdown and audio playback -->
@@ -306,122 +313,58 @@ musicPlayer.addEventListener('click', seekAudio);
         }
     </script>
 
-
-
-
     <div class="music-player-details">
 
 
     <style>
-        .music-player, .music-score {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center horizontally */
-    justify-content: center; /* Center vertically */
-    text-align: center; /* Center text */
-}
+        /* Custom CSS styles for music details section */
 
-.tab-buttons {
-    margin-bottom: 10px; /* Add some space below the tab buttons */
-}
+        .music-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px; /* Adjust the gap between left and right sections */
+        }
 
-#musicPlayer {
-    width: 100%; /* Make the audio player full width */
-    max-width: 300px; /* Limit the maximum width */
-    margin-top: 10px; /* Add some space above the audio player */
-}
-
-
-</style>
-            <div class="music-player">
-                <!-- Tab buttons -->
-                <div class="tab-buttons">
-                    <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->vocals_mp3_path) }}">Vocals</button>
-                    <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->organ_mp3_path) }}">Organ</button>
-                    <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->preludes_mp3_path) }}">Preludes</button>
-                </div>
-
-                <!-- Audio player -->
-                <audio id="musicPlayer" controls class="w-64" preload="auto">
-                    Your browser does not support the audio element.
-                    <!-- Include source elements -->
-                    <source id="audioSource" src="#" type="audio/mpeg">
-                </audio>
-
-                <!-- Playback control buttons -->
-                <div class="flex mt-2 mb-2" style="display:none;">
-                    <button onclick="rewindAudio()" class="custom-btn mr-4">
-                        <i class="fas fa-backward"></i>
-                    </button>
-                    <button onclick="fastForwardAudio()" class="custom-btn ml-4">
-                        <i class="fas fa-forward"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Music Score (Right Side) -->
-            <div class="music-score">
-                <!-- Tab buttons -->
-                <div class="tab-buttons">
-                    <button class="tab-button active" data-path="{{ asset('storage/' . $music->music_score_path) }}">Music Score</button>
-                    <button class="tab-button" data-path="{{ asset('storage/' . $music->lyrics_path) }}">Lyrics Only</button>
-                </div>
-
-                <!-- PDF or Lyrics Container -->
-                <div class="pdf-container">
-                    <!-- Canvas for PDF rendering -->
-                    <div id="pdf-container"></div>
-                </div>
-            </div>
-
-    </div>
-</div>
-
-
-<style>
-    /* Custom CSS styles for music details section */
-
-    .music-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px; /* Adjust the gap between left and right sections */
-}
-
-.music-player-details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Make the music-player-details take the full width of the container */
-}
-
-.music-player, .music-score {
-    width: 100%;
-    max-width: 800px;
-    margin-bottom: 20px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-
-.music-details {
-    flex: 1; /* Expand to fill available space */
-}
-#musicPlayer {
-    width: 100%;
-    max-width: 300px; /* Optional: limit the max width of the audio player */
-}
-    .tab-buttons {
-        display: flex;
-        justify-content: start;
-        margin-bottom: 20px;
-    }
+        .music-player-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Make the music-player-details take the full width of the container */
+        }
+        .music-player {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 800px;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center horizontally */
+            justify-content: center; /* Center vertically */
+            text-align: center; /* Center text */
+            margin-bottom:0px;
+            background-color: rgba(21, 21, 21, 0.1);
+        }
+ 
+        .music-score {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center horizontally */
+            justify-content: center; /* Center vertically */
+            text-align: center; /* Center text */
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
     .tab-button-mp3 {
         background-color: #f9f9f9; /* Green background */
@@ -446,7 +389,6 @@ musicPlayer.addEventListener('click', seekAudio);
         color: #f9f9f9;
     }
 
-
     .tab-button {
         background-color: #f9f9f9; /* Green background */
         border: none;
@@ -470,36 +412,29 @@ musicPlayer.addEventListener('click', seekAudio);
         color: #f9f9f9;
     }
 
-/* Ensure the PDF container is responsive */
-.pdf-container {
-    width: 100%;
-    overflow-x: auto;
-}
-
-/* Ensure each canvas scales responsively */
-.pdf-container canvas {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin: 10px auto;
-}
-
-
-
-/* Responsive Styles (Optional) */
-@media (max-width: 768px) {
-    .music-container {
-        flex-direction: column; /* Stack sections vertically on smaller screens */
+    /* Ensure the PDF container is responsive */
+    .pdf-container {
+        width: 100%;
+        overflow-x: auto;
     }
 
-    .music-score {
-        flex-basis: 100%; /* Full width for PDF on smaller screens */
+    /* Ensure each canvas scales responsively */
+    .pdf-container canvas {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 10px auto;
     }
-}
 
+    /* Responsive Styles (Optional) */
+    @media (max-width: 768px) {
+        .music-container {
+            flex-direction: column; /* Stack sections vertically on smaller screens */
+        }
 
-    .mb-8 {
-        margin-bottom: 2rem;
+        .music-score {
+            flex-basis: 100%; /* Full width for PDF on smaller screens */
+        }
     }
 
     .font-semibold {
@@ -517,7 +452,52 @@ musicPlayer.addEventListener('click', seekAudio);
     .list-inside {
         padding-left: 1.5rem;
     }
+
 </style>
+            <div class="music-player">
+                <!-- Tab buttons -->
+                <div class="flex tab-buttons">
+                    <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->vocals_mp3_path) }}">Vocals</button>
+                    <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->organ_mp3_path) }}">Organ</button>
+                    <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->preludes_mp3_path) }}">Preludes</button>
+                </div>
+
+                <div class="flex row mt-1 mb-1">
+                    <!-- Audio player -->
+                    <audio id="musicPlayer" controls preload="auto">
+                        Your browser does not support the audio element.
+                        <!-- Include source elements -->
+                        <source id="audioSource" src="#" type="audio/mpeg">
+                    </audio>
+                    <!-- Tab Lyrics -->
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-path="{{ asset('storage/' . $music->music_score_path) }}">Music Score</button>
+                        <button class="tab-button" data-path="{{ asset('storage/' . $music->lyrics_path) }}">Lyrics Only</button>
+                    </div>
+                </div>
+                <!-- Playback control buttons -->
+                <div class="flex mt-2 mb-2" style="display:none;">
+                    <button onclick="rewindAudio()" class="custom-btn mr-4">
+                        <i class="fas fa-backward"></i>
+                    </button>
+                    <button onclick="fastForwardAudio()" class="custom-btn ml-4">
+                        <i class="fas fa-forward"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Music Score (Right Side) -->
+            <div class="music-score">
+                <!-- PDF or Lyrics Container -->
+                <div class="pdf-container">
+                    <!-- Canvas for PDF rendering -->
+                    <div id="pdf-container"></div>
+                </div>
+            </div>
+
+    </div>
+</div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
@@ -526,6 +506,18 @@ musicPlayer.addEventListener('click', seekAudio);
 $(document).ready(function() {
     // Initial rendering based on active tab
     renderContent($('.tab-button.active').data('path'));
+
+
+        // Handle tab button click
+        $('.tab-button-mp3').click(function() {
+        // Remove active class from all buttons
+        $('.tab-button-mp3').removeClass('active');
+
+        // Add active class to the clicked button
+        $(this).addClass('active');
+    });
+
+
 
     // Handle tab button click
     $('.tab-button').click(function() {

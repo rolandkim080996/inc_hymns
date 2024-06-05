@@ -10,9 +10,18 @@
 
 <x-app-layout>
     <x-slot name="header">
+    <div class="flex justify-between items-center my-8">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Category List') }}
         </h2>
+        <div>
+            <button id="addCategoryButton" data-toggle="modal" data-target="#addCategoryModal" class="btn btn-success">
+                <i class="fas fa-plus"></i> Category
+            </button>
+            
+            <a href="{{ route('admin.settings') }}" class="btn btn-secondary">Back</a>
+        </div>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -22,9 +31,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 
             <div class="p-6">
-                <button id="addCategoryButton" data-toggle="modal" data-target="#addCategoryModal" class="btn btn-success">
-                    <i class="fas fa-plus"></i> Category
-                </button>
+                
                 <div class="overflow-x-auto">
                     <div class="pagination flex justify-center items-center h-full" style="padding:0px;margin-bottom:10px;">
                         {{ $categories->links() }}

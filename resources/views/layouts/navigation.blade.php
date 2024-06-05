@@ -4,6 +4,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex items-center">
+
                 <!-- Logo -->
                 <div class="flex-shrink-0">
                     <a href="{{ route('dashboard') }}">
@@ -11,109 +12,33 @@
                     </a>
                 </div>
 
-       <!-- Navigation Links -->
-<div class="hidden space-x-8 sm:-my-px sm:flex">
-    <!-- List of Musics -->
-    <x-nav-link :href="route('musics.index')" :active="request()->routeIs('musics.index')">
-        {{ __('Hymns') }}
-    </x-nav-link>
-
-<!-- List of Settings -->
-<div class="relative">
-
-    <x-nav-link href="#"  id="settingsToggle"> 
-        {{ __('Settings') }}
-    </x-nav-link>
-
-    <!-- Dropdown for Settings -->
-    <div id="settingsDropdown" class="absolute z-20 mt-2 w-40 bg-white rounded-lg shadow-lg transform scale-0 origin-top-right transition-all duration-300" style="display: none;">
-
-        <ul class="py-2">
-            <!-- List of Categories -->
-            <li class="opacity-10 transform scale-0 transition-all duration-300 delay-100">
-                <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')" style="color:black;">
-                    {{ __('Categories') }}
-                </x-nav-link>
-            </li>
-            <!-- List of Instrumentations -->
-            <li class="opacity-10 transform scale-0 transition-all duration-300 delay-200">
-                <x-nav-link :href="route('instrumentations.index')" :active="request()->routeIs('instrumentations.index')">
-                    {{ __('Instrumentations') }}
-                </x-nav-link>
-            </li>
-            <!-- List of Ensemble Types -->
-            <li class="opacity-10 transform scale-0 transition-all duration-300 delay-300">
-                <x-nav-link :href="route('ensemble_types.index')" :active="request()->routeIs('ensemble_types.index')">
-                    {{ __('Ensemble Types') }}
-                </x-nav-link>
-            </li>
-            <!-- List of Ensemble Types -->
-            <li class="opacity-10 transform scale-0 transition-all duration-300 delay-300">
-                <x-nav-link :href="route('credits.index')" :active="request()->routeIs('credits.index')">
-                    {{ __('Credits') }}
-                </x-nav-link>
-            </li>
-            <!-- List of Permissions -->
-            <li class="opacity-10 transform scale-0 transition-all duration-300 delay-300">
-                <x-nav-link :href="route('permissions.index')" :active="request()->routeIs('permissions.index')">
-                    {{ __('Permissions') }}
-                </x-nav-link>
-            </li>
-            <!-- List of Groups -->
-            <li class="opacity-10 transform scale-0 transition-all duration-300 delay-300">
-                <x-nav-link :href="route('groups.index')" :active="request()->routeIs('groups.index')">
-                    {{ __('Groups') }}
-                </x-nav-link>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<script>
-    const settingsToggle = document.getElementById('settingsToggle');
-    const settingsDropdown = document.getElementById('settingsDropdown');
-
-    let isOpen = false;
+                <!-- Navigation Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:flex">
+                    <!-- List of Musics -->
+                    <x-nav-link :href="route('musics.index')" :active="request()->routeIs('musics.index')">
+                        {{ __('Hymns') }}
+                    </x-nav-link>
 
 
-    // Toggle the dropdown when settingsToggle is clicked
-    settingsToggle.addEventListener('click', () => {
-        isOpen = !isOpen;
-        if (isOpen) {
-            settingsDropdown.style.display = 'block';
-        } else {
-            settingsDropdown.style.display = 'none';
-        }
-    });
-
-    // Hide the dropdown when the user hovers outside of it
-    document.addEventListener('click', (event) => {
-        const isClickInsideDropdown = settingsDropdown.contains(event.target);
-        const isClickOnToggle = settingsToggle.contains(event.target);
-        if (!isClickInsideDropdown && !isClickOnToggle) {
-            settingsDropdown.style.display = 'none';
-            isOpen = false;
-        }
-    });
-</script>
-
-
-
-
-</div>
+                </div>
 
             </div>
 
+            <!-- User Profile Dropdown -->
+            <div class="hidden sm:flex sm:items-center sm:ml-6">
 
-       <!-- Create New Hymn and User -->
-       <div class="hidden sm:flex sm:items-center sm:ml-6 ml-4" style="margin-right: 2px;">
-                <x-dropdown align="right" width="48">
+               <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition duration-150 ease-in-out">
-                            <div class="font-medium text-base text-gray-800 dark:text-gray-200">Create New</div>
+                            <div>Create New</div>
                             <div class="ml-1">
                                 <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 111.414 1.414l-4 4a1 1 01-1.414 0l-4-4a1 1 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-1">
+                                <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 011.414 0L10 10.586l3.293-3.293a1 1 111.414 1.414l-4 4a1 1 01-1.414 0l-4-4a1 1 010-1.414z" clip-rule="evenodd" />
                                 </svg>
                             </div>
                         </button>
@@ -129,14 +54,15 @@
                         </x-responsive-nav-link>
                     </x-slot>
                 </x-dropdown>
-            </div>
-
-            <!-- User Profile Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition duration-150 ease-in-out">
                             <div>{{ Auth::user()->name }}</div>
+                            <div class="ml-1">
+                                <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 111.414 1.414l-4 4a1 1 01-1.414 0l-4-4a1 1 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
                             <div class="ml-1">
                                 <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 011.414 0L10 10.586l3.293-3.293a1 1 111.414 1.414l-4 4a1 1 01-1.414 0l-4-4a1 1 010-1.414z" clip-rule="evenodd" />
@@ -158,6 +84,11 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+
+                <!-- List of Settings -->
+                <x-nav-link :href="route('admin.settings')" :active="request()->routeIs('admin.settings')">
+                    <i class="fa fa-cogs fa-fw" aria-hidden="true"></i>
+                </x-nav-link>
             </div>
 
             <!-- Hamburger Menu for Mobile -->
@@ -183,11 +114,6 @@
             <!-- List of Musics Link -->
             <x-responsive-nav-link :href="route('musics.index')" :active="request()->routeIs('musics.index')">
                 {{ __('Musics') }}
-            </x-responsive-nav-link>
-
-            <!-- List of Users Link -->
-            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
-                {{ __('Users') }}
             </x-responsive-nav-link>
         </div>
 

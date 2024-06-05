@@ -15,7 +15,7 @@
             <div>
                 <a href="{{ route('groups.create') }}" class="btn btn-primary ml-3">Create New</a>
                 
-                <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('admin.settings') }}" class="btn btn-secondary">Back</a>
             </div>
         </div>
     </x-slot>

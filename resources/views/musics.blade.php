@@ -10,19 +10,27 @@
 
 <x-app-layout>
     <x-slot name="header">
+    <div class="flex justify-between items-center my-8">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Music List') }}
         </h2>
+        <div>
+            <!-- Add Music Button with Icon -->
+            <button id="addMusicButton" class="btn btn-success mb-0">
+                <i class="fas fa-plus"></i>
+                <span> Music</span>
+            </button>
+            
+            <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+    
     </x-slot>
 
     <div class="py-12">
       
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-    <!-- Add Music Button with Icon -->
-    <button id="addMusicButton" class="btn btn-success mb-0">
-        <i class="fas fa-plus"></i>
-        <span> Music</span>
-    </button>
+
 
     <script>
         // Add event listener to the addMusicButton
