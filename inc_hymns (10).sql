@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2024 at 10:37 AM
+-- Generation Time: Jun 05, 2024 at 10:20 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -267,7 +267,8 @@ CREATE TABLE `musics` (
 --
 
 INSERT INTO `musics` (`id`, `church_hymn_id`, `title`, `song_number`, `music_score_path`, `lyrics_path`, `vocals_mp3_path`, `organ_mp3_path`, `preludes_mp3_path`, `language_id`, `verses_used`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(64, 1, 'DARATING DIN ANG KAGALAKAN', '456', 'music_files/FILIPINO_HYMNS_AWS_1_526_551_594forprinting_23October2023_526.pdf', 'music_files/456.pdf', 'music_files/456 organ.mp3', 'music_files/456.mp3', 'music_files/P456.mp3', 1, 'Gawa 20:28; Roma 16:16', 1, 1, '2024-05-23 21:31:37', '2024-06-02 23:44:48');
+(64, 1, 'DARATING DIN ANG KAGALAKAN', '456', 'music_files/FILIPINO_HYMNS_AWS_1_526_551_594forprinting_23October2023_526.pdf', 'music_files/456.pdf', 'music_files/456 organ.mp3', 'music_files/456.mp3', 'music_files/P456.mp3', 1, 'Gawa 20:28; Roma 16:16', 1, 1, '2024-05-23 21:31:37', '2024-06-02 23:44:48'),
+(66, 3, 'Jesus, Iyong Kaawaan, Palakasin Ako', '526', 'music_files/526.pdf', 'music_files/526 Lyrics Only.pdf', 'music_files/526.mp3', NULL, 'music_files/P526.mp3', 1, 'Mateo', 1, 1, '2024-06-04 16:53:27', '2024-06-04 18:23:16');
 
 -- --------------------------------------------------------
 
@@ -292,7 +293,11 @@ INSERT INTO `music_arranger` (`id`, `music_id`, `arranger_id`, `created_at`, `up
 (119, 64, 13, NULL, NULL),
 (120, 64, 14, NULL, NULL),
 (122, 64, 28, NULL, NULL),
-(123, 64, 39, NULL, NULL);
+(123, 64, 39, NULL, NULL),
+(134, 66, 29, NULL, NULL),
+(135, 66, 30, NULL, NULL),
+(136, 66, 52, NULL, NULL),
+(137, 66, 81, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -311,7 +316,13 @@ CREATE TABLE `music_category` (
 
 INSERT INTO `music_category` (`music_id`, `category_id`) VALUES
 (64, 1),
-(64, 2);
+(64, 2),
+(66, 1),
+(66, 2),
+(66, 3),
+(66, 7),
+(66, 8),
+(66, 9);
 
 -- --------------------------------------------------------
 
@@ -335,7 +346,12 @@ INSERT INTO `music_composer` (`id`, `music_id`, `composer_id`, `created_at`, `up
 (92, 64, 1, NULL, NULL),
 (93, 64, 3, NULL, NULL),
 (94, 64, 4, NULL, NULL),
-(103, 64, 2, NULL, NULL);
+(103, 64, 2, NULL, NULL),
+(105, 66, 2, NULL, NULL),
+(106, 66, 4, NULL, NULL),
+(107, 66, 31, NULL, NULL),
+(108, 66, 32, NULL, NULL),
+(109, 66, 33, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -480,7 +496,8 @@ CREATE TABLE `music_ensemble_type` (
 --
 
 INSERT INTO `music_ensemble_type` (`music_id`, `ensemble_type_id`) VALUES
-(64, 1);
+(64, 1),
+(66, 1);
 
 -- --------------------------------------------------------
 
@@ -499,7 +516,9 @@ CREATE TABLE `music_instrumentation` (
 
 INSERT INTO `music_instrumentation` (`music_id`, `instrumentation_id`) VALUES
 (64, 1),
-(64, 2);
+(64, 2),
+(66, 1),
+(66, 3);
 
 -- --------------------------------------------------------
 
@@ -521,7 +540,11 @@ CREATE TABLE `music_lyricist` (
 
 INSERT INTO `music_lyricist` (`id`, `music_id`, `lyricist_id`, `created_at`, `updated_at`) VALUES
 (84, 64, 1, NULL, NULL),
-(85, 64, 2, NULL, NULL);
+(85, 64, 2, NULL, NULL),
+(93, 66, 1, NULL, NULL),
+(94, 66, 2, NULL, NULL),
+(95, 66, 12, NULL, NULL),
+(96, 66, 13, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -733,7 +756,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_verified_at`, `password`, `permissions`, `activated`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Felix Pareja', 'fmpareja', 'felixpareja.pmdit07@gmail.com', NULL, '$2y$12$oXj7Jb0Mq2ubIdW6FnqIH.Y5QJEWSHNxkImnSGf25eEuMripxrKd.', NULL, 0, NULL, '2024-04-16 21:46:25', '2024-06-02 22:44:47'),
-(3, 'Kim Amaro', 'kamaro', 'kimamaro@gmail.com', NULL, '$2y$12$gdJNOpmcVydXmnStkBxnHe1oPVIpWlFtfNPx9c3GsHA/sycQn94ie', NULL, 0, NULL, '2024-06-02 23:08:48', '2024-06-02 23:10:22'),
+(3, 'Kyrt Jurada', 'kjurada', 'kjurada@gmail.com', NULL, '$2y$12$gdJNOpmcVydXmnStkBxnHe1oPVIpWlFtfNPx9c3GsHA/sycQn94ie', NULL, 0, NULL, '2024-06-02 23:08:48', '2024-06-04 17:58:38'),
 (4, 'Roland Kim Amaro', 'rkamaro', 'rkamaro@gmail.com', NULL, '$2y$12$X6mlU56RRbC5zxyy5IVGde/q0Tsr9MgUQt4afweD2JbZKokf1Nbo2', NULL, NULL, NULL, '2024-06-03 19:42:53', '2024-06-03 21:38:36'),
 (5, 'Eduardo V. Manalo', 'evm', 'evm@gmail.com', NULL, '$2y$12$Cp0HvJC.wabZ/NtmJ8TyquM0wSDUpNKxblvJix3j1zl0AblSLbyp.', NULL, NULL, NULL, '2024-06-03 21:31:13', '2024-06-03 21:37:47'),
 (6, 'Antonio  T. de Guzman', 'atg', 'atg@gmail.com', NULL, '$2y$12$u3ikFSmmBU44bVQ9vK160emXzhh98nLkiGTCnO7Gdo5ClMlOcFcPe', NULL, NULL, NULL, '2024-06-03 21:34:13', '2024-06-03 21:38:06'),
@@ -966,19 +989,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `musics`
 --
 ALTER TABLE `musics`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `music_arranger`
 --
 ALTER TABLE `music_arranger`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT for table `music_composer`
 --
 ALTER TABLE `music_composer`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- AUTO_INCREMENT for table `music_creators`
@@ -990,7 +1013,7 @@ ALTER TABLE `music_creators`
 -- AUTO_INCREMENT for table `music_lyricist`
 --
 ALTER TABLE `music_lyricist`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `permissions`
