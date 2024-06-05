@@ -95,7 +95,7 @@
                     <!-- Hidden input fields to store selected IDs -->
 <input type="hidden" id="selected_category_ids" name="category_id[]" value="">
 <input type="hidden" id="selected_instrumentation_ids" name="instrumentation_id[]" value="">
-<input type="hidden" id="selected_ensemble_type_ids" name="ensemble_type_id[]" value="">
+<input type="hidden" id="selected_ensemble_type_ids" name="ensembletype_id[]" value="">
 <!-- Add more hidden inputs for other dropdowns as needed -->
 
 

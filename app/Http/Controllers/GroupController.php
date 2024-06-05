@@ -28,9 +28,10 @@ class GroupController extends Controller
                 'musics.edit' => 'Edit',
                 'musics.delete' => 'Delete',
                 'musics.view_hymn' => 'View Hymn',
+                'musics.search' => 'Search',
             ],
             'Music Details' => [
-                'music_details.view' => 'View',
+                'music_details.viewdetails' => 'ViewDetails',
                 'music_details.download' => 'Download',
                 'music_details.play' => 'Play',
             ],
@@ -69,6 +70,11 @@ class GroupController extends Controller
                 'users.create' => 'Create',
                 'users.edit' => 'Edit',
                 'users.delete' => 'Delete',
+            ],
+            'Navigation' => [
+                'navigation.hymns' => 'Hymns',
+                'navigation.createnew' => 'CreateNew',
+                'navigation.settings' => 'Settings',
             ],
         ];
 
@@ -110,22 +116,23 @@ class GroupController extends Controller
         // This should return the available permissions grouped by their category
         return [
             'Global' => [
-                'superuser' => 'Superuser',
+                'superuser' => 'Super User',
                 'admin' => 'Admin',
                 'csv_import' => 'CSV Import',
                 'dashboard' => 'Dashboard',
             ],
             'Musics' => [
-                'musics.view' => 'View Musics',
-                'musics.create' => 'Create Musics',
-                'musics.edit' => 'Edit Musics',
-                'musics.delete' => 'Delete Musics',
+                'musics.view' => 'View',
+                'musics.create' => 'Create',
+                'musics.edit' => 'Edit',
+                'musics.delete' => 'Delete',
                 'musics.view_hymn' => 'View Hymn',
+                'musics.search' => 'Search',
             ],
             'Music Details' => [
-                'music_details.view' => 'View Music',
-                'music_details.download' => 'Download Music',
-                'music_details.play' => 'Play Music',
+                'music_details.viewdetails' => 'ViewDetails',
+                'music_details.download' => 'Download',
+                'music_details.play' => 'Play',
             ],
             'Categories' => [
                 'categories.view' => 'View',
@@ -162,6 +169,11 @@ class GroupController extends Controller
                 'users.create' => 'Create',
                 'users.edit' => 'Edit',
                 'users.delete' => 'Delete',
+            ],
+            'Navigation' => [
+                'navigation.hymns' => 'Hymns',
+                'navigation.createnew' => 'CreateNew',
+                'navigation.settings' => 'Settings',
             ],
         ];
     }

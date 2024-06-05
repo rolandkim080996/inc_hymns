@@ -46,29 +46,51 @@
                     break;
             }
             $currentTextColor = $colorText[$colorIndex];
-           
-            @endphp
-        <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #{{ $colors[$colorIndex] }}; border: 2px solid #686D76; text-decoration: none;">
-            <span class="font-bold text-center mb-2" style="color: #{{ $currentTextColor }}; font-size: 45px;">{{ $hymn->musics_count }}</span>
-            <h4 class="font-semibold text-center" style="color: #{{ $currentTextColor }}; font-size: 15px;">{{ $serviceName }}</h4>
-        </a>
+        @endphp
+
+        @if($hymn->musics_count > 0)
+            <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #{{ $colors[$colorIndex] }}; border: 2px solid #686D76; text-decoration: none;">
+                <span class="font-bold text-center mb-2" style="color: #{{ $currentTextColor }}; font-size: 45px;">{{ $hymn->musics_count }}</span>
+                <h4 class="font-semibold text-center" style="color: #{{ $currentTextColor }}; font-size: 15px;">{{ $serviceName }}</h4>
+            </a>
+        @else
+            <div class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #{{ $colors[$colorIndex] }}; border: 2px solid #686D76;">
+                <span class="font-bold text-center mb-2" style="color: #{{ $currentTextColor }}; font-size: 45px;">{{ $hymn->musics_count }}</span>
+                <h4 class="font-semibold text-center" style="color: #{{ $currentTextColor }}; font-size: 15px;">{{ $serviceName }}</h4>
+            </div>
+        @endif
+
         @php
-        $colorIndex = ($colorIndex+ 1) % count($colors);
+            $colorIndex = ($colorIndex + 1) % count($colors);
         @endphp
     @endforeach
-
     <!-- Hymns of Music Count -->
-    <a href="{{ route('musics.index') }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #03AED2; border: 2px solid #686D76; text-decoration: none;">
-        <span class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</span>
-        <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Hymns</h4>
-    </a>
+    @if($totalChurchHymns->sum('musics_count') > 0)
+        <a href="{{ route('musics.index') }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #03AED2; border: 2px solid #686D76; text-decoration: none;">
+            <span class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</span>
+            <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Hymns</h4>
+        </a>
+    @else
+        <div class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #03AED2; border: 2px solid #686D76;">
+            <span class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</span>
+            <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Hymns</h4>
+        </div>
+    @endif
 
     <!-- Users Count -->
-    <a href="{{ route('users.index') }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #121481; border: 2px solid #686D76; text-decoration: none;">
-        <span class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalUsers }}</span>
-        <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Users</h4>
-    </a>
+    @if($totalUsers > 0)
+        <a href="{{ route('users.index') }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #121481; border: 2px solid #686D76; text-decoration: none;">
+            <span class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalUsers }}</span>
+            <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Users</h4>
+        </a>
+    @else
+        <div class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #121481; border: 2px solid #686D76;">
+            <span class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalUsers }}</span>
+            <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Users</h4>
+        </div>
+    @endif
 </div>
+
 
 
 
@@ -215,7 +237,7 @@
 
                         <!-- Instrumentations -->
                         <div class="w-full md:w-1/2">
-                            <h3 class="text-lg font-semibold mb-4">Instrumentations</h3>
+                            <h3 class="text-lg font-semibold mb-4">Hymn Instrumentations</h3>
                             <div class="bg-gray-100 p-4 rounded-lg shadow">
                                 <table class="min-w-full bg-white">
                                     <thead>
@@ -245,7 +267,7 @@
                     <div class="flex mt-8 gap-4">
                         <!-- Ensemble Types -->
                         <div class="w-full md:w-1/2">
-                            <h3 class="text-lg font-semibold mb-4">Ensemble Types</h3>
+                            <h3 class="text-lg font-semibold mb-4">Hymn Ensemble Types</h3>
                             <div class="bg-gray-100 p-4 rounded-lg shadow">
                                 <table class="min-w-full bg-white">
                                     <thead>
@@ -273,7 +295,7 @@
 
                         <!-- Credits -->
                         <div class="w-full md:w-1/2">
-                            <h3 class="text-lg font-semibold mb-4">Credits</h3>
+                            <h3 class="text-lg font-semibold mb-4">Hymn Credits</h3>
                             <div class="bg-gray-100 p-4 rounded-lg shadow">
                                 <table class="min-w-full bg-white">
                                     <thead>

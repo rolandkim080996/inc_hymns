@@ -464,7 +464,7 @@ musicPlayer.addEventListener('click', seekAudio);
 
                 <div class="flex row mt-1 mb-1">
                     <!-- Audio player -->
-                    <audio id="musicPlayer" controls preload="auto">
+                    <audio id="musicPlayer" controls preload="auto" >
                         Your browser does not support the audio element.
                         <!-- Include source elements -->
                         <source id="audioSource" src="#" type="audio/mpeg">
