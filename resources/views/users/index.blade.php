@@ -94,7 +94,7 @@
                                                         }
                                                     }
                                                 @endphp
-                                                <a href="{{ isset($group_id) ? route('users.edit', ['user' => $user->id, 'group' => $group_id]) : route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary btn-sm edit-Credit">
+                                                <a href="{{ isset($group_id) ? route('users.edit', ['user' => $user->id, 'group' => $group_id]) : route('users.edit', ['user' => $user->id]) }}" class="btn btn-secondary btn-sm edit-Credit">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirmDelete(event)">

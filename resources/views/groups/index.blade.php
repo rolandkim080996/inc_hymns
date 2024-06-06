@@ -50,7 +50,7 @@
                 <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $group->created_at->format('Y-m-d h:i A') }}</td>
     <td class="px-6 py-1 whitespace-nowrap border text-center">
                     <div class="flex justify-center items-center space-x-2">
-                        <a href="{{ route('groups.edit', $group->id) }}" class="btn btn-primary btn-sm edit-Credit"><i class="fas fa-edit"></i></a>
+                        <a href="{{ route('groups.edit', $group->id) }}" class="btn btn-secondary btn-sm edit-Credit"><i class="fas fa-edit"></i></a>
                         <form action="{{ route('groups.destroy', $group->id) }}" method="POST" class="inline-block" onsubmit="return confirmDelete(event)">
                             @csrf
                             @method('DELETE')

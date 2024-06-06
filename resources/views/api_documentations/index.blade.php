@@ -56,7 +56,7 @@
                 </td>
 
                 <td class="px-6 py-1 whitespace-nowrap border text-center">
-                    <a href="{{ route('api_documentations.edit', $apiDocumentation->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                    <a href="{{ route('api_documentations.edit', $apiDocumentation->id) }}" class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></a>
                     <form action="{{ route('api_documentations.destroy', $apiDocumentation->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')

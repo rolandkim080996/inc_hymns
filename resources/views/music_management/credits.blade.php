@@ -110,7 +110,7 @@
                                 </td>
 
                                 <td style="width: 12%;" class="px-6 py-4 whitespace-nowrap border text-center">
-                                    <button class="btn btn-primary btn-sm edit-Credit" 
+                                    <button class="btn btn-secondary btn-sm edit-Credit" 
                                         data-toggle="modal" 
                                         data-target="#editCreditModal" 
                                         data-id="{{ $credit->id }}"

@@ -50,7 +50,7 @@
                                 
                                 <td style="width: 85%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $ensemble_type->name }}</td>
                                 <td style="width: 15%;" class="px-6 py-4 whitespace-nowrap border text-center">
-                                    <button class="btn btn-primary btn-sm edit-Ensemble_type" 
+                                    <button class="btn btn-secondary btn-sm edit-Ensemble_type" 
                                     data-toggle="modal" 
                                     data-target="#editEnsemble_typeModal" 
                                     data-id="{{ $ensemble_type->id }}"

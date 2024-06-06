@@ -16,7 +16,7 @@
         </h2>
         <div>
             <!-- Add Music Button with Icon -->
-            <button id="addMusicButton" class="btn btn-success mb-0">
+            <button id="addMusicButton" class="btn btn-primary mb-0">
                 <i class="fas fa-plus"></i>
                 <span> Music</span>
             </button>
@@ -59,7 +59,7 @@
                     </select>
                     
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-info">Search</button>
+                        <button type="submit" class="btn btn-success">Search</button>
                     </div>
                 </form>
 
@@ -255,13 +255,13 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap border text-center">
                                     <div class="flex justify-center items-center space-x-4">
-                                        <a href="{{ route('musics.edit', $music->id) }}" class="text-blue-500 hover:text-blue-700">
+                                        <a href="{{ route('musics.edit', $music->id) }}" class="btn btn-secondary">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form id="deleteForm{{$music->id}}" method="POST" action="{{ route('musics.destroy', $music->id) }}" style="display: inline;margin-top:14px;">
+                                        <form id="deleteForm{{$music->id}}" method="POST" action="{{ route('musics.destroy', $music->id) }}" style="display: inline;margin-top:16px;margin-left:3px;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" onclick="confirmDelete({{$music->id}})" class="text-red-500 hover:text-red-700 focus:outline-none">
+                                            <button type="button" onclick="confirmDelete({{$music->id}})" class="btn btn-danger">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>

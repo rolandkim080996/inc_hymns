@@ -51,7 +51,7 @@
                                 
                                 <td style="width: 85%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $instrumentation->name }}</td>
                                 <td style="width: 15%;" class="px-6 py-4 whitespace-nowrap border text-center">
-                                    <button class="btn btn-primary btn-sm edit-Instrumentation" 
+                                    <button class="btn btn-secondary btn-sm edit-Instrumentation" 
                                     data-toggle="modal" 
                                     data-target="#editInstrumentationModal" 
                                     data-id="{{ $instrumentation->id }}"
