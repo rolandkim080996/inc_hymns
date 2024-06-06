@@ -61,7 +61,7 @@
                                 <div class="box-body text-center mt-4">
                                     <h5>
                                         <a href="{{ route('ensemble_types.index') }}" class="settings_button">
-                                            <i class="fas fa-users fa-4x" aria-hidden="true"></i>
+                                        <i class="fas fa-microphone-alt fa-4x" aria-hidden="true"></i>
                                             <br><br>
                                             <span class="name">Ensemble Types</span>
                                             <span class="keywords" aria-hidden="true" style="display:none">ensemble types, management</span>
@@ -106,6 +106,25 @@
                             </div>
                         </div>
 
+                        
+                        <!-- List of Users -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                                <div class="box-body text-center mt-4">
+                                    <h5>
+                                        <a href="{{ route('users.index') }}" class="settings_button">
+                                            <i class="fas fa-users fa-4x" aria-hidden="true"></i>
+                                            <br><br>
+                                            <span class="name">Users</span>
+                                            <span class="keywords" aria-hidden="true" style="display:none">users, management</span>
+                                        </a>
+                                    </h5>
+                                    <p class="help-block" style="display:none">Manage users</p>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <!-- List of Groups -->
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
@@ -122,6 +141,27 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Add a new box for API Documentation below the Groups box -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                                <div class="box-body text-center mt-4">
+                                    <h5>
+                                        <a href="{{ route('api_documentations.index') }}" class="settings_button">
+                                            <i class="fas fa-book-open fa-4x" aria-hidden="true"></i>
+                                            <br><br>
+                                            <span class="name">API Documentation</span>
+                                            <span class="keywords" aria-hidden="true" style="display:none">api, documentation</span>
+                                        </a>
+                                    </h5>
+                                    <p class="help-block" style="display:none">View API documentation</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
                     </div> <!-- end flex-wrap -->
                 </div>
             </div>

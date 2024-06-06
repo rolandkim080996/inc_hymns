@@ -16,6 +16,9 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ApiDocumentationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +35,7 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -44,6 +48,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+
+
 });
 
 require __DIR__.'/auth.php';
@@ -77,6 +86,14 @@ Route::get('groups/{group}/users', [GroupController::class, 'showUsers'])->name(
 
 Route::resource('permissions', PermissionController::class);
 Route::get('permissions/show', [PermissionController::class, 'showPermissions'])->name('permissions.show');
+
+Route::get('api_documentations', [ApiDocumentationController::class, 'index'])->name('api_documentations.index');
+Route::get('api_documentations/create', [ApiDocumentationController::class, 'create'])->name('api_documentations.create');
+Route::post('api_documentations', [ApiDocumentationController::class, 'store'])->name('api_documentations.store');
+Route::get('api_documentations/{api_documentation}/edit', [ApiDocumentationController::class, 'edit'])->name('api_documentations.edit');
+Route::put('api_documentations/{api_documentation}', [ApiDocumentationController::class, 'update'])->name('api_documentations.update');
+Route::delete('api_documentations/{api_documentation}', [ApiDocumentationController::class, 'destroy'])->name('api_documentations.destroy');
+
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
     ->name('register'); // No middleware to allow access for both guests and authenticated users

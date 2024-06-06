@@ -37,6 +37,7 @@ class UserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'activated' => $request->has('login_enabled') ? 1 : 0,
         ]);
     
         // Attach groups to the user
@@ -44,21 +45,23 @@ class UserController extends Controller
             $user->groups()->attach($request->groups);
         }
     
-        // return redirect()->route('users.index')->with('success', 'User created successfully.');
         return redirect()->route('groups.users', ['group' => $request->groups[0] ?? 1])->with('success', 'User created successfully.');
     }
     
-
-    public function edit(User $user)
+    
+    
+    public function edit(User $user, Request $request)
     {
         $groups = Group::all(); // Assuming you have a Group model
+        $groupId = $request->input('group'); // Assuming the group ID is passed as a query parameter
     
-        return view('users.edit', compact('user', 'groups'));
+        return view('users.edit', compact('user', 'groups', 'groupId'));
     }
     
-
+    
     public function update(Request $request, User $user)
     {
+       
         $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username,' . $user->id,
@@ -67,20 +70,21 @@ class UserController extends Controller
             'groups' => 'required|array',
             'groups.*' => 'exists:permission_groups,id',
         ]);
-    
+        
         $user->update([
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
             'password' => $request->password ? bcrypt($request->password) : $user->password,
+            'activated' => $request->has('login_enabled') ? 1 : 0,
         ]);
-    
+       
         $user->groups()->sync($request->groups);
     
-       // return redirect()->route('users.index')->with('success', 'User updated successfully.');
-        
         return redirect()->route('groups.users', ['group' => $request->groups[0] ?? 1])->with('success', 'User updated successfully.');
     }
+    
+    
     
 
     public function destroy(User $user)

@@ -10,17 +10,17 @@
 
 <x-app-layout>
     <x-slot name="header">
-    <div class="flex justify-between items-center my-8">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Category List') }}
-        </h2>
-        <div>
-            <button id="addCategoryButton" data-toggle="modal" data-target="#addCategoryModal" class="btn btn-success">
-                <i class="fas fa-plus"></i> Category
-            </button>
-            
-            <a href="{{ route('admin.settings') }}" class="btn btn-secondary">Back</a>
-        </div>
+        <div class="flex justify-between items-center my-8">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Category List') }}
+            </h2>
+            <div>
+                <button id="addCategoryButton" data-toggle="modal" data-target="#addCategoryModal" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Category
+                </button>
+                
+                <a href="{{ route('admin.settings') }}" class="btn btn-secondary">Back</a>
+            </div>
         </div>
     </x-slot>
 

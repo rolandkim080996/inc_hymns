@@ -21,7 +21,7 @@
                 {{ __('Permission Management') }}
             </h2>
             <div>
-                <a href="{{ route('permissions.create') }}" class="btn btn-primary ml-3">Add Permission</a>
+                <a href="{{ route('permissions.create') }}" class="btn btn-primary ml-3"><i class="fas fa-plus"></i> Permission</a>
                 
                 <a href="{{ route('admin.settings') }}" class="btn btn-secondary">Back</a>
             </div>

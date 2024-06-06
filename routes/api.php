@@ -16,18 +16,30 @@ use App\Http\Controllers\Api\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::group([], function () {
+    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+        return $request->user();
+    });
+    Route::group(['prefix' => 'musics'], function () {
 
-    // Music search route
-    Route::get('/musics/search', [MusicController::class, 'search'])->name('api.musics.search');
-});
-
-
-
-//http://127.0.0.1:8000/api/musics/search?title=darating
+        // Music index route
+        Route::get('/', [MusicController::class, 'index'])->name('api.musics.index');
+    
+        // Music search route
+        Route::get('/search', [MusicController::class, 'search'])->name('api.musics.search');
+    
+        // Music show route
+        Route::get('/{id}', [MusicController::class, 'show'])->name('api.musics.show');
+    
+        // Music store route
+        Route::post('/', [MusicController::class, 'store'])->name('api.musics.store');
+    
+        // Music update route
+        Route::put('/{id}', [MusicController::class, 'update'])->name('api.musics.update');
+    
+        // Music delete route
+        Route::delete('/{id}', [MusicController::class, 'destroy'])->name('api.musics.destroy');
+    });
+    //http://127.0.0.1:8000/api/musics/search?title=darating
     // User routes
     Route::get('/users', [UserController::class, 'index'])->name('api.users.index');
     Route::get('/users/{id}', [UserController::class, 'show'])->name('api.users.show');
@@ -37,7 +49,7 @@ Route::group([], function () {
 
     
 
-// Retrieve all minister
-Route::get('/ministers', [PersonnelController::class, 'getMinisters']);
-// Retrieve all minister by id
-Route::get('/ministers/{id}', [PersonnelController::class, 'getMinisters']);
+    // Retrieve all minister
+    Route::get('/ministers', [PersonnelController::class, 'getMinisters']);
+    // Retrieve all minister by id
+    Route::get('/ministers/{id}', [PersonnelController::class, 'getMinisters']);

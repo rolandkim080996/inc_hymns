@@ -16,7 +16,7 @@
                 {{ __('Instrumentation List') }}
             </h2>
             <div>
-                <button id="addInstrumentationButton" data-toggle="modal" data-target="#addInstrumentationModal" class="btn btn-success">
+                <button id="addInstrumentationButton" data-toggle="modal" data-target="#addInstrumentationModal" class="btn btn-primary">
                     <i class="fas fa-plus"></i> Instrumentation
                 </button>
                 

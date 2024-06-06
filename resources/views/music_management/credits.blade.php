@@ -15,7 +15,7 @@
                 {{ __('Credits List') }}
             </h2>
             <div>
-                 <button id="addCreditButton" data-toggle="modal" data-target="#addCreditModal" class="btn btn-success">
+                 <button id="addCreditButton" data-toggle="modal" data-target="#addCreditModal" class="btn btn-primary">
                     <i class="fas fa-plus"></i> Credit
                 </button>
                 

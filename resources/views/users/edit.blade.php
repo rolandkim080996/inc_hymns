@@ -25,11 +25,7 @@
                             <x-input-error :messages="$errors->get('username')" class="mt-2" />
                         </div>
 
-                        <div class="mt-4">
-                            <x-input-label for="email" :value="__('Email')" />
-                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="$user->email" required />
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                        </div>
+
 
                         <div class="mt-4 sm:hidden">
                             <x-input-label for="password" :value="__('Password')" />
@@ -40,6 +36,20 @@
                         <div class="mt-4 sm:hidden">
                             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
                             <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" />
+                        </div>
+
+                        <div class="flex mt-4">
+                            <x-input-label for="login_enabled" :value="__('Login Enabled')" />
+                            <input id="login_enabled" class="block mt-0 ml-3 mr-3" type="checkbox" name="login_enabled" {{ old('login_enabled', $user->activated ?? false) ? 'checked' : '' }} />
+                            <span style="margin-top:-2px;margin-left:7px;font-size:14px;">This user can login</span>
+                        </div>
+
+
+
+                        <div class="mt-4">
+                            <x-input-label for="email" :value="__('Email')" />
+                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="$user->email" required />
+                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
 
                         <div class="mt-4">
@@ -56,9 +66,16 @@
                                 {{ __('Update User') }}
                             </x-primary-button>
 
-                            <a href="{{ route('groups.users', $group->id) }}" class="btn btn-secondary ml-4">
+                            @php
+                                $cancelRoute = route('users.index');
+                                if (strpos(url()->full(), 'group=') !== false) {
+                                    $cancelRoute = route('groups.users', ['group' => $groupId]);
+                                }
+                            @endphp
+                            <a href="{{ $cancelRoute }}" class="btn btn-secondary ml-4">
                                 {{ __('Cancel') }}
                             </a>
+
                         </div>
                     </form>
                 </div>

@@ -16,7 +16,7 @@
                 {{ __('Ensemble Types List') }}
             </h2>
             <div>
-                <button id="addEnsemble_typeButton" data-toggle="modal" data-target="#addEnsemble_typeModal" class="btn btn-success">
+                <button id="addEnsemble_typeButton" data-toggle="modal" data-target="#addEnsemble_typeModal" class="btn btn-primary">
                     <i class="fas fa-plus"></i> Ensemble Type
                 </button>
                 

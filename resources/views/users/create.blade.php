@@ -33,11 +33,6 @@
                             <x-input-error :messages="$errors->get('username')" class="mt-2" />
                         </div>
 
-                        <div class="mt-4">
-                            <x-input-label for="email" :value="__('Email')" />
-                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                        </div>
 
                         <div class="mt-4">
                             <x-input-label for="password" :value="__('Password')" />
@@ -50,7 +45,20 @@
                             <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
                         </div>
 
-              
+                        <div class="flex mt-4">
+                            <x-input-label for="login_enabled" :value="__('Login Enabled')" />
+                            <input id="login_enabled" class="block mt-0 ml-2 mr-2" type="checkbox" name="login_enabled" {{ old('login_enabled', $user->login_enabled ?? false) ? 'checked' : '' }} />
+                            <span style="margin-top:-2px;font-size:14px;">This user can login</span>
+                        </div>
+
+
+
+                        <div class="mt-4">
+                            <x-input-label for="email" :value="__('Email')" />
+                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                        </div>
+
                         <div class="mt-4">
                             <x-input-label for="groups" :value="__('Groups')" />
                             <select id="groups" name="groups[]" multiple class="block mt-1 w-full" required>
