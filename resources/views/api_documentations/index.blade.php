@@ -46,12 +46,12 @@
     <tbody>
         @foreach($apiDocumentations as $apiDocumentation)
             <tr>
-                <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $apiDocumentation->id }}</td>
-                <td class="px-6 py-1 whitespace-nowrap border text-center endpoint">{{ $apiDocumentation->endpoint }}</td>
-                <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $apiDocumentation->description }}</td>
+                <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $loop->iteration }}</td>
+                <td class="px-6 py-1 whitespace-nowrap border text-left endpoint">{{ $apiDocumentation->endpoint }}</td>
+                <td class="px-6 py-1 whitespace-nowrap border text-left">{{ $apiDocumentation->description }}</td>
                 <td class="px-6 py-1 whitespace-nowrap border text-center">
                     <a href="javascript:void(0);" class="view-icon">
-                        <i class="fas fa-eye"></i>
+                        <i class="fas fa-file-code"></i>
                     </a>
                 </td>
 
@@ -70,7 +70,7 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const eyeIcons = document.querySelectorAll('.fa-eye');
+    const eyeIcons = document.querySelectorAll('.fa-file-code');
     
     eyeIcons.forEach(icon => {
         icon.addEventListener('click', function() {

@@ -10,5 +10,6 @@ class ApiDocumentation extends Model
 {
     use HasFactory;
 
+    protected $table = 'api_documentations';
     protected $fillable = ['endpoint', 'description'];
 }

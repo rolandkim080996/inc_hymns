@@ -5,10 +5,19 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Music;
 use App\Models\MusicCreator;
+
+use App\Models\ApiDocumentation; // Add this line
 use Illuminate\Http\Request;
 
 class MusicController extends Controller
 {
+    public function listApiEndpoints()
+    {
+        
+        $apiDocumentations = ApiDocumentation::pluck('endpoint');
+        return response()->json($apiDocumentations);
+    }
+
     public function index()
     {
         $musics = Music::all(); 

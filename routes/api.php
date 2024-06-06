@@ -38,18 +38,14 @@ use App\Http\Controllers\Api\UserController;
     
         // Music delete route
         Route::delete('/{id}', [MusicController::class, 'destroy'])->name('api.musics.destroy');
+        
     });
-    //http://127.0.0.1:8000/api/musics/search?title=darating
+
+
+    Route::get('/api-endpoints', [MusicController::class, 'listApiEndpoints']); // Add this line
     // User routes
     Route::get('/users', [UserController::class, 'index'])->name('api.users.index');
     Route::get('/users/{id}', [UserController::class, 'show'])->name('api.users.show');
     Route::post('/users', [UserController::class, 'store'])->name('api.users.store');
     Route::put('/users/{id}', [UserController::class, 'update'])->name('api.users.update');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('api.users.destroy');
-
-    
-
-    // Retrieve all minister
-    Route::get('/ministers', [PersonnelController::class, 'getMinisters']);
-    // Retrieve all minister by id
-    Route::get('/ministers/{id}', [PersonnelController::class, 'getMinisters']);
