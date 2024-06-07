@@ -11,14 +11,12 @@ class PermissionCategory extends Model
 
     protected $table = 'permission_categories'; // Specify the table name
 
-    
     protected $fillable = ['name', 'description'];
 
     public function permissions()
     {
         return $this->belongsToMany(Permission::class, 'permission_categories', 'category_id', 'permission_id');
     }
-    
 
     public function groups()
     {

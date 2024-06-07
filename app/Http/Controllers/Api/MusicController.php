@@ -5,15 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Music;
 use App\Models\MusicCreator;
-
-use App\Models\ApiDocumentation; // Add this line
+use App\Models\ApiDocumentation;
 use Illuminate\Http\Request;
 
 class MusicController extends Controller
 {
     public function listApiEndpoints()
     {
-        
         $apiDocumentations = ApiDocumentation::pluck('endpoint');
         return response()->json($apiDocumentations);
     }
@@ -28,8 +26,6 @@ class MusicController extends Controller
     public function show($id)
     {
         $music = Music::findOrFail($id); // Assuming Music is the model for your music records
-
-     
 
         if (!$music) {
             return response()->json(['error' => 'Music not found'], 404);
@@ -69,44 +65,44 @@ class MusicController extends Controller
     }
 
     public function search(Request $request)
-{
-    $query = Music::query();
+    {
+        $query = Music::query();
 
-    if ($request->has('category')) {
-        $query->whereHas('categories', function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->category . '%');
-        });
-    }
+        if ($request->has('category')) {
+            $query->whereHas('categories', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->category . '%');
+            });
+        }
 
-    if ($request->has('title')) {
-        $query->where('title', 'like', '%' . $request->title . '%');
-    }
+        if ($request->has('title')) {
+            $query->where('title', 'like', '%' . $request->title . '%');
+        }
 
-    if ($request->has('hymn_number')) {
-        $query->where('song_number', $request->hymn_number);
-    }
+        if ($request->has('hymn_number')) {
+            $query->where('song_number', $request->hymn_number);
+        }
 
-    if ($request->has('arranger')) {
-        $query->whereHas('arrangers', function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->arranger . '%');
-        });
-    }
-    
-    if ($request->has('composer')) {
-        $query->orWhereHas('composers', function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->composer . '%');
-        });
-    }
-    
-    if ($request->has('lyricist')) {
-        $query->orWhereHas('lyricists', function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->lyricist . '%');
-        });
-    }
-    
-    $musics = $query->get();
+        if ($request->has('arranger')) {
+            $query->whereHas('arrangers', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->arranger . '%');
+            });
+        }
+        
+        if ($request->has('composer')) {
+            $query->orWhereHas('composers', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->composer . '%');
+            });
+        }
+        
+        if ($request->has('lyricist')) {
+            $query->orWhereHas('lyricists', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->lyricist . '%');
+            });
+        }
+        
+        $musics = $query->get();
 
-    return response()->json($musics);
-}
+        return response()->json($musics);
+    }
 
 }

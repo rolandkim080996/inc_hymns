@@ -41,7 +41,6 @@ use App\Http\Controllers\Api\UserController;
         
     });
 
-
     Route::get('/api-endpoints', [MusicController::class, 'listApiEndpoints']); // Add this line
     // User routes
     Route::get('/users', [UserController::class, 'index'])->name('api.users.index');
