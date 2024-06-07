@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 05, 2024 at 10:20 AM
+-- Generation Time: Jun 07, 2024 at 11:35 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -20,6 +20,35 @@ SET time_zone = "+00:00";
 --
 -- Database: `inc_hymns`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `api_documentations`
+--
+
+CREATE TABLE `api_documentations` (
+  `id` int(11) NOT NULL,
+  `endpoint` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `api_documentations`
+--
+
+INSERT INTO `api_documentations` (`id`, `endpoint`, `description`, `updated_at`, `created_at`) VALUES
+(1, 'GET/api/musics', 'Retrieve all music records.', '2024-06-05 19:58:18', '2024-06-05 18:38:06'),
+(3, 'GET/api/musics/{id}', 'Retrieve a specific music record by its ID', '2024-06-05 19:58:22', '2024-06-05 19:40:14'),
+(7, 'GET/api/musics/search?title={value}', 'Search for music records by their title', '2024-06-05 19:58:47', '2024-06-05 19:41:21'),
+(8, 'GET/api/musics/search?category={value}', 'Search for music records by category', '2024-06-05 19:58:51', '2024-06-05 19:41:39'),
+(9, 'GET/api/musics/search?arranger={value}', 'Search for music records by arranger', '2024-06-05 19:58:56', '2024-06-05 19:42:21'),
+(10, 'GET/api/musics/search?composer={value}', 'Search for music records by composer', '2024-06-05 19:59:01', '2024-06-05 19:42:57'),
+(11, 'GET/api/musics/search?lyricist={value}', 'Search for music records by lyricist', '2024-06-05 19:59:06', '2024-06-05 19:43:16'),
+(12, 'GET/api/musics/search?hymn_number={value}', 'Search for music records by hymn_number', '2024-06-05 20:19:49', '2024-06-05 20:19:35'),
+(13, 'GET/api/api-endpoints', 'Displays all endpoints from the api_documentations', '2024-06-06 17:02:59', '2024-06-06 17:02:20');
 
 -- --------------------------------------------------------
 
@@ -142,10 +171,10 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `group_permission`
+-- Table structure for table `group_permissions`
 --
 
-CREATE TABLE `group_permission` (
+CREATE TABLE `group_permissions` (
   `group_id` int(11) NOT NULL,
   `permission_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL
@@ -267,8 +296,8 @@ CREATE TABLE `musics` (
 --
 
 INSERT INTO `musics` (`id`, `church_hymn_id`, `title`, `song_number`, `music_score_path`, `lyrics_path`, `vocals_mp3_path`, `organ_mp3_path`, `preludes_mp3_path`, `language_id`, `verses_used`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(64, 1, 'DARATING DIN ANG KAGALAKAN', '456', 'music_files/FILIPINO_HYMNS_AWS_1_526_551_594forprinting_23October2023_526.pdf', 'music_files/456.pdf', 'music_files/456 organ.mp3', 'music_files/456.mp3', 'music_files/P456.mp3', 1, 'Gawa 20:28; Roma 16:16', 1, 1, '2024-05-23 21:31:37', '2024-06-02 23:44:48'),
-(66, 3, 'Jesus, Iyong Kaawaan, Palakasin Ako', '526', 'music_files/526.pdf', 'music_files/526 Lyrics Only.pdf', 'music_files/526.mp3', NULL, 'music_files/P526.mp3', 1, 'Mateo', 1, 1, '2024-06-04 16:53:27', '2024-06-04 18:23:16');
+(67, 1, 'DARATING DIN ANG KAGALAKAN', '456', 'music_files/FILIPINO_HYMNS_AWS_1_526_551_594forprinting_23October2023_526.pdf', 'music_files/456.pdf', 'music_files/456.mp3', 'music_files/456 organ.mp3', 'music_files/P456.mp3', 1, 'Gawa 20:28', 1, 1, '2024-06-05 03:36:50', '2024-06-05 03:36:50'),
+(68, 3, 'Jesus, Iyong Kaawaan, Palakasin Ako', '526', 'music_files/526.pdf', 'music_files/526 Lyrics Only.pdf', 'music_files/526.mp3', NULL, 'music_files/P526.mp3', 1, 'asd', 1, 1, '2024-06-05 19:34:57', '2024-06-06 16:53:41');
 
 -- --------------------------------------------------------
 
@@ -289,15 +318,15 @@ CREATE TABLE `music_arranger` (
 --
 
 INSERT INTO `music_arranger` (`id`, `music_id`, `arranger_id`, `created_at`, `updated_at`) VALUES
-(118, 64, 12, NULL, NULL),
-(119, 64, 13, NULL, NULL),
-(120, 64, 14, NULL, NULL),
-(122, 64, 28, NULL, NULL),
-(123, 64, 39, NULL, NULL),
-(134, 66, 29, NULL, NULL),
-(135, 66, 30, NULL, NULL),
-(136, 66, 52, NULL, NULL),
-(137, 66, 81, NULL, NULL);
+(139, 67, 25, NULL, NULL),
+(140, 67, 26, NULL, NULL),
+(141, 67, 27, NULL, NULL),
+(142, 67, 28, NULL, NULL),
+(143, 67, 29, NULL, NULL),
+(144, 68, 1, NULL, NULL),
+(145, 68, 12, NULL, NULL),
+(146, 68, 13, NULL, NULL),
+(147, 68, 25, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -315,14 +344,10 @@ CREATE TABLE `music_category` (
 --
 
 INSERT INTO `music_category` (`music_id`, `category_id`) VALUES
-(64, 1),
-(64, 2),
-(66, 1),
-(66, 2),
-(66, 3),
-(66, 7),
-(66, 8),
-(66, 9);
+(67, 1),
+(67, 2),
+(67, 3),
+(68, 1);
 
 -- --------------------------------------------------------
 
@@ -343,15 +368,11 @@ CREATE TABLE `music_composer` (
 --
 
 INSERT INTO `music_composer` (`id`, `music_id`, `composer_id`, `created_at`, `updated_at`) VALUES
-(92, 64, 1, NULL, NULL),
-(93, 64, 3, NULL, NULL),
-(94, 64, 4, NULL, NULL),
-(103, 64, 2, NULL, NULL),
-(105, 66, 2, NULL, NULL),
-(106, 66, 4, NULL, NULL),
-(107, 66, 31, NULL, NULL),
-(108, 66, 32, NULL, NULL),
-(109, 66, 33, NULL, NULL);
+(106, 67, 1, NULL, NULL),
+(107, 67, 2, NULL, NULL),
+(108, 67, 4, NULL, NULL),
+(109, 68, 2, NULL, NULL),
+(110, 68, 4, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -496,8 +517,8 @@ CREATE TABLE `music_ensemble_type` (
 --
 
 INSERT INTO `music_ensemble_type` (`music_id`, `ensemble_type_id`) VALUES
-(64, 1),
-(66, 1);
+(67, 1),
+(68, 1);
 
 -- --------------------------------------------------------
 
@@ -515,10 +536,10 @@ CREATE TABLE `music_instrumentation` (
 --
 
 INSERT INTO `music_instrumentation` (`music_id`, `instrumentation_id`) VALUES
-(64, 1),
-(64, 2),
-(66, 1),
-(66, 3);
+(67, 1),
+(67, 3),
+(68, 1),
+(68, 2);
 
 -- --------------------------------------------------------
 
@@ -539,12 +560,9 @@ CREATE TABLE `music_lyricist` (
 --
 
 INSERT INTO `music_lyricist` (`id`, `music_id`, `lyricist_id`, `created_at`, `updated_at`) VALUES
-(84, 64, 1, NULL, NULL),
-(85, 64, 2, NULL, NULL),
-(93, 66, 1, NULL, NULL),
-(94, 66, 2, NULL, NULL),
-(95, 66, 12, NULL, NULL),
-(96, 66, 13, NULL, NULL);
+(94, 67, 1, NULL, NULL),
+(95, 68, 1, NULL, NULL),
+(96, 67, 3, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -619,7 +637,8 @@ INSERT INTO `permissions` (`id`, `name`, `description`, `created_at`, `updated_a
 (33, 'users.view', 'View', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
 (34, 'users.create', 'Create', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
 (35, 'users.edit', 'Edit', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
-(36, 'users.delete', 'Delete', '2024-06-03 23:56:00', '2024-06-03 23:56:00');
+(36, 'users.delete', 'Delete', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
+(38, 'test', 'test', '2024-06-05 07:18:18', '2024-06-05 07:18:18');
 
 -- --------------------------------------------------------
 
@@ -687,7 +706,7 @@ INSERT INTO `permission_categories` (`id`, `permission_id`, `category_id`, `name
 (43, 34, 41, NULL, NULL, NULL, NULL),
 (44, 35, 41, NULL, NULL, NULL, NULL),
 (45, 36, 41, NULL, NULL, NULL, NULL),
-(46, 37, 1, NULL, NULL, NULL, NULL);
+(47, 38, 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -708,8 +727,10 @@ CREATE TABLE `permission_groups` (
 --
 
 INSERT INTO `permission_groups` (`id`, `name`, `permissions`, `created_at`, `updated_at`) VALUES
-(1, 'PMD-IT', '{\"superuser\":\"1\",\"admin\":\"0\",\"csv_import\":\"0\",\"dashboard\":\"0\",\"musics.view\":\"1\",\"musics.create\":\"1\",\"musics.edit\":\"1\",\"musics.delete\":\"1\",\"musics.view_hymn\":\"1\",\"music_details.view\":\"1\",\"music_details.download\":\"1\",\"music_details.play\":\"1\",\"categories.view\":\"1\",\"categories.create\":\"1\",\"categories.edit\":\"1\",\"categories.delete\":\"1\",\"instrumentations.view\":\"1\",\"instrumentations.create\":\"1\",\"instrumentations.edit\":\"1\",\"instrumentations.delete\":\"1\",\"ensemble_types.view\":\"1\",\"ensemble_types.create\":\"1\",\"ensemble_types.edit\":\"1\",\"ensemble_types.delete\":\"1\",\"credits.view\":\"1\",\"credits.create\":\"1\",\"credits.edit\":\"1\",\"credits.delete\":\"1\",\"groups.view\":\"1\",\"groups.create\":\"1\",\"groups.edit\":\"1\",\"groups.delete\":\"1\",\"users.view\":\"1\",\"users.create\":\"1\",\"users.edit\":\"1\",\"users.delete\":\"1\"}', '2024-06-03 18:27:24', '2024-06-03 21:56:42'),
-(2, 'VIP', '{\"superuser\":\"0\",\"admin\":\"0\",\"csv_import\":\"0\",\"dashboard\":\"0\",\"musics.view\":\"1\",\"musics.create\":\"0\",\"musics.edit\":\"0\",\"musics.delete\":\"0\",\"musics.view_hymn\":\"1\",\"music_details.view\":\"1\",\"music_details.download\":\"1\",\"music_details.play\":\"1\",\"categories.view\":\"0\",\"categories.create\":\"0\",\"categories.edit\":\"0\",\"categories.delete\":\"0\",\"instrumentations.view\":\"0\",\"instrumentations.create\":\"0\",\"instrumentations.edit\":\"0\",\"instrumentations.delete\":\"0\",\"ensemble_types.view\":\"0\",\"ensemble_types.create\":\"0\",\"ensemble_types.edit\":\"0\",\"ensemble_types.delete\":\"0\",\"credits.view\":\"0\",\"credits.create\":\"0\",\"credits.edit\":\"0\",\"credits.delete\":\"0\",\"groups.view\":\"0\",\"groups.create\":\"0\",\"groups.edit\":\"0\",\"groups.delete\":\"0\",\"users.view\":\"0\",\"users.create\":\"0\",\"users.edit\":\"0\",\"users.delete\":\"0\"}', '2024-06-03 21:30:05', '2024-06-03 21:30:05');
+(1, 'PMD-IT', '{\"superuser\":\"1\",\"admin\":\"0\",\"csv_import\":\"0\",\"dashboard\":\"0\",\"musics.view\":\"1\",\"musics.create\":\"1\",\"musics.edit\":\"1\",\"musics.delete\":\"1\",\"musics.view_hymn\":\"1\",\"musics.search\":\"0\",\"music_details.viewdetails\":\"0\",\"music_details.download\":\"1\",\"music_details.play\":\"1\",\"categories.view\":\"1\",\"categories.create\":\"1\",\"categories.edit\":\"1\",\"categories.delete\":\"1\",\"instrumentations.view\":\"1\",\"instrumentations.create\":\"1\",\"instrumentations.edit\":\"1\",\"instrumentations.delete\":\"1\",\"ensemble_types.view\":\"1\",\"ensemble_types.create\":\"1\",\"ensemble_types.edit\":\"1\",\"ensemble_types.delete\":\"1\",\"credits.view\":\"1\",\"credits.create\":\"1\",\"credits.edit\":\"1\",\"credits.delete\":\"1\",\"groups.view\":\"1\",\"groups.create\":\"1\",\"groups.edit\":\"1\",\"groups.delete\":\"1\",\"users.view\":\"1\",\"users.create\":\"1\",\"users.edit\":\"1\",\"users.delete\":\"1\",\"navigation.hymns\":\"1\",\"navigation.createnew\":\"1\",\"navigation.settings\":\"1\"}', '2024-06-03 18:27:24', '2024-06-05 04:18:42'),
+(2, 'VIP', '{\"superuser\":\"0\",\"admin\":\"0\",\"csv_import\":\"0\",\"dashboard\":\"0\",\"musics.view\":\"1\",\"musics.create\":\"0\",\"musics.edit\":\"0\",\"musics.delete\":\"0\",\"musics.view_hymn\":\"1\",\"music_details.view\":\"1\",\"music_details.download\":\"1\",\"music_details.play\":\"1\",\"categories.view\":\"0\",\"categories.create\":\"0\",\"categories.edit\":\"0\",\"categories.delete\":\"0\",\"instrumentations.view\":\"0\",\"instrumentations.create\":\"0\",\"instrumentations.edit\":\"0\",\"instrumentations.delete\":\"0\",\"ensemble_types.view\":\"0\",\"ensemble_types.create\":\"0\",\"ensemble_types.edit\":\"0\",\"ensemble_types.delete\":\"0\",\"credits.view\":\"0\",\"credits.create\":\"0\",\"credits.edit\":\"0\",\"credits.delete\":\"0\",\"groups.view\":\"0\",\"groups.create\":\"0\",\"groups.edit\":\"0\",\"groups.delete\":\"0\",\"users.view\":\"0\",\"users.create\":\"0\",\"users.edit\":\"0\",\"users.delete\":\"0\"}', '2024-06-03 21:30:05', '2024-06-03 21:30:05'),
+(3, 'Encoder', '{\"superuser\":\"0\",\"admin\":\"1\",\"csv_import\":\"1\",\"dashboard\":\"1\",\"musics.view\":\"1\",\"musics.create\":\"1\",\"musics.edit\":\"1\",\"musics.delete\":\"1\",\"musics.view_hymn\":\"0\",\"music_details.view\":\"1\",\"music_details.download\":\"1\",\"music_details.play\":\"1\",\"categories.view\":\"1\",\"categories.create\":\"1\",\"categories.edit\":\"1\",\"categories.delete\":\"1\",\"instrumentations.view\":\"1\",\"instrumentations.create\":\"1\",\"instrumentations.edit\":\"1\",\"instrumentations.delete\":\"1\",\"ensemble_types.view\":\"1\",\"ensemble_types.create\":\"1\",\"ensemble_types.edit\":\"1\",\"ensemble_types.delete\":\"1\",\"credits.view\":\"1\",\"credits.create\":\"1\",\"credits.edit\":\"1\",\"credits.delete\":\"1\",\"groups.view\":\"1\",\"groups.create\":\"1\",\"groups.edit\":\"1\",\"groups.delete\":\"1\",\"users.view\":\"0\",\"users.create\":\"0\",\"users.edit\":\"0\",\"users.delete\":\"0\"}', '2024-06-05 03:44:52', '2024-06-05 04:02:02'),
+(4, 'Common', '{\"superuser\":\"0\",\"admin\":\"0\",\"csv_import\":\"0\",\"dashboard\":\"0\",\"musics.view\":\"1\",\"musics.create\":\"0\",\"musics.edit\":\"0\",\"musics.delete\":\"0\",\"musics.view_hymn\":\"0\",\"music_details.view\":\"1\",\"music_details.download\":\"0\",\"music_details.play\":\"1\",\"categories.view\":\"0\",\"categories.create\":\"0\",\"categories.edit\":\"0\",\"categories.delete\":\"0\",\"instrumentations.view\":\"0\",\"instrumentations.create\":\"0\",\"instrumentations.edit\":\"0\",\"instrumentations.delete\":\"0\",\"ensemble_types.view\":\"0\",\"ensemble_types.create\":\"0\",\"ensemble_types.edit\":\"0\",\"ensemble_types.delete\":\"0\",\"credits.view\":\"0\",\"credits.create\":\"0\",\"credits.edit\":\"0\",\"credits.delete\":\"0\",\"groups.view\":\"0\",\"groups.create\":\"0\",\"groups.edit\":\"0\",\"groups.delete\":\"0\",\"users.view\":\"0\",\"users.create\":\"0\",\"users.edit\":\"0\",\"users.delete\":\"0\"}', '2024-06-05 03:46:16', '2024-06-05 03:46:16');
 
 -- --------------------------------------------------------
 
@@ -755,12 +776,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_verified_at`, `password`, `permissions`, `activated`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Felix Pareja', 'fmpareja', 'felixpareja.pmdit07@gmail.com', NULL, '$2y$12$oXj7Jb0Mq2ubIdW6FnqIH.Y5QJEWSHNxkImnSGf25eEuMripxrKd.', NULL, 0, NULL, '2024-04-16 21:46:25', '2024-06-02 22:44:47'),
-(3, 'Kyrt Jurada', 'kjurada', 'kjurada@gmail.com', NULL, '$2y$12$gdJNOpmcVydXmnStkBxnHe1oPVIpWlFtfNPx9c3GsHA/sycQn94ie', NULL, 0, NULL, '2024-06-02 23:08:48', '2024-06-04 17:58:38'),
-(4, 'Roland Kim Amaro', 'rkamaro', 'rkamaro@gmail.com', NULL, '$2y$12$X6mlU56RRbC5zxyy5IVGde/q0Tsr9MgUQt4afweD2JbZKokf1Nbo2', NULL, NULL, NULL, '2024-06-03 19:42:53', '2024-06-03 21:38:36'),
-(5, 'Eduardo V. Manalo', 'evm', 'evm@gmail.com', NULL, '$2y$12$Cp0HvJC.wabZ/NtmJ8TyquM0wSDUpNKxblvJix3j1zl0AblSLbyp.', NULL, NULL, NULL, '2024-06-03 21:31:13', '2024-06-03 21:37:47'),
-(6, 'Antonio  T. de Guzman', 'atg', 'atg@gmail.com', NULL, '$2y$12$u3ikFSmmBU44bVQ9vK160emXzhh98nLkiGTCnO7Gdo5ClMlOcFcPe', NULL, NULL, NULL, '2024-06-03 21:34:13', '2024-06-03 21:38:06'),
-(7, 'Gemma M. de Guzman', 'gmg', 'gmg@gmail.com', NULL, '$2y$12$T7j3WfGYbg7Po9iFTI474epUuzRwS2sFtgLsdQNGD06imTmKxC4Im', NULL, NULL, NULL, '2024-06-03 21:53:50', '2024-06-03 21:53:50');
+(1, 'Felix Pareja', 'fmpareja', 'felixpareja.pmdit07@gmail.com', NULL, '$2y$12$oXj7Jb0Mq2ubIdW6FnqIH.Y5QJEWSHNxkImnSGf25eEuMripxrKd.', NULL, 1, NULL, '2024-04-16 21:46:25', '2024-06-05 16:59:50'),
+(3, 'Kyrt Jurada', 'kjurada', 'kjurada@gmail.com', NULL, '$2y$12$gdJNOpmcVydXmnStkBxnHe1oPVIpWlFtfNPx9c3GsHA/sycQn94ie', NULL, 1, NULL, '2024-06-02 23:08:48', '2024-06-05 16:44:33'),
+(4, 'Roland Kim Amaro', 'rkamaro', 'rkamaro@gmail.com', NULL, '$2y$12$X6mlU56RRbC5zxyy5IVGde/q0Tsr9MgUQt4afweD2JbZKokf1Nbo2', NULL, 1, NULL, '2024-06-03 19:42:53', '2024-06-05 16:44:51'),
+(5, 'Eduardo V. Manalo', 'evm', 'evm@gmail.com', NULL, '$2y$12$Cp0HvJC.wabZ/NtmJ8TyquM0wSDUpNKxblvJix3j1zl0AblSLbyp.', NULL, 0, NULL, '2024-06-03 21:31:13', '2024-06-05 16:45:04'),
+(6, 'Antonio  T. de Guzman', 'atg', 'atg@gmail.com', NULL, '$2y$12$u3ikFSmmBU44bVQ9vK160emXzhh98nLkiGTCnO7Gdo5ClMlOcFcPe', NULL, 0, NULL, '2024-06-03 21:34:13', '2024-06-05 16:45:07'),
+(7, 'Gemma M. de Guzman', 'gmg', 'gmg@gmail.com', NULL, '$2y$12$T7j3WfGYbg7Po9iFTI474epUuzRwS2sFtgLsdQNGD06imTmKxC4Im', NULL, 0, NULL, '2024-06-03 21:53:50', '2024-06-05 16:45:10'),
+(8, 'Admin', 'admin', 'admin@gmail.com', NULL, '$2y$12$9zTjKojCzPWeitLa/ka0uerS76ygPIPIxE0Vwn/XcR/Xyd6Ynm9RG', NULL, 0, NULL, '2024-06-05 16:46:18', '2024-06-05 16:46:58');
 
 -- --------------------------------------------------------
 
@@ -783,11 +805,18 @@ INSERT INTO `users_groups` (`user_id`, `group_id`) VALUES
 (4, 1),
 (5, 2),
 (6, 2),
-(7, 2);
+(7, 2),
+(8, 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `api_documentations`
+--
+ALTER TABLE `api_documentations`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `categories`
@@ -944,6 +973,12 @@ ALTER TABLE `users_groups`
 --
 
 --
+-- AUTO_INCREMENT for table `api_documentations`
+--
+ALTER TABLE `api_documentations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
@@ -989,19 +1024,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `musics`
 --
 ALTER TABLE `musics`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `music_arranger`
 --
 ALTER TABLE `music_arranger`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
 
 --
 -- AUTO_INCREMENT for table `music_composer`
 --
 ALTER TABLE `music_composer`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT for table `music_creators`
@@ -1019,19 +1054,19 @@ ALTER TABLE `music_lyricist`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `permission_categories`
 --
 ALTER TABLE `permission_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `permission_groups`
 --
 ALTER TABLE `permission_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1043,7 +1078,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
