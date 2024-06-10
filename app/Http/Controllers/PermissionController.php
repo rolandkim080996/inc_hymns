@@ -11,6 +11,7 @@ class PermissionController extends Controller
     public function index()
     {
         $categories = PermissionCategory::with('permissions')->get();
+       
         return view('permissions.index', compact('categories'));
     }
     

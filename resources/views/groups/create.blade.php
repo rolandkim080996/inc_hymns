@@ -37,38 +37,39 @@
         </div>
 
         <div class="mt-4">
-                <x-input-label for="permissions" :value="__('Permissions')" />
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Permission</th>
-                                <th>Grant</th>
-                                <th>Deny</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($permissions as $permissionGroup => $groupPermissions)
-                                <tr class="header-row">
-                                    <td colspan="3"><strong>{{ $permissionGroup }}</strong></td>
-                                </tr>
-                                @foreach ($groupPermissions as $permission => $description)
-                                    <tr>
-                                        <td>{{ $description }}</td>
-                                        <td>
-                                            <input type="radio" name="permissions[{{ $permission }}]" value="1" {{ old("permissions.$permission") == '1' ? 'checked' : '' }}>
-                                        </td>
-                                        <td>
-                                            <input type="radio" name="permissions[{{ $permission }}]" value="0" {{ old("permissions.$permission", '0') == '0' ? 'checked' : '' }}>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <x-input-error :messages="$errors->get('permissions')" class="mt-2" />
-            </div>
+    <x-input-label for="permissions" :value="__('Permissions')" />
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Permission</th>
+                    <th>Grant</th>
+                    <th>Deny</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($permissionsArray as $categoryName => $groupPermissions)
+                    <tr class="header-row">
+                        <td colspan="3"><strong>{{ $categoryName }}</strong></td>
+                    </tr>
+                    @foreach ($groupPermissions as $permission => $description)
+                        <tr>
+                            <td>{{ $description }}</td>
+                            <td>
+                                <input type="radio" name="permissions[{{ $permission }}]" value="1" {{ old("permissions.$permission") == '1' ? 'checked' : '' }}>
+                            </td>
+                            <td>
+                                <input type="radio" name="permissions[{{ $permission }}]" value="0" {{ old("permissions.$permission", '0') == '0' ? 'checked' : '' }}>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    <x-input-error :messages="$errors->get('permissions')" class="mt-2" />
+</div>
+
 
         <div class="flex items-center justify-end mt-4">
             <x-primary-button class="ml-4">

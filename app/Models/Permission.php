@@ -16,6 +16,7 @@ class Permission extends Model
         return $this->belongsToMany(PermissionCategory::class, 'permission_categories', 'permission_id', 'category_id');
     }
     
+    
 
     public function groups()
     {
