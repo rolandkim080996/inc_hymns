@@ -11,7 +11,7 @@ class PermissionCategory extends Model
 
     protected $table = 'permission_categories'; // Specify the table name
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['permission_id', 'category_id', 'name', 'description'];
 
     public function permissions()
     {

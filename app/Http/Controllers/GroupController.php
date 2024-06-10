@@ -15,70 +15,100 @@ class GroupController extends Controller
 
     public function create()
     {
-        $permissions = [
-            'Global' => [
-                'superuser' => 'Super User',
-                'admin' => 'Admin',
-                'csv_import' => 'CSV Import',
-                'dashboard' => 'Dashboard',
-            ],
-            'Musics' => [
-                'musics.view' => 'View',
-                'musics.create' => 'Create',
-                'musics.edit' => 'Edit',
-                'musics.delete' => 'Delete',
-                'musics.view_hymn' => 'View Hymn',
-                'musics.search' => 'Search',
-            ],
-            'Music Details' => [
-                'music_details.viewdetails' => 'ViewDetails',
-                'music_details.download' => 'Download',
-                'music_details.play' => 'Play',
-            ],
-            'Categories' => [
-                'categories.view' => 'View',
-                'categories.create' => 'Create',
-                'categories.edit' => 'Edit',
-                'categories.delete' => 'Delete',
-            ],
-            'Instrumentations' => [
-                'instrumentations.view' => 'View',
-                'instrumentations.create' => 'Create',
-                'instrumentations.edit' => 'Edit',
-                'instrumentations.delete' => 'Delete',
-            ],
-            'Ensemble Types' => [
-                'ensemble_types.view' => 'View',
-                'ensemble_types.create' => 'Create',
-                'ensemble_types.edit' => 'Edit',
-                'ensemble_types.delete' => 'Delete',
-            ],
-            'Credits' => [
-                'credits.view' => 'View',
-                'credits.create' => 'Create',
-                'credits.edit' => 'Edit',
-                'credits.delete' => 'Delete',
-            ],
-            'Groups' => [
-                'groups.view' => 'View',
-                'groups.create' => 'Create',
-                'groups.edit' => 'Edit',
-                'groups.delete' => 'Delete',
-            ],
-            'Users' => [
-                'users.view' => 'View',
-                'users.create' => 'Create',
-                'users.edit' => 'Edit',
-                'users.delete' => 'Delete',
-            ],
-            'Navigation' => [
-                'navigation.hymns' => 'Hymns',
-                'navigation.createnew' => 'CreateNew',
-                'navigation.settings' => 'Settings',
-            ],
-        ];
+        // $permissions = [
+        //     'Global' => [
+        //         'superuser' => 'Super User',
+        //         'admin' => 'Admin',
+        //         'csv_import' => 'CSV Import',
+        //         'dashboard' => 'Dashboard',
+        //     ],
+        //     'Musics' => [
+        //         'musics.view' => 'View',
+        //         'musics.create' => 'Create',
+        //         'musics.edit' => 'Edit',
+        //         'musics.delete' => 'Delete',
+        //         'musics.view_hymn' => 'View Hymn',
+        //         'musics.search' => 'Search',
+        //     ],
+        //     'Music Details' => [
+        //         'music_details.viewdetails' => 'ViewDetails',
+        //         'music_details.download' => 'Download',
+        //         'music_details.play' => 'Play',
+        //     ],
+        //     'Categories' => [
+        //         'categories.view' => 'View',
+        //         'categories.create' => 'Create',
+        //         'categories.edit' => 'Edit',
+        //         'categories.delete' => 'Delete',
+        //     ],
+        //     'Instrumentations' => [
+        //         'instrumentations.view' => 'View',
+        //         'instrumentations.create' => 'Create',
+        //         'instrumentations.edit' => 'Edit',
+        //         'instrumentations.delete' => 'Delete',
+        //     ],
+        //     'Ensemble Types' => [
+        //         'ensemble_types.view' => 'View',
+        //         'ensemble_types.create' => 'Create',
+        //         'ensemble_types.edit' => 'Edit',
+        //         'ensemble_types.delete' => 'Delete',
+        //     ],
+        //     'Credits' => [
+        //         'credits.view' => 'View',
+        //         'credits.create' => 'Create',
+        //         'credits.edit' => 'Edit',
+        //         'credits.delete' => 'Delete',
+        //     ],
+        //     'Groups' => [
+        //         'groups.view' => 'View',
+        //         'groups.create' => 'Create',
+        //         'groups.edit' => 'Edit',
+        //         'groups.delete' => 'Delete',
+        //     ],
+        //     'Users' => [
+        //         'users.view' => 'View',
+        //         'users.create' => 'Create',
+        //         'users.edit' => 'Edit',
+        //         'users.delete' => 'Delete',
+        //     ],
+        //     'Navigation' => [
+        //         'navigation.hymns' => 'Hymns',
+        //         'navigation.createnew' => 'CreateNew',
+        //         'navigation.settings' => 'Settings',
+        //     ],
+        // ];
+// Fetch categories and their permissions
+$categories = \DB::table('permission_categories as pc')
+    ->leftJoin('permissions as p', 'pc.permission_id', '=', 'p.id')
+    ->select('pc.name as category_name', 'p.name as permission_name', 'p.description as permission_description')
+    ->orderBy('pc.id', 'asc')
+    ->orderBy('p.id', 'asc')
+    ->get();
 
-        return view('groups.create', compact('permissions'));
+// Initialize permissions array
+$permissions = [];
+
+// Now, ensure all permissions are included within each category
+foreach ($categories as $category) {
+    // Ensure the category exists in the array
+    if (!isset($permissions[$category->category_name])) {
+        $permissions[$category->category_name] = [];
+    }
+
+    // Add permission if it exists
+    if ($category->permission_name && $category->permission_description) {
+        $permissions[$category->category_name][$category->permission_name] = $category->permission_description;
+    }
+}
+
+// Remove the empty "Global" category if it is empty
+if (empty($permissions[''])) {
+    unset($permissions['']);
+}
+
+        
+        dd( $permissions);
+        return view('groups.create', compact('structuredPermissions'));
     }
 
     public function store(Request $request)
