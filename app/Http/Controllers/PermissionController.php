@@ -14,8 +14,6 @@ class PermissionController extends Controller
         return view('permissions.index', compact('categories'));
     }
     
-    
-
     public function create()
     {
         $categories = PermissionCategory::all();
