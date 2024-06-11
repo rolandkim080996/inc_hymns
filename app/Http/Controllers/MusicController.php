@@ -10,6 +10,7 @@ use App\Models\Instrumentation;
 use App\Models\EnsembleType;
 use App\Models\Language;
 use App\Models\MusicCreator;
+use App\Models\GroupPermission;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -19,6 +20,7 @@ class MusicController extends Controller
 // Display a listing of the music entries
  public function index(Request $request)
  {
+    
      // Get the query string from the request
      $query = $request->input('query');
      $categoryIds = $request->input('category_ids', []);
@@ -70,6 +72,15 @@ class MusicController extends Controller
      $languages = Language::all();
      $creators = MusicCreator::all();
 
+    // Get the logged-in user's group access rights
+    $accessRights = GroupPermission::where('group_id', 1)
+    ->where('category_id', 6)
+    ->where('permission_id', 6)
+    ->join('permissions', 'permissions.id', '=', 'group_permissions.permission_id')
+    ->select('accessrights', 'permission_id', 'permissions.name')
+    ->get();
+    
+    
      return view('musics', compact('musics', 'churchHymns', 'categories', 'topCategories', 'instrumentations', 'ensemble_Types', 'languages', 'creators'));
  }
 

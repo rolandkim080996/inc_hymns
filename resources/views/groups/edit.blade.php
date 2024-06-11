@@ -46,7 +46,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($permissions as $permissionGroup => $groupPermissions)
+                        @foreach ($permissionsArray as $permissionGroup => $groupPermissions)
                             <tr class="header-row">
                                 <td colspan="3"><strong>{{ $permissionGroup }}</strong></td>
                             </tr>
@@ -54,10 +54,10 @@
                                 <tr>
                                     <td>{{ $description }}</td>
                                     <td>
-                                        <input type="radio" name="permissions[{{ $permission }}]" value="1" {{ (isset($group->permissions[$permission]) && $group->permissions[$permission] == '1') ? 'checked' : '' }}>
+                                        <input type="radio" name="permissions[{{ $permission }}]" value="1" {{ (isset($groupPermissionsArray[$permission]) && $groupPermissionsArray[$permission] == '1') ? 'checked' : '' }}>
                                     </td>
                                     <td>
-                                        <input type="radio" name="permissions[{{ $permission }}]" value="0" {{ (!isset($group->permissions[$permission]) || $group->permissions[$permission] == '0') ? 'checked' : '' }}>
+                                        <input type="radio" name="permissions[{{ $permission }}]" value="0" {{ (!isset($groupPermissionsArray[$permission]) || $groupPermissionsArray[$permission] == '0') ? 'checked' : '' }}>
                                     </td>
                                 </tr>
                             @endforeach

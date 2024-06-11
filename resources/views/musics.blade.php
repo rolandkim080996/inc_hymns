@@ -15,13 +15,17 @@
             {{ __('Music List') }}
         </h2>
         <div>
-            <!-- Add Music Button with Icon -->
-            <button id="addMusicButton" class="btn btn-primary mb-0">
-                <i class="fas fa-plus"></i>
-                <span> Music</span>
-            </button>
-            
-            <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back</a>
+
+       
+
+
+        <button id="addMusicButton" class="btn btn-primary mb-0" style="display: {{ \App\Helpers\AccessRightsHelper::checkPermission('musics.create') }}">
+            <i class="fas fa-plus"></i>
+            <span> Music</span>
+        </button>
+        
+
+        <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back</a>
         </div>
     </div>
     
@@ -255,13 +259,13 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap border text-center">
                                     <div class="flex justify-center items-center space-x-4">
-                                        <a href="{{ route('musics.edit', $music->id) }}" class="btn btn-secondary">
+                                        <a href="{{ route('musics.edit', $music->id) }}" class="btn btn-secondary" style="display: {{ \App\Helpers\AccessRightsHelper::checkPermission('musics.edit') }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <form id="deleteForm{{$music->id}}" method="POST" action="{{ route('musics.destroy', $music->id) }}" style="display: inline;margin-top:16px;margin-left:3px;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" onclick="confirmDelete({{$music->id}})" class="btn btn-danger">
+                                            <button type="button" onclick="confirmDelete({{$music->id}})" class="btn btn-danger" style="display: {{ \App\Helpers\AccessRightsHelper::checkPermission('musics.delete') }}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>

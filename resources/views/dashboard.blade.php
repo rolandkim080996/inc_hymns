@@ -23,11 +23,24 @@
                 <div class="flex gap-4">
     <!-- Total Church Hymns -->
     @php
-        $colors = ['0A6847', 'F6F5F2', 'C40C0C', 'FFBB70'];
+        $colors = ['0A6847', 'F6F5F2', 'C40C0C', '0077B6'];
         $colorText = ['EEEEEE', '32012F', 'EEEEEE', 'EEEEEE'];
         $colorIndex = 0;
     @endphp
 
+        <!-- Hymns of Music Count -->
+        @if($totalChurchHymns->sum('musics_count') > 0)
+        <a href="{{ route('musics.index') }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #023E8A; border: 2px solid #686D76; text-decoration: none;">
+            <span class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</span>
+            <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Hymns</h4>
+        </a>
+    @else
+        <div class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #023E8A; border: 2px solid #686D76;">
+            <span class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</span>
+            <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Hymns</h4>
+        </div>
+    @endif
+    
     @foreach($totalChurchHymns as $hymn)
         @php
             $serviceName = '';
@@ -64,27 +77,16 @@
             $colorIndex = ($colorIndex + 1) % count($colors);
         @endphp
     @endforeach
-    <!-- Hymns of Music Count -->
-    @if($totalChurchHymns->sum('musics_count') > 0)
-        <a href="{{ route('musics.index') }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #03AED2; border: 2px solid #686D76; text-decoration: none;">
-            <span class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</span>
-            <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Hymns</h4>
-        </a>
-    @else
-        <div class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #03AED2; border: 2px solid #686D76;">
-            <span class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</span>
-            <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Hymns</h4>
-        </div>
-    @endif
+
 
     <!-- Users Count -->
     @if($totalUsers > 0)
-        <a href="{{ route('users.index') }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #121481; border: 2px solid #686D76; text-decoration: none;">
+        <a href="{{ route('users.index') }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #48CAE4; border: 2px solid #686D76; text-decoration: none;">
             <span class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalUsers }}</span>
             <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Users</h4>
         </a>
     @else
-        <div class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #121481; border: 2px solid #686D76;">
+        <div class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #48CAE4; border: 2px solid #686D76;">
             <span class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalUsers }}</span>
             <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Users</h4>
         </div>
@@ -157,7 +159,7 @@
                     'rgba(10, 104, 71, 0.2)',
                     'rgba(246, 245, 242, 0.2)',
                     'rgba(196, 12, 12, 0.2)',
-                    'rgba(255, 187, 112, 0.2)',
+                    'rgba(0, 119, 182, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
                     'rgba(255, 159, 64, 0.2)'
                 ],
@@ -165,7 +167,7 @@
                     'rgba(10, 104, 71, 1)',
                     'rgba(246, 245, 242, 1)',
                     'rgba(196, 12, 12, 1)',
-                    'rgba(255, 187, 112, 1)',
+                    'rgba(0, 119, 182, 1)',
                     'rgba(153, 102, 255, 1)',
                     'rgba(255, 159, 64, 1)'
                 ],
