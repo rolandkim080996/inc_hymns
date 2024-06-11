@@ -32,7 +32,7 @@
                 <a href="{{ $displayRoute }}" class="btn btn-primary ml-3"><i class="{{ $displayIcon }}"></i> {{ $displayLabel }}</a>
 
                 <a href="{{ $cancelRoute }}" class="btn btn-secondary">
-                    {{ __('Cancel') }}
+                    {{ __('Back') }}
                 </a>
 
             </div>

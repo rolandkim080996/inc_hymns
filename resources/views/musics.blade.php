@@ -51,16 +51,27 @@
         <form action="{{ route('musics.index') }}" method="GET" class="mt-4 mb-4">
             <div class="flex items-center justify-between mb-4">
                 <form method="GET" action="{{ route('musics.index') }}" method="GET" class="mt-4 mb-4">
-                    <input type="text" id="searchInput" name="query" class="form-control" value="{{ request('query') }}" placeholder="Search hymns ...">
+                    <input type="text" id="searchInput" name="query" class="form-control" value="{{ request('query') }}" placeholder="Search hymns ..." onkeypress="handleEnterKey(event)">
                     
-                    <select name="category_ids[]" style="height:38px;margin-left:2px;margin-right:2px;">
-                        <option value="0" selected disabled>Select category</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ in_array($category->id, request('category_ids', [])) ? 'selected' : '' }}>
-                                {{ $category->name }}
-                            </option>
-                        @endforeach
-                    </select>
+          <!-- Language Dropdown -->
+          <select name="language_id" id="languageDropdown" style="height:38px;margin-left:2px;margin-right:2px;">
+                <option value="All" {{ request('language_id') == 'All' ? 'selected' : '' }}>All languages</option>
+                @foreach($languages as $language)
+                    <option value="{{ $language->id }}" {{ request('language_id') == $language->id ? 'selected' : '' }}>
+                        {{ $language->name }}
+                    </option>
+                @endforeach
+            </select>
+            
+            <!-- Category Dropdown -->
+            <select name="category_ids[]" id="categoryDropdown" style="height:38px;margin-left:2px;margin-right:2px;">
+                <option value="All" {{ in_array('All', request('category_ids', [])) ? 'selected' : '' }}>All categories</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ in_array($category->id, request('category_ids', [])) ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
                     
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-success">Search</button>
@@ -75,6 +86,23 @@
                 </div>
             </div>
         </form>
+
+        <script>
+    // Function to handle keypress event
+    function handleEnterKey(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("searchForm").submit();
+        }
+    }
+    
+    // Add keypress event listener to language dropdown
+    document.getElementById("languageDropdown").addEventListener("keypress", handleEnterKey);
+    
+    // Add keypress event listener to category dropdown
+    document.getElementById("categoryDropdown").addEventListener("keypress", handleEnterKey);
+</script>
+
 
         <style>
             #context-menu {
@@ -229,61 +257,146 @@
                     <!-- Music Table -->
                     <div class="overflow-x-auto">
                     <table class="min-w-full table-auto border divide-y divide-gray-200">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
-                                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Language</th>
-                                <th scope="col" class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="musicList" class="bg-white divide-y divide-gray-200">
-                            @foreach($musics as $index => $music)
-                            <tr class="{{ $index % 2 == 0 ? 'bg-gray-50' : 'bg-white' }} hover:bg-gray-200">
-                                <td style="width: 5%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ ($musics->currentPage() - 1) * $musics->perPage() + $loop->iteration }}</td>
-                                
-                                <td class="px-6 py-4 whitespace-nowrap border">
-                                    <a href="{{ route('musics.show', $music->id) }}" class="flex items-center">
-                                        <i class="fas fa-music" style="margin-right: 12px; margin-left: 4px;"></i>
-                                        {{ $music->title }}
-                                    </a>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap border">
-                                    @foreach($music->categories as $category)
-                                        {{ $loop->first ? '' : ', ' }}{{ $category->name }}
-                                    @endforeach
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap border">
-                                    {{ $music->language->name }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap border text-center">
-                                    <div class="flex justify-center items-center space-x-4">
-                                        <a href="{{ route('musics.edit', $music->id) }}" class="btn btn-secondary" style="display: {{ \App\Helpers\AccessRightsHelper::checkPermission('musics.edit') }}">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form id="deleteForm{{$music->id}}" method="POST" action="{{ route('musics.destroy', $music->id) }}" style="display: inline;margin-top:16px;margin-left:3px;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" onclick="confirmDelete({{$music->id}})" class="btn btn-danger" style="display: {{ \App\Helpers\AccessRightsHelper::checkPermission('musics.delete') }}">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
+                    <thead>
+        <tr>
+            <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
+            <th style="width: 35% !important; white-space: normal;" scope="col" class="px-6 py-3 bg-gray-50 text-left text-s font-large text-black-500 uppercase tracking-wider" onclick="sortTable(1)">
+                Title <i id="titleSortIcon" class="fas fa-sort"></i>
+            </th>
+            <th style="width: 15% !important; white-space: normal;" scope="col" class="px-6 py-3 bg-gray-50 text-left text-s font-large text-black-500 uppercase tracking-wider" onclick="sortTable(2)">
+                Hymn # <i id="hymnSortIcon" class="fas fa-sort"></i>
+            </th>
+            <th style="width: 25% !important; white-space: normal;" scope="col" class="px-4 py-1 bg-gray-50 text-left text-s font-large text-black-500 uppercase tracking-wider">Category</th>
+            <th style="width: 15% !important; white-space: normal;" scope="col" class="px-6 py-3 bg-gray-50 text-left text-s font-large text-black-500 uppercase tracking-wider">Language</th>
+            <th scope="col" class="px-6 py-3 bg-gray-50 text-center text-s font-large text-black-500 uppercase tracking-wider">Action</th>
+        </tr>
+    </thead>
+    <tbody id="musicList" class="bg-white divide-y divide-gray-200">
+        @foreach($musics as $index => $music)
+        <tr class="{{ $index % 2 == 0 ? 'bg-gray-50' : 'bg-white' }} hover:bg-gray-200">
+            <td style="width: 5%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ ($musics->currentPage() - 1) * $musics->perPage() + $loop->iteration }}</td>
+            
+            <td style="width: 35% !important; white-space: normal;" class="px-6 py-4 whitespace-nowrap border">
+                <a href="{{ route('musics.show', $music->id) }}" class="flex items-center">
+                    <i class="fas fa-music" style="margin-right: 12px; margin-left: 4px;"></i>
+                    {{ $music->title }}
+                </a>
+            </td>
+            <td style="width: 15% !important; white-space: normal;" class="px-6 py-4 whitespace-nowrap border">
+                {{ $music->song_number }}
+            </td>
+            <td style="width: 25% !important; white-space: normal;" class="px-4 py-1 whitespace-normal border">
+                @foreach($music->categories as $category)
+                    {{ $loop->first ? '' : ', ' }}{{ $category->name }}
+                @endforeach
+            </td>
+            <td style="width: 15% !important; white-space: normal;" class="px-6 py-4 whitespace-nowrap border">
+                {{ $music->language->name }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap border text-center">
+                <div class="flex justify-center items-center space-x-4">
+                    <a href="{{ route('musics.edit', $music->id) }}" class="btn btn-secondary" style="display: {{ \App\Helpers\AccessRightsHelper::checkPermission('musics.edit') }}">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <form id="deleteForm{{$music->id}}" method="POST" action="{{ route('musics.destroy', $music->id) }}" style="display: inline;margin-top:16px;margin-left:3px;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" onclick="confirmDelete({{$music->id}})" class="btn btn-danger" style="display: {{ \App\Helpers\AccessRightsHelper::checkPermission('musics.delete') }}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 
-                                <script>
-                                    function confirmDelete(id) {
-                                        if (confirm('Are you sure you want to delete this music?')) {
-                                            document.getElementById('deleteForm' + id).submit();
-                                        }
-                                    }
-                                </script>
 
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+
+<script>
+var titleSortDirection = 1;
+var hymnSortDirection = 1;
+
+function sortTable(colIndex) {
+    var table, rows, switching, i, x, y, shouldSwitch;
+    table = document.querySelector('.min-w-full');
+    switching = true;
+    while (switching) {
+        switching = false;
+        rows = table.rows;
+        for (i = 1; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+            x = rows[i].getElementsByTagName("TD")[colIndex];
+            y = rows[i + 1].getElementsByTagName("TD")[colIndex];
+            var xValue = x.textContent || x.innerText;
+            var yValue = y.textContent || y.innerText;
+            if (colIndex === 1) {
+                if (titleSortDirection === 1) {
+                    if (xValue.toLowerCase() > yValue.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else {
+                    if (xValue.toLowerCase() < yValue.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            } else if (colIndex === 2) {
+                if (hymnSortDirection === 1) {
+                    if (parseInt(xValue) > parseInt(yValue)) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else {
+                    if (parseInt(xValue) < parseInt(yValue)) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+        }
+    }
+    toggleSortIcon(colIndex);
+}
+
+function toggleSortIcon(colIndex) {
+    var iconId = colIndex === 1 ? 'titleSortIcon' : 'hymnSortIcon';
+    var icon = document.getElementById(iconId);
+    if (icon.classList.contains('fa-sort')) {
+        icon.classList.remove('fa-sort');
+        icon.classList.add('fa-sort-up');
+        if (colIndex === 1) {
+            titleSortDirection = 1;
+        } else if (colIndex === 2) {
+            hymnSortDirection = 1;
+        }
+    } else if (icon.classList.contains('fa-sort-up')) {
+        icon.classList.remove('fa-sort-up');
+        icon.classList.add('fa-sort-down');
+        if (colIndex === 1) {
+            titleSortDirection = -1;
+        } else if (colIndex === 2) {
+            hymnSortDirection = -1;
+        }
+    } else if (icon.classList.contains('fa-sort-down')) {
+        icon.classList.remove('fa-sort-down');
+        icon.classList.add('fa-sort-up');
+        if (colIndex === 1) {
+            titleSortDirection = 1;
+        } else if (colIndex === 2) {
+            hymnSortDirection = 1;
+        }
+    }
+}
+</script>
+
+
 
                     <!-- Add this script to ensure FontAwesome icons are loaded -->
                     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

@@ -95,34 +95,37 @@
 
 
 
-
+<div style="display: {{ \App\Helpers\AccessRightsHelper::checkPermission('dashboard.hymns_info') }}">
                     <div class="flex mt-8 gap-4 mt-4">
-                        <!-- Recent Activity -->
-                        <div class="w-full md:w-1/2">
-                            <h3 class="text-lg font-semibold mb-4">Recent Activity</h3>
-                            <div class="bg-gray-100 p-4 rounded-lg shadow">
-                                <table class="min-w-full bg-white">
-                                    <thead>
-                                        <tr>
-                                            <th class="py-2 px-4 border-b border-gray-300">Date</th>
-                                            <th class="py-2 px-4 border-b border-gray-300">Admin</th>
-                                            <th class="py-2 px-4 border-b border-gray-300">Action</th>
-                                            <th class="py-2 px-4 border-b border-gray-300">Item</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($totalChurchHymns as $activity)
-                                            <tr>
-                                                <td class="py-2 px-4 border-b border-gray-300">-</td>
-                                                <td class="py-2 px-4 border-b border-gray-300">-</td>
-                                                <td class="py-2 px-4 border-b border-gray-300">-</td>
-                                                <td class="py-2 px-4 border-b border-gray-300">-</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+<!-- Recent Activity -->
+<div class="w-full md:w-1/2">
+    <h3 class="text-lg font-semibold mb-4">Recent Activity</h3>
+    <div class="bg-gray-100 p-4 rounded-lg shadow">
+        <table class="min-w-full bg-white">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border-b border-gray-300">Date</th>
+                    <th class="py-2 px-4 border-b border-gray-300">User</th>
+                    <th class="py-2 px-4 border-b border-gray-300">Action</th>
+                    <th class="py-2 px-4 border-b border-gray-300">Item</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($logs as $activity)
+                    <tr>
+                        <td class="py-2 px-4 border-b border-gray-300">{{ $activity->created_at->format('Y-m-d H:i:s') }}</td>
+                        <td class="py-2 px-4 border-b border-gray-300">{{ optional($activity->user)->name }}</td>
+                        <td class="py-2 px-4 border-b border-gray-300">{{ $activity->action }}</td>
+                        <td class="py-2 px-4 border-b border-gray-300">
+                            {{ $activity->model ? class_basename($activity->model) . ' (ID: ' . $activity->model_id . ')' : '-' }}
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
              <!-- Hymns Chart -->
 <div class="w-full md:w-1/2">
     <h3 class="text-lg font-semibold mb-4">Hymns Chart</h3>
@@ -206,6 +209,103 @@
 
 
                     </div>
+                    <div class="flex mt-8 gap-4 mt-6 mb-6">
+
+                    
+<!-- Hymns by Language -->
+<div class="w-full md:w-1/2">
+    <h3 class="text-lg font-semibold mb-4">Hymns by Language</h3>
+    <div class="bg-gray-100 p-4 rounded-lg shadow">
+        <table class="min-w-full bg-white">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border-b border-gray-300">#</th>
+                    <th class="py-2 px-4 border-b border-gray-300">Language</th>
+                    <th class="py-2 px-4 border-b border-gray-300">Hymns Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($languageCounts as $index => $languageCount)
+                    <tr>
+                        <td class="py-2 px-4 border-b border-gray-300">{{ $index + 1 }}</td>
+                        <td class="py-2 px-4 border-b border-gray-300">{{ $languageCount->name }}</td>
+                        <td class="py-2 px-4 border-b border-gray-300">{{ $languageCount->musics_count }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+                    <!-- Hymn Categories Chart -->
+                    <div class="w-full md:w-1/2">
+    <h3 class="text-lg font-semibold mb-4">Hymn Categories Chart</h3>
+    <div style="position: relative; height: 400px;">
+        <canvas id="hymnCategoriesChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Extract labels and data from PHP variables
+    var labels = [];
+    var data = [];
+    var hymnCounts = [];
+
+    @foreach($categoryCounts as $categoryCount)
+        labels.push('{{ $categoryCount->category_name }}');
+        data.push({{ $categoryCount->musics_count }});
+        hymnCounts.push('{{ $categoryCount->musics_count }}');
+    @endforeach
+
+    // Create the chart only if both labels and data arrays are not empty
+    if (labels.length > 0 && data.length > 0) {
+        // Get the context of the canvas element
+        var ctx = document.getElementById('hymnCategoriesChart').getContext('2d');
+
+        // Define the dataset for the chart
+        var dataset = {
+            labels: labels,
+            datasets: [{
+                label: 'Hymns per Category',
+                data: data,
+                backgroundColor: 'rgba(10, 104, 71, 0.2)',
+                borderColor: 'rgba(10, 104, 71, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        // Define the chart options
+        var options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.labels[tooltipItem.index];
+                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        return label + ': ' + value + ' Hymns';
+                    }
+                }
+            },
+            legend: {
+                display: false,
+            }
+        };
+
+        // Create the chart
+        var churchHymnsChart = new Chart(ctx, {
+            type: 'bar',
+            data: dataset,
+            options: options
+        });
+    }
+</script>
+
+
+</div>
+
 
                     <div class="flex mt-8 gap-4 mt-6 mb-6">
                         <!-- Hymn Categories -->
@@ -324,6 +424,7 @@
                         </div>
                         
                     </div>
+                </div>
                 </div>
             </div>
         </div>

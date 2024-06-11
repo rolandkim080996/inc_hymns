@@ -15,10 +15,11 @@ use App\Http\Controllers\MusicCreatorController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PermissionCategoryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ApiDocumentationController;
-
+use App\Http\Controllers\ActivityLogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +85,9 @@ Route::resource('groups', GroupController::class);
 Route::get('groups/{group}/users', [GroupController::class, 'showUsers'])->name('groups.users');
 
 
+
+Route::resource('permission_categories', PermissionCategoryController::class);
+
 Route::resource('permissions', PermissionController::class);
 Route::get('permissions/show', [PermissionController::class, 'showPermissions'])->name('permissions.show');
 
@@ -129,3 +133,7 @@ Route::delete('music_management/credits/{credit}', [MusicCreatorController::clas
 
 
 Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.settings');
+
+
+Route::get('activity-logs', [ActivityLogController::class, 'index'])->name('activity_logs.index');
+Route::get('activity-logs/{id}', [ActivityLogController::class, 'show'])->name('activity_logs.show');

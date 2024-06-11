@@ -25,6 +25,7 @@ class MusicController extends Controller
      $query = $request->input('query');
      $categoryIds = $request->input('category_ids', []);
      $churchHymnId = $request->input('church_hymn_id');
+     $languageId = $request->input('language_id'); // Add this line to get the language ID
 
      // Initialize the query builder
      $queryBuilder = Music::query();
@@ -37,7 +38,7 @@ class MusicController extends Controller
      }
 
      // Filter by selected categories
-     if (!empty($categoryIds)) {
+     if (!empty($categoryIds) && !in_array('All', $categoryIds)) {
          $queryBuilder->whereHas('categories', function ($query) use ($categoryIds) {
              $query->whereIn('categories.id', $categoryIds);
          });
@@ -47,6 +48,11 @@ class MusicController extends Controller
      if ($churchHymnId) {
          $queryBuilder->where('church_hymn_id', $churchHymnId);
      }
+
+    // Filter by language
+    if ($languageId && $languageId !== 'All') {
+        $queryBuilder->where('language_id', $languageId);
+    }
 
      // Fetch all records if no search query is provided
      $musics = $queryBuilder->latest()->paginate(10)->withQueryString();
