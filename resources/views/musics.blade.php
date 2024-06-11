@@ -54,7 +54,7 @@
                     <input type="text" id="searchInput" name="query" class="form-control" value="{{ request('query') }}" placeholder="Search hymns ..." onkeypress="handleEnterKey(event)">
                     
           <!-- Language Dropdown -->
-          <select name="language_id" id="languageDropdown" style="height:38px;margin-left:2px;margin-right:2px;">
+          <select name="language_id" id="languageDropdown" style="height:38px;margin-left:2px;margin-right:2px;" onkeypress="handleDropdownEnterKey(event, 'searchForm')">
                 <option value="All" {{ request('language_id') == 'All' ? 'selected' : '' }}>All languages</option>
                 @foreach($languages as $language)
                     <option value="{{ $language->id }}" {{ request('language_id') == $language->id ? 'selected' : '' }}>
@@ -64,7 +64,7 @@
             </select>
             
             <!-- Category Dropdown -->
-            <select name="category_ids[]" id="categoryDropdown" style="height:38px;margin-left:2px;margin-right:2px;">
+            <select name="category_ids[]" id="categoryDropdown" style="height:38px;margin-left:2px;margin-right:2px;" onkeypress="handleDropdownEnterKey(event, 'searchForm')">
                 <option value="All" {{ in_array('All', request('category_ids', [])) ? 'selected' : '' }}>All categories</option>
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}" {{ in_array($category->id, request('category_ids', [])) ? 'selected' : '' }}>
@@ -74,7 +74,7 @@
             </select>
                     
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-success">Search</button>
+                        <button type="submit" class="btn btn-success" id="searchButton">Search</button>
                     </div>
                 </form>
 
@@ -85,24 +85,26 @@
                     <button id="tabPlaylist" class="tab-button bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-r focus:outline-none">Playlist</button>
                 </div>
             </div>
-        </form>
-
-        <script>
-    // Function to handle keypress event
+            <script>
+    // Function to handle keypress event for input field
     function handleEnterKey(event) {
         if (event.keyCode === 13) {
             event.preventDefault();
             document.getElementById("searchForm").submit();
         }
     }
-    
-    // Add keypress event listener to language dropdown
-    document.getElementById("languageDropdown").addEventListener("keypress", handleEnterKey);
-    
-    // Add keypress event listener to category dropdown
-    document.getElementById("categoryDropdown").addEventListener("keypress", handleEnterKey);
-</script>
 
+    // Function to handle keypress event for dropdowns
+    function handleDropdownEnterKey(event, formId) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById(formId).submit();
+        }
+    }
+</script>
+        </form>
+
+        
 
         <style>
             #context-menu {
