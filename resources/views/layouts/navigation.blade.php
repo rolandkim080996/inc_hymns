@@ -133,7 +133,7 @@
             </div>
             <div class="mt-3 space-y-1">
                 <!-- Hymn Create Link -->
-                <x-responsive-nav-link :href="route('musics.create')" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                <x-responsive-nav-link :href="route('musics.create')" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white" style="display: {{ \App\Helpers\AccessRightsHelper::checkPermission('musics.view') }}">
                     {{ __('Hymn') }}
                 </x-responsive-nav-link>
                 <!-- User Create Link -->

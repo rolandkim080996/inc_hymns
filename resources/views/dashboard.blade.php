@@ -32,7 +32,7 @@
         @if($totalChurchHymns->sum('musics_count') > 0)
         <a href="{{ route('musics.index') }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #023E8A; border: 2px solid #686D76; text-decoration: none;">
             <span class="font-bold text-center mb-2" style="color:#EEF7FF; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</span>
-            <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Hymns</h4>
+            <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Total Hymns</h4>
         </a>
     @else
         <div class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #023E8A; border: 2px solid #686D76;">
@@ -40,7 +40,7 @@
             <h4 class="font-semibold text-center" style="color:#EEF7FF; font-size: 15px;">Hymns</h4>
         </div>
     @endif
-    
+
     @foreach($totalChurchHymns as $hymn)
         @php
             $serviceName = '';

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 07, 2024 at 11:35 AM
+-- Generation Time: Jun 11, 2024 at 10:30 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -177,8 +177,133 @@ CREATE TABLE `failed_jobs` (
 CREATE TABLE `group_permissions` (
   `group_id` int(11) NOT NULL,
   `permission_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL
+  `category_id` int(11) NOT NULL,
+  `accessrights` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `group_permissions`
+--
+
+INSERT INTO `group_permissions` (`group_id`, `permission_id`, `category_id`, `accessrights`, `created_at`, `updated_at`) VALUES
+(2, 1, 1, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 2, 1, 1, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 3, 1, 1, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 4, 1, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 38, 1, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 39, 1, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 5, 6, 1, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 6, 6, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 7, 6, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 8, 6, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 9, 6, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 10, 12, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 11, 12, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 12, 12, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 13, 16, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 14, 16, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 15, 16, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 16, 16, 1, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 17, 21, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 18, 21, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 19, 21, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 20, 21, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 21, 26, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 22, 26, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 23, 26, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 24, 26, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 25, 31, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 26, 31, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 27, 31, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 28, 31, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 29, 36, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 30, 36, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 31, 36, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 32, 36, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 33, 41, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 34, 41, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 35, 41, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(2, 36, 41, 0, '2024-06-10 20:08:51', '2024-06-10 20:08:51'),
+(4, 1, 1, 1, '2024-06-11 00:15:46', '2024-06-11 00:15:46'),
+(4, 2, 1, 0, '2024-06-11 00:15:46', '2024-06-11 00:15:46'),
+(4, 3, 1, 0, '2024-06-11 00:15:46', '2024-06-11 00:15:46'),
+(4, 4, 1, 0, '2024-06-11 00:15:46', '2024-06-11 00:15:46'),
+(4, 38, 1, 0, '2024-06-11 00:15:46', '2024-06-11 00:15:46'),
+(4, 39, 1, 0, '2024-06-11 00:15:46', '2024-06-11 00:15:46'),
+(4, 5, 6, 1, '2024-06-11 00:15:46', '2024-06-11 00:15:46'),
+(4, 6, 6, 0, '2024-06-11 00:15:46', '2024-06-11 00:15:46'),
+(4, 7, 6, 0, '2024-06-11 00:15:46', '2024-06-11 00:15:46'),
+(4, 8, 6, 0, '2024-06-11 00:15:46', '2024-06-11 00:15:46'),
+(4, 9, 6, 0, '2024-06-11 00:15:46', '2024-06-11 00:15:46'),
+(4, 40, 6, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 10, 12, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 11, 12, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 12, 12, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 13, 16, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 14, 16, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 15, 16, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 16, 16, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 17, 21, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 18, 21, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 19, 21, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 20, 21, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 21, 26, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 22, 26, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 23, 26, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 24, 26, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 25, 31, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 26, 31, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 27, 31, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 28, 31, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 29, 36, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 30, 36, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 31, 36, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 32, 36, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 33, 41, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 34, 41, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 35, 41, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(4, 36, 41, 0, '2024-06-11 00:15:47', '2024-06-11 00:15:47'),
+(1, 1, 1, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 2, 1, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 3, 1, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 4, 1, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 38, 1, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 39, 1, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 5, 6, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 6, 6, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 7, 6, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 8, 6, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 9, 6, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 40, 6, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 10, 12, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 11, 12, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 12, 12, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 13, 16, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 14, 16, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 15, 16, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 16, 16, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 17, 21, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 18, 21, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 19, 21, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 20, 21, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 21, 26, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 22, 26, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 23, 26, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 24, 26, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 25, 31, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 26, 31, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 27, 31, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 28, 31, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 29, 36, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 30, 36, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 31, 36, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 32, 36, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 33, 41, 1, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 34, 41, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 35, 41, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53'),
+(1, 36, 41, 0, '2024-06-11 00:27:53', '2024-06-11 00:27:53');
 
 -- --------------------------------------------------------
 
@@ -297,7 +422,7 @@ CREATE TABLE `musics` (
 
 INSERT INTO `musics` (`id`, `church_hymn_id`, `title`, `song_number`, `music_score_path`, `lyrics_path`, `vocals_mp3_path`, `organ_mp3_path`, `preludes_mp3_path`, `language_id`, `verses_used`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 (67, 1, 'DARATING DIN ANG KAGALAKAN', '456', 'music_files/FILIPINO_HYMNS_AWS_1_526_551_594forprinting_23October2023_526.pdf', 'music_files/456.pdf', 'music_files/456.mp3', 'music_files/456 organ.mp3', 'music_files/P456.mp3', 1, 'Gawa 20:28', 1, 1, '2024-06-05 03:36:50', '2024-06-05 03:36:50'),
-(68, 3, 'Jesus, Iyong Kaawaan, Palakasin Ako', '526', 'music_files/526.pdf', 'music_files/526 Lyrics Only.pdf', 'music_files/526.mp3', NULL, 'music_files/P526.mp3', 1, 'asd', 1, 1, '2024-06-05 19:34:57', '2024-06-06 16:53:41');
+(68, 3, 'Jesus, Iyong Kaawaan, Palakasin Ako', '526', 'music_files/526.pdf', 'music_files/526 Lyrics Only.pdf', 'music_files/526.mp3', NULL, 'music_files/P526.mp3', 2, 'asd', 1, 1, '2024-06-05 19:34:57', '2024-06-11 00:28:12');
 
 -- --------------------------------------------------------
 
@@ -638,7 +763,9 @@ INSERT INTO `permissions` (`id`, `name`, `description`, `created_at`, `updated_a
 (34, 'users.create', 'Create', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
 (35, 'users.edit', 'Edit', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
 (36, 'users.delete', 'Delete', '2024-06-03 23:56:00', '2024-06-03 23:56:00'),
-(38, 'test', 'test', '2024-06-05 07:18:18', '2024-06-05 07:18:18');
+(38, 'test', 'test', '2024-06-05 07:18:18', '2024-06-05 07:18:18'),
+(39, 'test 1', 'test 1', '2024-06-09 23:47:25', '2024-06-09 23:47:25'),
+(40, 'music test', 'music test', '2024-06-10 20:28:54', '2024-06-10 20:28:54');
 
 -- --------------------------------------------------------
 
@@ -706,7 +833,9 @@ INSERT INTO `permission_categories` (`id`, `permission_id`, `category_id`, `name
 (43, 34, 41, NULL, NULL, NULL, NULL),
 (44, 35, 41, NULL, NULL, NULL, NULL),
 (45, 36, 41, NULL, NULL, NULL, NULL),
-(47, 38, 1, NULL, NULL, NULL, NULL);
+(47, 38, 1, NULL, NULL, NULL, NULL),
+(48, 39, 1, NULL, NULL, NULL, NULL),
+(49, 40, 6, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -717,7 +846,7 @@ INSERT INTO `permission_categories` (`id`, `permission_id`, `category_id`, `name
 CREATE TABLE `permission_groups` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `permissions` text NOT NULL,
+  `permissions` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -727,10 +856,9 @@ CREATE TABLE `permission_groups` (
 --
 
 INSERT INTO `permission_groups` (`id`, `name`, `permissions`, `created_at`, `updated_at`) VALUES
-(1, 'PMD-IT', '{\"superuser\":\"1\",\"admin\":\"0\",\"csv_import\":\"0\",\"dashboard\":\"0\",\"musics.view\":\"1\",\"musics.create\":\"1\",\"musics.edit\":\"1\",\"musics.delete\":\"1\",\"musics.view_hymn\":\"1\",\"musics.search\":\"0\",\"music_details.viewdetails\":\"0\",\"music_details.download\":\"1\",\"music_details.play\":\"1\",\"categories.view\":\"1\",\"categories.create\":\"1\",\"categories.edit\":\"1\",\"categories.delete\":\"1\",\"instrumentations.view\":\"1\",\"instrumentations.create\":\"1\",\"instrumentations.edit\":\"1\",\"instrumentations.delete\":\"1\",\"ensemble_types.view\":\"1\",\"ensemble_types.create\":\"1\",\"ensemble_types.edit\":\"1\",\"ensemble_types.delete\":\"1\",\"credits.view\":\"1\",\"credits.create\":\"1\",\"credits.edit\":\"1\",\"credits.delete\":\"1\",\"groups.view\":\"1\",\"groups.create\":\"1\",\"groups.edit\":\"1\",\"groups.delete\":\"1\",\"users.view\":\"1\",\"users.create\":\"1\",\"users.edit\":\"1\",\"users.delete\":\"1\",\"navigation.hymns\":\"1\",\"navigation.createnew\":\"1\",\"navigation.settings\":\"1\"}', '2024-06-03 18:27:24', '2024-06-05 04:18:42'),
-(2, 'VIP', '{\"superuser\":\"0\",\"admin\":\"0\",\"csv_import\":\"0\",\"dashboard\":\"0\",\"musics.view\":\"1\",\"musics.create\":\"0\",\"musics.edit\":\"0\",\"musics.delete\":\"0\",\"musics.view_hymn\":\"1\",\"music_details.view\":\"1\",\"music_details.download\":\"1\",\"music_details.play\":\"1\",\"categories.view\":\"0\",\"categories.create\":\"0\",\"categories.edit\":\"0\",\"categories.delete\":\"0\",\"instrumentations.view\":\"0\",\"instrumentations.create\":\"0\",\"instrumentations.edit\":\"0\",\"instrumentations.delete\":\"0\",\"ensemble_types.view\":\"0\",\"ensemble_types.create\":\"0\",\"ensemble_types.edit\":\"0\",\"ensemble_types.delete\":\"0\",\"credits.view\":\"0\",\"credits.create\":\"0\",\"credits.edit\":\"0\",\"credits.delete\":\"0\",\"groups.view\":\"0\",\"groups.create\":\"0\",\"groups.edit\":\"0\",\"groups.delete\":\"0\",\"users.view\":\"0\",\"users.create\":\"0\",\"users.edit\":\"0\",\"users.delete\":\"0\"}', '2024-06-03 21:30:05', '2024-06-03 21:30:05'),
-(3, 'Encoder', '{\"superuser\":\"0\",\"admin\":\"1\",\"csv_import\":\"1\",\"dashboard\":\"1\",\"musics.view\":\"1\",\"musics.create\":\"1\",\"musics.edit\":\"1\",\"musics.delete\":\"1\",\"musics.view_hymn\":\"0\",\"music_details.view\":\"1\",\"music_details.download\":\"1\",\"music_details.play\":\"1\",\"categories.view\":\"1\",\"categories.create\":\"1\",\"categories.edit\":\"1\",\"categories.delete\":\"1\",\"instrumentations.view\":\"1\",\"instrumentations.create\":\"1\",\"instrumentations.edit\":\"1\",\"instrumentations.delete\":\"1\",\"ensemble_types.view\":\"1\",\"ensemble_types.create\":\"1\",\"ensemble_types.edit\":\"1\",\"ensemble_types.delete\":\"1\",\"credits.view\":\"1\",\"credits.create\":\"1\",\"credits.edit\":\"1\",\"credits.delete\":\"1\",\"groups.view\":\"1\",\"groups.create\":\"1\",\"groups.edit\":\"1\",\"groups.delete\":\"1\",\"users.view\":\"0\",\"users.create\":\"0\",\"users.edit\":\"0\",\"users.delete\":\"0\"}', '2024-06-05 03:44:52', '2024-06-05 04:02:02'),
-(4, 'Common', '{\"superuser\":\"0\",\"admin\":\"0\",\"csv_import\":\"0\",\"dashboard\":\"0\",\"musics.view\":\"1\",\"musics.create\":\"0\",\"musics.edit\":\"0\",\"musics.delete\":\"0\",\"musics.view_hymn\":\"0\",\"music_details.view\":\"1\",\"music_details.download\":\"0\",\"music_details.play\":\"1\",\"categories.view\":\"0\",\"categories.create\":\"0\",\"categories.edit\":\"0\",\"categories.delete\":\"0\",\"instrumentations.view\":\"0\",\"instrumentations.create\":\"0\",\"instrumentations.edit\":\"0\",\"instrumentations.delete\":\"0\",\"ensemble_types.view\":\"0\",\"ensemble_types.create\":\"0\",\"ensemble_types.edit\":\"0\",\"ensemble_types.delete\":\"0\",\"credits.view\":\"0\",\"credits.create\":\"0\",\"credits.edit\":\"0\",\"credits.delete\":\"0\",\"groups.view\":\"0\",\"groups.create\":\"0\",\"groups.edit\":\"0\",\"groups.delete\":\"0\",\"users.view\":\"0\",\"users.create\":\"0\",\"users.edit\":\"0\",\"users.delete\":\"0\"}', '2024-06-05 03:46:16', '2024-06-05 03:46:16');
+(1, 'PMD-IT', NULL, '2024-06-10 19:15:16', '2024-06-10 19:15:16'),
+(2, 'VIP', NULL, '2024-06-10 20:08:26', '2024-06-10 20:08:51'),
+(4, 'ADMIN', NULL, '2024-06-10 20:23:32', '2024-06-11 00:15:46');
 
 -- --------------------------------------------------------
 
@@ -782,7 +910,7 @@ INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_verified_at`, `pa
 (5, 'Eduardo V. Manalo', 'evm', 'evm@gmail.com', NULL, '$2y$12$Cp0HvJC.wabZ/NtmJ8TyquM0wSDUpNKxblvJix3j1zl0AblSLbyp.', NULL, 0, NULL, '2024-06-03 21:31:13', '2024-06-05 16:45:04'),
 (6, 'Antonio  T. de Guzman', 'atg', 'atg@gmail.com', NULL, '$2y$12$u3ikFSmmBU44bVQ9vK160emXzhh98nLkiGTCnO7Gdo5ClMlOcFcPe', NULL, 0, NULL, '2024-06-03 21:34:13', '2024-06-05 16:45:07'),
 (7, 'Gemma M. de Guzman', 'gmg', 'gmg@gmail.com', NULL, '$2y$12$T7j3WfGYbg7Po9iFTI474epUuzRwS2sFtgLsdQNGD06imTmKxC4Im', NULL, 0, NULL, '2024-06-03 21:53:50', '2024-06-05 16:45:10'),
-(8, 'Admin', 'admin', 'admin@gmail.com', NULL, '$2y$12$9zTjKojCzPWeitLa/ka0uerS76ygPIPIxE0Vwn/XcR/Xyd6Ynm9RG', NULL, 0, NULL, '2024-06-05 16:46:18', '2024-06-05 16:46:58');
+(8, 'Admin', 'admin', 'admin@gmail.com', NULL, '$2y$12$9zTjKojCzPWeitLa/ka0uerS76ygPIPIxE0Vwn/XcR/Xyd6Ynm9RG', NULL, 1, NULL, '2024-06-05 16:46:18', '2024-06-11 00:22:00');
 
 -- --------------------------------------------------------
 
@@ -806,7 +934,7 @@ INSERT INTO `users_groups` (`user_id`, `group_id`) VALUES
 (5, 2),
 (6, 2),
 (7, 2),
-(8, 1);
+(8, 4);
 
 --
 -- Indexes for dumped tables
@@ -1054,13 +1182,13 @@ ALTER TABLE `music_lyricist`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `permission_categories`
 --
 ALTER TABLE `permission_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `permission_groups`
