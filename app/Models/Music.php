@@ -20,6 +20,7 @@ class Music extends Model
         'verses_used',
         'created_by',
         'updated_by',
+        'lyrics'
     ];
 
     // Define relationships

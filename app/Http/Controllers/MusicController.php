@@ -30,12 +30,16 @@ class MusicController extends Controller
      // Initialize the query builder
      $queryBuilder = Music::query();
 
-     // If a search query is provided, filter the records
-     if ($query) {
-         $queryBuilder->where('title', 'like', '%' . $query . '%')
-                      ->orWhere('song_number', 'like', '%' . $query . '%')
-                      ->orWhere('verses_used', 'like', '%' . $query . '%');
-     }
+  // If a search query is provided, filter the records
+  if ($query) {
+    $queryBuilder->where(function($q) use ($query) {
+        $q->where('title', 'like', '%' . $query . '%')
+          ->orWhere('song_number', 'like', '%' . $query . '%')
+          ->orWhere('verses_used', 'like', '%' . $query . '%')
+          ->orWhere('lyrics', 'like', '%' . $query . '%'); // Include lyrics in the search
+    });
+}
+
 
      // Filter by selected categories
      if (!empty($categoryIds) && !in_array('All', $categoryIds)) {
