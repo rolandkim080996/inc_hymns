@@ -21,7 +21,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="d-flex flex-wrap">
+
                         <!-- List of Categories -->
+                        @if (\App\Helpers\AccessRightsHelper::checkPermission('categories.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
                                 <div class="box-body text-center mt-4">
@@ -37,8 +39,10 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
 
                         <!-- List of Instrumentations -->
+                        @if (\App\Helpers\AccessRightsHelper::checkPermission('instrumentations.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
                                 <div class="box-body text-center mt-4">
@@ -54,8 +58,10 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
 
                         <!-- List of Ensemble Types -->
+                        @if (\App\Helpers\AccessRightsHelper::checkPermission('ensemble_types.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
                                 <div class="box-body text-center mt-4">
@@ -71,8 +77,10 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
 
                         <!-- List of Credits -->
+                        @if (\App\Helpers\AccessRightsHelper::checkPermission('credits.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
                                 <div class="box-body text-center mt-4">
@@ -88,8 +96,10 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
 
                         <!-- List of Permissions -->
+                        @if (\App\Helpers\AccessRightsHelper::checkPermission('permissions.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
                                 <div class="box-body text-center mt-4">
@@ -105,9 +115,10 @@
                                 </div>
                             </div>
                         </div>
-
+                        @endif
                         
-                      <!-- List of Permissions Categories -->
+                        @if (\App\Helpers\AccessRightsHelper::checkPermission('permission_categories.view') == 'inline')
+                        <!-- List of Permissions Categories -->
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
                                 <div class="box-body text-center mt-4">
@@ -123,8 +134,10 @@
                                 </div>
                             </div>
                         </div>
+                        @endif  
 
                         <!-- List of Groups -->
+                        @if (\App\Helpers\AccessRightsHelper::checkPermission('groups.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
                                 <div class="box-body text-center mt-4">
@@ -140,8 +153,10 @@
                                 </div>
                             </div>
                         </div>
+                        @endif  
 
                         <!-- List of Users -->
+                        @if (\App\Helpers\AccessRightsHelper::checkPermission('users.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
                                 <div class="box-body text-center mt-4">
@@ -157,36 +172,38 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
 
-
-<!-- List of Activity Logs -->
-<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-    <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
-        <div class="box-body text-center mt-4">
-            <h5>
-                <a href="{{ route('activity_logs.index') }}" class="settings_button">
-                    <i class="fas fa-clipboard-list fa-4x icon" aria-hidden="true"></i>
-                    <br><br>
-                    <span class="name">Activity Logs</span>
-                    <span class="keywords" aria-hidden="true" style="display:none">logs, activity, management</span>
-                </a>
-            </h5>
-            <p class="help-block" style="display:none">Manage activity logs</p>
-        </div>
-    </div>
-</div>
-
-<style>
-    .icon {
-        color: #0077B6;
-        transition: color 0.3s ease;
-    }
-    .settings_button:hover .icon {
-        color: #023E8A;
-    }
-</style>
+                        <!-- List of Activity Logs -->
+                        @if (\App\Helpers\AccessRightsHelper::checkPermission('activity_logs.view') == 'inline')
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                                <div class="box-body text-center mt-4">
+                                    <h5>
+                                        <a href="{{ route('activity_logs.index') }}" class="settings_button">
+                                            <i class="fas fa-clipboard-list fa-4x icon" aria-hidden="true"></i>
+                                            <br><br>
+                                            <span class="name">Activity Logs</span>
+                                            <span class="keywords" aria-hidden="true" style="display:none">logs, activity, management</span>
+                                        </a>
+                                    </h5>
+                                    <p class="help-block" style="display:none">Manage activity logs</p>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                        <style>
+                            .icon {
+                                color: #0077B6;
+                                transition: color 0.3s ease;
+                            }
+                            .settings_button:hover .icon {
+                                color: #023E8A;
+                            }
+                        </style>
 
                         <!-- Add a new box for API Documentation below the Groups box -->
+                        @if (\App\Helpers\AccessRightsHelper::checkPermission('api_documentation.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
                                 <div class="box-body text-center mt-4">
@@ -202,10 +219,7 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
+                        @endif
                     </div> <!-- end flex-wrap -->
                 </div>
             </div>

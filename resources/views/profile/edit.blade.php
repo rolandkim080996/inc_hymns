@@ -7,23 +7,35 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
+            @if (\App\Helpers\AccessRightsHelper::checkPermission('profile.save_information') == 'inline')
+                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                    <div class="max-w-xl">
+                        
+                            @include('profile.partials.update-profile-information-form')
+                    
+                    </div>
                 </div>
-            </div>
+            @endif
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
+            @if (\App\Helpers\AccessRightsHelper::checkPermission('profile.update_password') == 'inline')
+                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                    <div class="max-w-xl">
+                        
+                            @include('profile.partials.update-password-form')
+                    
+                    </div>
                 </div>
-            </div>
+            @endif
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
+            @if (\App\Helpers\AccessRightsHelper::checkPermission('profile.delete_account') == 'inline')
+                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                    <div class="max-w-xl">
+                    
+                            @include('profile.partials.delete-user-form')
+                    
+                    </div>
+                </div>+
+            @endif
         </div>
     </div>
 </x-app-layout>

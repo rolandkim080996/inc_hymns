@@ -45,12 +45,13 @@
                             <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
                         </div>
 
+                        @if (\App\Helpers\AccessRightsHelper::checkPermission('users.activate_account') == 'inline')
                         <div class="flex mt-4">
                             <x-input-label for="login_enabled" :value="__('Login Enabled')" />
                             <input id="login_enabled" class="block mt-0 ml-2 mr-2" type="checkbox" name="login_enabled" {{ old('login_enabled', $user->login_enabled ?? false) ? 'checked' : '' }} />
                             <span style="margin-top:-2px;font-size:14px;">This user can login</span>
                         </div>
-
+                        @endif
 
 
                         <div class="mt-4">

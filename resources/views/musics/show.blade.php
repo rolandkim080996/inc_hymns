@@ -6,6 +6,7 @@
 <!-- Include jQuery before Bootstrap -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
 
 <x-app-layout>
     <x-slot name="header">
@@ -28,7 +29,7 @@
                 
 <!-- Show Music Details Button -->
 <button id="showMusicDetailsBtn" class="show-details-btn">
-    <i class="fas fa-arrow-right"></i>
+    <i class="fas fa-info"></i>
 </button>
 
 <!-- Display Music Details -->
@@ -244,74 +245,6 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
 
 <div class="music-container">
 
- <!-- JavaScript to handle dropdown and audio playback -->
- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const musicPlayer = document.getElementById('musicPlayer');
-
-            // Handle click events for tab buttons
-            const tabButtons = document.querySelectorAll('.tab-button-mp3');
-            tabButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const path = button.getAttribute('data-path');
-                    switchTrack(path);
-                });
-            });
-        });
-// Get the audio element
-const musicPlayer = document.getElementById('musicPlayer');
-function seekAudio(event) {
-    console.log('Click event detected on progress bar.');
-    console.log('Offset X:', event.offsetX);
-
-    const clickX = event.offsetX;
-    const width = this.offsetWidth;
-    const audioDuration = musicPlayer.duration;
-    const seekTime = (clickX / width) * audioDuration;
-
-    console.log('Width:', width);
-    console.log('Audio Duration:', audioDuration);
-    console.log('Seek Time:', seekTime);
-
-    musicPlayer.currentTime = seekTime;
-}
-
-// Attach seek event listener to the audio progress bar
-musicPlayer.addEventListener('click', seekAudio);
-
-
-        // Function to switch audio source and maintain playback position
-        function switchTrack(path) {
-            const audioSource = document.getElementById('audioSource');
-            const musicPlayer = document.getElementById('musicPlayer');
-            const currentTime = musicPlayer.currentTime;
-
-            // Set new audio source path
-            audioSource.src = path;
-
-            // Load and play the new audio source
-            musicPlayer.load();
-            musicPlayer.play();
-
-            // Restore playback position if available
-            musicPlayer.addEventListener('loadedmetadata', function() {
-                //alert(currentTime);
-                musicPlayer.currentTime = currentTime;
-            });
-        }
-
-        // Function to rewind audio by 10 seconds
-        function rewindAudio() {
-            const musicPlayer = document.getElementById('musicPlayer');
-            musicPlayer.currentTime -= 10; // Rewind by 10 seconds
-        }
-
-        // Function to fast forward audio by 10 seconds
-        function fastForwardAudio() {
-            const musicPlayer = document.getElementById('musicPlayer');
-            musicPlayer.currentTime += 10; // Fast forward by 10 seconds
-        }
-    </script>
 
     <div class="music-player-details">
 
@@ -366,95 +299,96 @@ musicPlayer.addEventListener('click', seekAudio);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-    .tab-button-mp3 {
-        background-color: #f9f9f9; /* Green background */
-        border: none;
-        color: #2d2a2a;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .tab-button-mp3:hover {
-        background-color: #e3dfdf; /* Darker green on hover */
-    }
-
-    .tab-button-mp3.active {
-        background-color: #303639; /* Blue background for active tab */
-        
-        color: #f9f9f9;
-    }
-
-    .tab-button {
-        background-color: #f9f9f9; /* Green background */
-        border: none;
-        color: #2d2a2a;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .tab-button:hover {
-        background-color: #e3dfdf; /* Darker green on hover */
-    }
-
-    .tab-button.active {
-        background-color: #303639; /* Blue background for active tab */
-        
-        color: #f9f9f9;
-    }
-
-    /* Ensure the PDF container is responsive */
-    .pdf-container {
-        width: 100%;
-        overflow-x: auto;
-    }
-
-    /* Ensure each canvas scales responsively */
-    .pdf-container canvas {
-        display: block;
-        max-width: 100%;
-        height: auto;
-        margin: 10px auto;
-    }
-
-    /* Responsive Styles (Optional) */
-    @media (max-width: 768px) {
-        .music-container {
-            flex-direction: column; /* Stack sections vertically on smaller screens */
+        .tab-button-mp3 {
+            background-color: #f9f9f9; /* Green background */
+            border: none;
+            color: #2d2a2a;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
-        .music-score {
-            flex-basis: 100%; /* Full width for PDF on smaller screens */
+        .tab-button-mp3:hover {
+            background-color: #e3dfdf; /* Darker green on hover */
         }
-    }
 
-    .font-semibold {
-        font-weight: 600;
-    }
+        .tab-button-mp3.active {
+            background-color: #303639; /* Blue background for active tab */
+            
+            color: #f9f9f9;
+        }
 
-    .text-lg {
-        font-size: 1.125rem;
-    }
+        .tab-button {
+            background-color: #f9f9f9; /* Green background */
+            border: none;
+            color: #2d2a2a;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-    .list-disc {
-        list-style-type: disc;
-    }
+        .tab-button:hover {
+            background-color: #e3dfdf; /* Darker green on hover */
+        }
 
-    .list-inside {
-        padding-left: 1.5rem;
-    }
+        .tab-button.active {
+            background-color: #303639; /* Blue background for active tab */
+            
+            color: #f9f9f9;
+        }
 
-</style>
-            <div class="music-player">
+        /* Ensure the PDF container is responsive */
+        .pdf-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        /* Ensure each canvas scales responsively */
+        .pdf-container canvas {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 10px auto;
+        }
+
+        /* Responsive Styles (Optional) */
+        @media (max-width: 768px) {
+            .music-container {
+                flex-direction: column; /* Stack sections vertically on smaller screens */
+            }
+
+            .music-score {
+                flex-basis: 100%; /* Full width for PDF on smaller screens */
+            }
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .list-disc {
+            list-style-type: disc;
+        }
+
+        .list-inside {
+            padding-left: 1.5rem;
+        }
+    </style>
+           
+
+            <div class="music-player" style="display:none;">
                 <!-- Tab buttons -->
                 <div class="flex tab-buttons">
                     <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->vocals_mp3_path) }}">Vocals</button>
@@ -465,7 +399,6 @@ musicPlayer.addEventListener('click', seekAudio);
                 <div class="flex row mt-1 mb-1">
                     <!-- Audio player -->
                     <audio id="musicPlayer" controls preload="auto" >
-                        Your browser does not support the audio element.
                         <!-- Include source elements -->
                         <source id="audioSource" src="#" type="audio/mpeg">
                     </audio>
@@ -475,16 +408,159 @@ musicPlayer.addEventListener('click', seekAudio);
                         <button class="tab-button" data-path="{{ asset('storage/' . $music->lyrics_path) }}">Lyrics Only</button>
                     </div>
                 </div>
-                <!-- Playback control buttons -->
-                <div class="flex mt-2 mb-2" style="display:none;">
-                    <button onclick="rewindAudio()" class="custom-btn mr-4">
-                        <i class="fas fa-backward"></i>
-                    </button>
-                    <button onclick="fastForwardAudio()" class="custom-btn ml-4">
-                        <i class="fas fa-forward"></i>
-                    </button>
-                </div>
             </div>
+
+            <style>
+        .progress-container {
+            width: 100%;
+            background: #ccc;
+            cursor: pointer;
+            height: 10px;
+            position: relative;
+            margin-top: 10px;
+        }
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            background: #4caf50;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+            <div class="music-player">
+        <!-- Tab buttons -->
+        <div class="flex tab-buttons">
+            <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->vocals_mp3_path) }}">Vocals</button>
+            <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->organ_mp3_path) }}">Organ</button>
+            <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->preludes_mp3_path) }}">Preludes</button>
+        </div>
+
+        <div class="flex row mt-1 mb-1">
+            <!-- Progress bar -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <!-- Play/Pause Button -->
+            <button onclick="playPause()">Play/Pause</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script>
+        let sound;
+        const progressBar = document.getElementById('progressBar');
+        const progressContainer = document.querySelector('.progress-container');
+
+        document.querySelectorAll('.tab-button-mp3').forEach(button => {
+            button.addEventListener('click', function() {
+                const path = this.getAttribute('data-path');
+                switchTrack(path);
+            });
+        });
+
+        function switchTrack(path) {
+            if (sound) {
+                sound.unload();
+            }
+            sound = new Howl({
+                src: [path],
+                html5: true, // Force to HTML5 so that the audio can stream.
+                onload: () => {
+                    updateProgressBar();
+                },
+                onplay: () => {
+                    requestAnimationFrame(updateProgressBar);
+                },
+                onend: () => {
+                    console.log('Finished!');
+                }
+            });
+            sound.play();
+        }
+
+        function updateProgressBar() {
+            const seek = sound.seek() || 0;
+            const progressPercent = (seek / sound.duration()) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+
+            if (sound.playing()) {
+                requestAnimationFrame(updateProgressBar);
+            }
+        }
+
+        progressContainer.addEventListener('click', function(event) {
+            const width = this.offsetWidth;
+            const clickX = event.offsetX;
+            const duration = sound.duration();
+            sound.seek((clickX / width) * duration);
+        });
+
+        function playPause() {
+            if (sound.playing()) {
+                sound.pause();
+            } else {
+                sound.play();
+            }
+        }
+    </script>
+
+ <!-- JavaScript to handle dropdown and audio playback -->
+ <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const musicPlayer = document.getElementById('musicPlayer');
+
+                    // Handle click events for tab buttons
+                    const tabButtons = document.querySelectorAll('.tab-button-mp3');
+                    tabButtons.forEach(button => {
+                        button.addEventListener('click', function() {
+                            const path = button.getAttribute('data-path');
+                            switchTrack(path);
+                        });
+                    });
+                });
+                // Get the audio element
+                const musicPlayer = document.getElementById('musicPlayer');
+                function seekAudio(event) {
+                    console.log('Click event detected on progress bar.');
+                    console.log('Offset X:', event.offsetX);
+
+                    const clickX = event.offsetX;
+                    const width = this.offsetWidth;
+                    const audioDuration = musicPlayer.duration;
+                    const seekTime = (clickX / width) * audioDuration;
+
+                    console.log('Width:', width);
+                    console.log('Audio Duration:', audioDuration);
+                    console.log('Seek Time:', seekTime);
+
+                    musicPlayer.currentTime = seekTime;
+                }
+
+                // Attach seek event listener to the audio progress bar
+                musicPlayer.addEventListener('click', seekAudio);
+
+                // Function to switch audio source and maintain playback position
+                function switchTrack(path) {
+                    const audioSource = document.getElementById('audioSource');
+                    const musicPlayer = document.getElementById('musicPlayer');
+                    const currentTime = musicPlayer.currentTime;
+
+                    // Set new audio source path
+                    audioSource.src = path;
+
+                    // Load and play the new audio source
+                    musicPlayer.load();
+                    musicPlayer.play();
+
+                    // Restore playback position if available
+                    musicPlayer.addEventListener('loadedmetadata', function() {
+                        //alert(currentTime);
+                        musicPlayer.currentTime = currentTime;
+                    });
+                }
+            </script>
+
 
             <!-- Music Score (Right Side) -->
             <div class="music-score">
@@ -497,6 +573,8 @@ musicPlayer.addEventListener('click', seekAudio);
 
     </div>
 </div>
+<link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+<script src="https://cdn.plyr.io/3.6.8/plyr.polyfilled.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>

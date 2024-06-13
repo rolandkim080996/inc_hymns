@@ -94,9 +94,11 @@
                 </x-dropdown>
 
                 <!-- List of Settings -->
+                @if (\App\Helpers\AccessRightsHelper::checkPermission('settings.view') == 'inline')
                 <x-nav-link :href="route('admin.settings')" :active="request()->routeIs('admin.settings')">
                     <i class="fa fa-cogs fa-fw" aria-hidden="true"></i>
                 </x-nav-link>
+                @endif
             </div>
 
             <!-- Hamburger Menu for Mobile -->

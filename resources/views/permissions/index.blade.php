@@ -41,6 +41,7 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
+                                                <th>#</th>
                                                 <th>{{ __('Name') }}</th>
                                                 <th>{{ __('Description') }}</th>
                                                 <th>{{ __('Actions') }}</th>
@@ -49,6 +50,7 @@
                                         <tbody>
                                             @foreach ($category->permissions as $permission)
                                                 <tr>
+                                                <td style="width: 5%;">{{ $loop->iteration }}</td>
                                                     <td>{{ $permission->name }}</td>
                                                     <td>{{ $permission->description }}</td>
                                                     <td>
