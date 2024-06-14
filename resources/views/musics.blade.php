@@ -12,7 +12,7 @@
     <x-slot name="header">
     <div class="flex justify-between items-center my-8">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Music List') }}
+            {{ __('INC Hymn List') }}
         </h2>
         <div>
 
@@ -51,10 +51,10 @@
         <form action="{{ route('musics.index') }}" method="GET" class="mt-4 mb-4">
             <div class="flex items-center justify-between mb-4">
                 <form method="GET" action="{{ route('musics.index') }}" method="GET" class="mt-4 mb-4">
-                    <input type="text" id="searchInput" name="query" class="form-control" value="{{ request('query') }}" placeholder="Search hymns ..." onkeypress="handleEnterKey(event)">
-                
-          <!-- Language Dropdown -->
-          <select name="language_id" id="languageDropdown" style="height:38px;margin-left:2px;margin-right:2px;" onkeypress="handleDropdownEnterKey(event, 'searchForm')">
+                <input type="text" id="searchInput" name="query" class="form-control rounded-md" value="{{ request('query') }}" placeholder="Search hymns ..." onkeypress="handleEnterKey(event)">
+            
+            <!-- Language Dropdown -->
+            <select name="language_id" id="languageDropdown" class="rounded-md" style="height:38px;margin-left:2px;margin-right:2px;" onkeypress="handleDropdownEnterKey(event, 'searchForm')">
                 <option value="All" {{ request('language_id') == 'All' ? 'selected' : '' }}>All languages</option>
                 @foreach($languages as $language)
                     <option value="{{ $language->id }}" {{ request('language_id') == $language->id ? 'selected' : '' }}>
@@ -64,7 +64,7 @@
             </select>
             
             <!-- Category Dropdown -->
-            <select name="category_ids[]" id="categoryDropdown" style="height:38px;margin-left:2px;margin-right:2px;" onkeypress="handleDropdownEnterKey(event, 'searchForm')">
+            <select name="category_ids[]" id="categoryDropdown" class="rounded-md" style="height:38px;margin-left:2px;margin-right:2px;" onkeypress="handleDropdownEnterKey(event, 'searchForm')">
                 <option value="All" {{ in_array('All', request('category_ids', [])) ? 'selected' : '' }}>All categories</option>
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}" {{ in_array($category->id, request('category_ids', [])) ? 'selected' : '' }}>
@@ -258,14 +258,14 @@
                     </div>
                     <!-- Music Table -->
                     <div class="overflow-x-auto">
-                    <table class="min-w-full table-auto border divide-y divide-gray-200">
+                    <table class="min-w-full">
     <thead>
-        <tr>
+        <tr style="display:none;">
             <th scope="col" class="px-4 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
             <th style="width: 35% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-left text-s font-large text-black-500 uppercase tracking-wider" onclick="sortTable(1)">
                 Title <i id="titleSortIcon" class="fas fa-sort"></i>
             </th>
-            <th style="width: 18% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-left text-s font-large text-black-500 uppercase tracking-wider" onclick="sortTable(2)">
+            <th style="width: 18% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-center text-s font-large text-black-500 uppercase tracking-wider" onclick="sortTable(2)">
                 Hymn # <i id="hymnSortIcon" class="fas fa-sort"></i>
             </th>
             <th style="width: 25% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-left text-s font-large text-black-500 uppercase tracking-wider">Category</th>
@@ -277,27 +277,27 @@
     </thead>
     <tbody id="musicList" class="bg-white divide-y divide-gray-200">
         @foreach($musics as $index => $music)
-        <tr class="{{ $index % 2 == 0 ? 'bg-gray-50' : 'bg-white' }} hover:bg-gray-200">
-            <td style="width: 5%;" class="px-4 py-0 whitespace-nowrap border text-center">{{ ($musics->currentPage() - 1) * $musics->perPage() + $loop->iteration }}</td>
-            <td style="width: 35% !important; white-space: normal;" class="px-4 py-0 whitespace-nowrap border">
+        <tr class="hoverable">
+            <td style="width: 5%;" class="px-4 py-3 whitespace-nowrap text-center">{{ ($musics->currentPage() - 1) * $musics->perPage() + $loop->iteration }}</td>
+            <td style="width: 35% !important; white-space: normal;" class="px-4 py-3 whitespace-nowrap">
                 <a href="{{ route('musics.show', $music->id) }}" class="flex items-center">
-                    <i class="fas fa-music" style="margin-right: 12px; margin-left: 4px;"></i>
+                    <i class="fas fa-music" style="margin-right: 12px; margin-left: 4px;color:#50727B;"></i>
                     {{ $music->title }}
                 </a>
             </td>
-            <td style="width: 18% !important; white-space: normal;" class="px-4 py-0 whitespace-nowrap border">
+            <td style="width: 18% !important; white-space: normal;" class="px-4 py-3 whitespace-nowrap text-left">
                 {{ $music->song_number }}
             </td>
-            <td style="width: 25% !important; white-space: normal;" class="px-4 py-0 whitespace-normal border">
+            <td style="width: 25% !important; white-space: normal;" class="px-4 py-3 whitespace-normal">
                 @foreach($music->categories as $category)
                     {{ $loop->first ? '' : ', ' }}{{ $category->name }}
                 @endforeach
             </td>
-            <td style="width: 15% !important; white-space: normal;" class="px-4 py-0 whitespace-nowrap border">
+            <td style="width: 15% !important; white-space: normal;" class="px-4 py-3 whitespace-nowrap">
                 {{ $music->language->name }}
             </td>
             @if (\App\Helpers\AccessRightsHelper::checkPermission('musics.action') == 'inline')
-                <td class="px-4 py-0 whitespace-nowrap border text-center">
+                <td class="px-4 py-3 whitespace-nowrap text-center">
                     <div class="flex justify-center items-center space-x-4">
                         @if (\App\Helpers\AccessRightsHelper::checkPermission('musics.edit') == 'inline')
                             <a href="{{ route('musics.edit', $music->id) }}" class="btn btn-secondary">
@@ -322,6 +322,19 @@
     </tbody>
 </table>
 
+
+<style>
+    .hoverable:hover {
+    background-color: #007bff; /* or any other color you prefer */
+}
+
+tbody tr:hover {
+    background-color: #007bff; /* or any other color you prefer */   
+    color: #ffffff; /* or any other color you prefer */
+    font-weight:bold;
+    font-size:17px;
+}
+</style>
 <script>
     function confirmDelete(musicId) {
         if (confirm("Are you sure you want to delete this music entry?")) {

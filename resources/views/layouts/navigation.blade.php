@@ -28,7 +28,9 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
 
                <x-dropdown align="right" width="48">
+                
                     <x-slot name="trigger">
+                    @if ((\App\Helpers\AccessRightsHelper::checkPermission('musics.create') == 'inline') || (\App\Helpers\AccessRightsHelper::checkPermission('users.create') == 'inline'))
                         <button class="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition duration-150 ease-in-out">
                             <div>Create New</div>
                             <div class="ml-1">
@@ -42,16 +44,21 @@
                                 </svg>
                             </div>
                         </button>
+                        @endif
                     </x-slot>
                     <x-slot name="content">
                         <!-- Hymn Create Link -->
-                        <x-responsive-nav-link :href="route('musics.create')" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                            {{ __('Hymn') }}
-                        </x-responsive-nav-link>
+                        @if (\App\Helpers\AccessRightsHelper::checkPermission('musics.create') == 'inline')
+                            <x-responsive-nav-link :href="route('musics.create')" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                                {{ __('Hymn') }}
+                            </x-responsive-nav-link>
+                        @endif
                         <!-- User Create Link -->
+                        @if (\App\Helpers\AccessRightsHelper::checkPermission('users.create') == 'inline')
                         <x-responsive-nav-link :href="route('users.create')" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
                             {{ __('User') }}
                         </x-responsive-nav-link>
+                        @endif
                     </x-slot>
                 </x-dropdown>
                 <x-dropdown align="right" width="48">
@@ -130,18 +137,24 @@
 
          <!-- Create New Hymn and User -->
          <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+         @if (\App\Helpers\AccessRightsHelper::checkPermission('musics.create') == 'inline' && \App\Helpers\AccessRightsHelper::checkPermission('users.create') == 'inline')
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800 dark:text-gray-200">Create New</div>
             </div>
+            @endif
             <div class="mt-3 space-y-1">
                 <!-- Hymn Create Link -->
-                <x-responsive-nav-link :href="route('musics.create')" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white" style="display: {{ \App\Helpers\AccessRightsHelper::checkPermission('musics.view') }}">
-                    {{ __('Hymn') }}
-                </x-responsive-nav-link>
+                @if (\App\Helpers\AccessRightsHelper::checkPermission('musics.create') == 'inline')
+                    <x-responsive-nav-link :href="route('musics.create')" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white" style="display: {{ \App\Helpers\AccessRightsHelper::checkPermission('musics.view') }}">
+                        {{ __('Hymn') }}
+                    </x-responsive-nav-link>
+                @endif
                 <!-- User Create Link -->
+                @if (\App\Helpers\AccessRightsHelper::checkPermission('users.create') == 'inline')
                 <x-responsive-nav-link :href="route('users.create')" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
                     {{ __('User') }}
                 </x-responsive-nav-link>
+                @endif
             </div>
         </div>
 
@@ -149,17 +162,14 @@
         <!-- User Profile and Logout -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="px-4">
-            @if (Auth::check())
-            <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-                            @else
-                                <script type="text/javascript">
-                                    window.location.href = "{{ route('login') }}"; // Redirect to the login page
-                                </script>
-                            @endif
-
-
-        
+                @if (Auth::check())
+                    <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                @else
+                    <script type="text/javascript">
+                        window.location.href = "{{ route('login') }}"; // Redirect to the login page
+                    </script>
+                @endif
             </div>
 
             <div class="mt-3 space-y-1">
@@ -182,7 +192,7 @@
 
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <!-- List of Settings -->
-            @if (\App\Helpers\AccessRightsHelper::checkPermission('settings.view') == 'inline')
+                @if (\App\Helpers\AccessRightsHelper::checkPermission('settings.view') == 'inline')
                 <x-nav-link :href="route('admin.settings')" :active="request()->routeIs('admin.settings')">
                     <i class="fa fa-cogs fa-fw" aria-hidden="true"></i>
                 </x-nav-link>

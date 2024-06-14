@@ -13,9 +13,8 @@
                 {{ __('Group Management') }}
             </h2>
             <div>
-                <a href="{{ route('groups.create') }}" class="btn btn-primary ml-3"><i class="fas fa-plus"></i> New Group</a>
-                
                 <a href="{{ route('admin.settings') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('groups.create') }}" class="btn btn-primary ml-1"><i class="fas fa-plus"></i> New Group</a>
             </div>
         </div>
     </x-slot>

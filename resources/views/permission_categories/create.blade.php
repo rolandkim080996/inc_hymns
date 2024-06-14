@@ -24,41 +24,38 @@
         </div>
     </x-slot>
 
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-        <form action="{{ route('permission_categories.store') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea class="form-control" id="description" name="description"></textarea>
-            </div>
-            <div class="flex items-center justify-end mt-2">
-                <a href="{{ route('permission_categories.index') }}" class="ml-2 btn btn-secondary">Cancel</a>
-                <button class="btn btn-primary ml-4">
-                    <i class="fas fa-check icon-white" aria-hidden="true"></i>{{ __('Save') }}
-                </button>
-            </div>
-        
-        </form>
-
-
+                    <form action="{{ route('permission_categories.store') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" name="description"></textarea>
+                        </div>
+                        <div class="flex items-center justify-end mt-1">
+                            <a href="{{ route('permission_categories.index') }}" class="ml-1 btn btn-secondary">Cancel</a>
+                            <button class="btn btn-primary ml-4">
+                                <i class="fas fa-check icon-white" aria-hidden="true"></i>{{ __('Save') }}
+                            </button>
+                        </div>
+                    
+                    </form>
                 </div>
             </div>
         </div>
