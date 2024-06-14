@@ -18,14 +18,14 @@
 
        
 
-
+        <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back</a>
         <button id="addMusicButton" class="btn btn-primary mb-0" style="display: {{ \App\Helpers\AccessRightsHelper::checkPermission('musics.create') }}">
             <i class="fas fa-plus"></i>
             <span> Music</span>
         </button>
         
 
-        <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back</a>
+       
         </div>
     </div>
     
@@ -74,7 +74,7 @@
             </select>
                     
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-success" id="searchButton">Search</button>
+                        <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
                     </div>
                 </form>
 
@@ -322,6 +322,13 @@
     </tbody>
 </table>
 
+<script>
+    function confirmDelete(musicId) {
+        if (confirm("Are you sure you want to delete this music entry?")) {
+            document.getElementById('deleteForm' + musicId).submit();
+        }
+    }
+</script>
 
 
 

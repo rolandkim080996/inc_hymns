@@ -15,11 +15,12 @@
                 {{ __('Credits List') }}
             </h2>
             <div>
-                 <button id="addCreditButton" data-toggle="modal" data-target="#addCreditModal" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Credit
-                </button>
-                
                 <a href="{{ route('admin.settings') }}" class="btn btn-secondary">Back</a>
+                @if (\App\Helpers\AccessRightsHelper::checkPermission('credits.create') == 'inline')
+                    <button id="addCreditButton" data-toggle="modal" data-target="#addCreditModal" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Credit
+                    </button>
+                @endif
             </div>
         </div>
     </x-slot>
@@ -81,7 +82,7 @@
                                 <th scope="col" style="width: 10%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Music Background</th>
                                 <th scope="col" style="width: 8%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Designation</th>
                                 
-                                <th scope="col" style="width: 12%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider"></th>
+                                <th scope="col" style="width: 15%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -109,25 +110,30 @@
                                     @endif
                                 </td>
 
-                                <td style="width: 12%;" class="px-6 py-4 whitespace-nowrap border text-center">
-                                    <button class="btn btn-secondary btn-sm edit-Credit" 
-                                        data-toggle="modal" 
-                                        data-target="#editCreditModal" 
-                                        data-id="{{ $credit->id }}"
-                                        data-name="{{ $credit->name }}"
-                                        data-birthday="{{ $credit->birthday }}"
-                                        data-district="{{ $credit->district }}"
-                                        data-local="{{ $credit->local }}"
-                                        data-music_background="{{ $credit->music_background }}"
-                                        data-designation="{{ $credit->designation }}"
-                                        data-duty="{{ $credit->duty }}">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm delete-Credit" 
-                                        data-credit-id="{{ $credit->id }}"
-                                        data-credit-name="{{ $credit->name }}">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                                <td style="width: 15%;" class="px-6 py-4 whitespace-nowrap border text-center">
+                                    @if (\App\Helpers\AccessRightsHelper::checkPermission('credits.edit') == 'inline')
+                                        <button class="btn btn-secondary btn-sm edit-Credit" 
+                                            data-toggle="modal" 
+                                            data-target="#editCreditModal" 
+                                            data-id="{{ $credit->id }}"
+                                            data-name="{{ $credit->name }}"
+                                            data-birthday="{{ $credit->birthday }}"
+                                            data-district="{{ $credit->district }}"
+                                            data-local="{{ $credit->local }}"
+                                            data-music_background="{{ $credit->music_background }}"
+                                            data-designation="{{ $credit->designation }}"
+                                            data-duty="{{ $credit->duty }}">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    @endif
+
+                                    @if (\App\Helpers\AccessRightsHelper::checkPermission('credits.delete') == 'inline')
+                                        <button class="btn btn-secondary btn-sm delete-Credit" 
+                                            data-credit-id="{{ $credit->id }}"
+                                            data-credit-name="{{ $credit->name }}">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

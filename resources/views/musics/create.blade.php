@@ -285,7 +285,7 @@
 
                 <!-- Buttons to submit or close modal -->
                     <div class="flex justify-end">
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-primary">
                             Add
                         </button>
                         <button type="button" class="bg-gray-600 hover:bg-gray-800 text-black font-bold py-2 px-4 rounded ml-2 focus:outline-none focus:shadow-outline" onclick="closeAddMusicModal()">
@@ -293,6 +293,7 @@
                         </button>
                     </div>
 
+            
                     <script>
                         // Function to close the modal and redirect to the music page
                         function closeAddMusicModal() {

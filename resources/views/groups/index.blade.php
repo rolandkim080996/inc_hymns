@@ -34,10 +34,10 @@
     <table class="w-full max-w-full table-auto border divide-y divide-gray-200">
         <thead>
             <tr>
-                <th scope="col" style="width: 25%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Name</th>
-                <th scope="col" style="width: 25%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider"># of Users</th>
-                <th scope="col" style="width: 25%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Created At</th>
-                <th scope="col" style="width: 25%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Actions</th>
+                <th scope="col" style="width: 25%;" class="px-6 py-3 bg-black-50 text-center font-bold text-s text-black-500 uppercase tracking-wider">Name</th>
+                <th scope="col" style="width: 25%;" class="px-6 py-3 bg-black-50 text-center font-bold text-s text-black-500 uppercase tracking-wider"># of Users</th>
+                <th scope="col" style="width: 25%;" class="px-6 py-3 bg-black-50 text-center font-bold text-s text-black-500 uppercase tracking-wider">Created At</th>
+                <th scope="col" style="width: 25%;" class="px-6 py-3 bg-black-50 text-center font-bold text-s text-black-500 uppercase tracking-wider">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -50,11 +50,11 @@
                 <td class="px-6 py-1 whitespace-nowrap border text-center">{{ $group->created_at->format('Y-m-d h:i A') }}</td>
     <td class="px-6 py-1 whitespace-nowrap border text-center">
                     <div class="flex justify-center items-center space-x-2">
-                        <a href="{{ route('groups.edit', $group->id) }}" class="btn btn-secondary btn-sm edit-Credit"><i class="fas fa-edit"></i></a>
+                        <a href="{{ route('groups.edit', $group->id) }}" class="btn btn-secondary"><i class="fas fa-edit"></i></a>
                         <form action="{{ route('groups.destroy', $group->id) }}" method="POST" class="inline-block" onsubmit="return confirmDelete(event)">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded" style="margin-top:16px;margin-left:5px;">
+                            <button type="submit" class="btn btn-secondary" style="margin-top:16px;margin-left:5px;">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </form>

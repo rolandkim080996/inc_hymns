@@ -16,11 +16,13 @@
                 {{ __('Ensemble Types List') }}
             </h2>
             <div>
-                <button id="addEnsemble_typeButton" data-toggle="modal" data-target="#addEnsemble_typeModal" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Ensemble Type
-                </button>
-                
                 <a href="{{ route('admin.settings') }}" class="btn btn-secondary">Back</a>
+                @if (\App\Helpers\AccessRightsHelper::checkPermission('ensemble_types.create') == 'inline')
+                    <button id="addEnsemble_typeButton" data-toggle="modal" data-target="#addEnsemble_typeModal" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Ensemble Type
+                    </button>
+                @endif
+                
             </div>
         </div>
     </x-slot>
@@ -50,19 +52,23 @@
                                 
                                 <td style="width: 85%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $ensemble_type->name }}</td>
                                 <td style="width: 15%;" class="px-6 py-4 whitespace-nowrap border text-center">
-                                    <button class="btn btn-secondary btn-sm edit-Ensemble_type" 
-                                    data-toggle="modal" 
-                                    data-target="#editEnsemble_typeModal" 
-                                    data-id="{{ $ensemble_type->id }}"
-                                    data-name="{{ $ensemble_type->name }}">
-                                    
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm delete-Ensemble_type" 
+                                    @if (\App\Helpers\AccessRightsHelper::checkPermission('ensemble_types.edit') == 'inline')
+                                        <button class="btn btn-secondary btn-sm edit-Ensemble_type" 
+                                            data-toggle="modal" 
+                                            data-target="#editEnsemble_typeModal" 
+                                            data-id="{{ $ensemble_type->id }}"
+                                            data-name="{{ $ensemble_type->name }}">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    @endif
+
+                                    @if (\App\Helpers\AccessRightsHelper::checkPermission('ensemble_types.delete') == 'inline')
+                                    <button class="btn btn-secondary btn-sm delete-Ensemble_type" 
                                         data-ensemble_type-id="{{ $ensemble_type->id }}"
                                         data-ensemble_type-name="{{ $ensemble_type->name }}">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
+                                    @endif
                                 </td>
 
 

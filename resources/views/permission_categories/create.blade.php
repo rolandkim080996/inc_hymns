@@ -18,7 +18,7 @@
     <x-slot name="header">
         <div class="flex justify-between items-center my-8">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Categories Management') }}
+                {{ __('Add Categories') }}
             </h2>
         
         </div>
@@ -49,12 +49,13 @@
                 <label for="description">Description</label>
                 <textarea class="form-control" id="description" name="description"></textarea>
             </div>
-       
-        <x-primary-button class="ml-4">
-            <i class="fas fa-check icon-white" aria-hidden="true"></i>{{ __('Save') }}
-            </x-primary-button>
-
-        <a href="{{ route('permission_categories.index') }}" class="ml-4 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Cancel</a>
+            <div class="flex items-center justify-end mt-2">
+                <a href="{{ route('permission_categories.index') }}" class="ml-2 btn btn-secondary">Cancel</a>
+                <button class="btn btn-primary ml-4">
+                    <i class="fas fa-check icon-white" aria-hidden="true"></i>{{ __('Save') }}
+                </button>
+            </div>
+        
         </form>
 
 

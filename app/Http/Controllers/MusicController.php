@@ -409,14 +409,16 @@ class MusicController extends Controller
             //dd($toDetach);
 
             // Attach new IDs if they are not already associated
-            if (!empty($toAttach)) {
+            if (!empty($toAttach)) 
+            {
                 // Get existing IDs
                 $existingIds = $music->$relation()->pluck($foreignKey)->toArray();
                 
                 // Loop through each ID in $toAttach
                 foreach ($toAttach as $id) {
                     // Check if the ID is not already in the existing IDs
-                    if (!in_array( $id, $existingIds)) {
+                    //if (!in_array( $id, $existingIds)) {
+                        if (!empty($id) && !in_array($id, $existingIds)) {
                         //Attach the ID
                         $music->$relation()->attach([$foreignKey => $id]);
                     }

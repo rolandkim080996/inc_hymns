@@ -176,6 +176,17 @@
                     </x-responsive-nav-link>
                 </form>
             </div>
+
+           
+        </div>
+
+        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+            <!-- List of Settings -->
+            @if (\App\Helpers\AccessRightsHelper::checkPermission('settings.view') == 'inline')
+                <x-nav-link :href="route('admin.settings')" :active="request()->routeIs('admin.settings')">
+                    <i class="fa fa-cogs fa-fw" aria-hidden="true"></i>
+                </x-nav-link>
+                @endif
         </div>
     </div>
 </nav>

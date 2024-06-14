@@ -16,11 +16,13 @@
                 {{ __('Instrumentation List') }}
             </h2>
             <div>
-                <button id="addInstrumentationButton" data-toggle="modal" data-target="#addInstrumentationModal" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Instrumentation
-                </button>
-                
                 <a href="{{ route('admin.settings') }}" class="btn btn-secondary">Back</a>
+                @if (\App\Helpers\AccessRightsHelper::checkPermission('instrumentations.create') === 'inline')
+                    <button id="addInstrumentationButton" data-toggle="modal" data-target="#addInstrumentationModal" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Instrumentation
+                    </button>
+                @endif
+                
             </div>
         </div>
 
@@ -51,19 +53,24 @@
                                 
                                 <td style="width: 85%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $instrumentation->name }}</td>
                                 <td style="width: 15%;" class="px-6 py-4 whitespace-nowrap border text-center">
-                                    <button class="btn btn-secondary btn-sm edit-Instrumentation" 
-                                    data-toggle="modal" 
-                                    data-target="#editInstrumentationModal" 
-                                    data-id="{{ $instrumentation->id }}"
-                                    data-name="{{ $instrumentation->name }}">
-                                    
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm delete-Instrumentation" 
-                                        data-Instrumentation-id="{{ $instrumentation->id }}"
-                                        data-Instrumentation-name="{{ $instrumentation->name }}">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                                    @if (\App\Helpers\AccessRightsHelper::checkPermission('instrumentations.edit') == 'inline')
+                                        <button class="btn btn-secondary btn-sm edit-Instrumentation" 
+                                            data-toggle="modal" 
+                                            data-target="#editInstrumentationModal" 
+                                            data-id="{{ $instrumentation->id }}"
+                                            data-name="{{ $instrumentation->name }}">
+                                            
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    @endif
+
+                                    @if (\App\Helpers\AccessRightsHelper::checkPermission('instrumentations.delete') == 'inline')
+                                        <button class="btn btn-secondary btn-sm delete-Instrumentation" 
+                                            data-Instrumentation-id="{{ $instrumentation->id }}"
+                                            data-Instrumentation-name="{{ $instrumentation->name }}">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    @endif
                                 </td>
 
 

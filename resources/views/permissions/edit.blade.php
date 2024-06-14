@@ -55,12 +55,13 @@
 
 
                         <div class="flex items-center justify-end mt-4">
-                            <x-primary-button class="ml-4">
-                                {{ __('Update Permission') }}
-                            </x-primary-button>
-                            <a href="{{ route('permissions.index') }}" class="btn btn-secondary ml-4">
+                        <a href="{{ route('permissions.index') }}" class="btn btn-secondary ml-2">
                                 {{ __('Cancel') }}
                             </a>
+                            <button class="btn btn-primary ml-2">
+                            <i class="fas fa-check icon-white" aria-hidden="true"></i>{{ __('Save') }}
+                            </button>
+                         
                         </div>
                     </form>
                 </div>

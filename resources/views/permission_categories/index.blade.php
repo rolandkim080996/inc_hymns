@@ -40,28 +40,28 @@
             </div>
         @endif
 
-        <table class="table mt-3">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     
-                <th>#</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Actions</th>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Description</th>
+                    <th style="width:15%;" class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($categories as $category)
                     <tr>
-                    <td style="width: 5%;">{{ $loop->iteration }}</td>
+                    <td class="text-center" style="width: 5%;">{{ $loop->iteration }}</td>
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->description }}</td>
-                        <td>
+                        <td class="text-center">
                             <a href="{{ route('permission_categories.edit', $category->id) }}" class="btn btn-secondary"> <i class="fas fa-edit"></i></a>
                             <form action="{{ route('permission_categories.destroy', $category->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger"> <i class="fas fa-trash"></i></button>
+                                <button type="submit" class="btn btn-secondary"> <i class="fas fa-trash"></i></button>
                             </form>
                         </td>
                     </tr>

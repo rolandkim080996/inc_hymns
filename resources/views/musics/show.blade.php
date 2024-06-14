@@ -33,7 +33,7 @@
 </button>
 
 <!-- Display Music Details -->
-<div id="musicDetails" class="music-details hidden">
+<div id="musicDetails" class="music-details">
     <!-- Title -->
     <div class="mb-4">
         <p class="font-semibold text-lg">Title:</p>
@@ -388,7 +388,7 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
     </style>
            
 
-            <div class="music-player" style="display:none;">
+            <div class="music-player" >
                 <!-- Tab buttons -->
                 <div class="flex tab-buttons">
                     <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->vocals_mp3_path) }}">Vocals</button>
@@ -410,100 +410,6 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
                 </div>
             </div>
 
-            <style>
-        .progress-container {
-            width: 100%;
-            background: #ccc;
-            cursor: pointer;
-            height: 10px;
-            position: relative;
-            margin-top: 10px;
-        }
-        .progress-bar {
-            width: 0;
-            height: 100%;
-            background: #4caf50;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-    </style>
-            <div class="music-player">
-        <!-- Tab buttons -->
-        <div class="flex tab-buttons">
-            <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->vocals_mp3_path) }}">Vocals</button>
-            <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->organ_mp3_path) }}">Organ</button>
-            <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->preludes_mp3_path) }}">Preludes</button>
-        </div>
-
-        <div class="flex row mt-1 mb-1">
-            <!-- Progress bar -->
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-            <!-- Play/Pause Button -->
-            <button onclick="playPause()">Play/Pause</button>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-    <script>
-        let sound;
-        const progressBar = document.getElementById('progressBar');
-        const progressContainer = document.querySelector('.progress-container');
-
-        document.querySelectorAll('.tab-button-mp3').forEach(button => {
-            button.addEventListener('click', function() {
-                const path = this.getAttribute('data-path');
-                switchTrack(path);
-            });
-        });
-
-        function switchTrack(path) {
-            if (sound) {
-                sound.unload();
-            }
-            sound = new Howl({
-                src: [path],
-                html5: true, // Force to HTML5 so that the audio can stream.
-                onload: () => {
-                    updateProgressBar();
-                },
-                onplay: () => {
-                    requestAnimationFrame(updateProgressBar);
-                },
-                onend: () => {
-                    console.log('Finished!');
-                }
-            });
-            sound.play();
-        }
-
-        function updateProgressBar() {
-            const seek = sound.seek() || 0;
-            const progressPercent = (seek / sound.duration()) * 100;
-            progressBar.style.width = `${progressPercent}%`;
-
-            if (sound.playing()) {
-                requestAnimationFrame(updateProgressBar);
-            }
-        }
-
-        progressContainer.addEventListener('click', function(event) {
-            const width = this.offsetWidth;
-            const clickX = event.offsetX;
-            const duration = sound.duration();
-            sound.seek((clickX / width) * duration);
-        });
-
-        function playPause() {
-            if (sound.playing()) {
-                sound.pause();
-            } else {
-                sound.play();
-            }
-        }
-    </script>
 
  <!-- JavaScript to handle dropdown and audio playback -->
  <script>

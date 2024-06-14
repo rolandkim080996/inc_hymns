@@ -9,20 +9,23 @@
 
 
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center my-8">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Category List') }}
-            </h2>
-            <div>
+<x-slot name="header">
+    <div class="flex justify-between items-center my-8">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Category List') }}
+        </h2>
+        <div>
+            <a href="{{ route('admin.settings') }}" class="btn btn-secondary">Back</a>
+            @if (\App\Helpers\AccessRightsHelper::checkPermission('categories.create') === 'inline')
                 <button id="addCategoryButton" data-toggle="modal" data-target="#addCategoryModal" class="btn btn-primary">
                     <i class="fas fa-plus"></i> Category
                 </button>
-                
-                <a href="{{ route('admin.settings') }}" class="btn btn-secondary">Back</a>
-            </div>
+            @endif
+            
         </div>
-    </x-slot>
+    </div>
+</x-slot>
+
 
     <div class="py-12">
       
@@ -51,19 +54,23 @@
                                 
                                 <td style="width: 85%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $category->name }}</td>
                                 <td style="width: 10%;" class="px-6 py-4 whitespace-nowrap border text-center">
+                                @if (\App\Helpers\AccessRightsHelper::checkPermission('categories.edit') === 'inline')
                                     <button class="btn btn-secondary btn-sm edit-category" 
-                                    data-toggle="modal" 
-                                    data-target="#editCategoryModal" 
-                                    data-id="{{ $category->id }}"
-                                    data-name="{{ $category->name }}">
-                                    
+                                        data-toggle="modal" 
+                                        data-target="#editCategoryModal" 
+                                        data-id="{{ $category->id }}"
+                                        data-name="{{ $category->name }}">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="btn btn-danger btn-sm delete-category" 
-        data-category-id="{{ $category->id }}"
-        data-category-name="{{ $category->name }}">
-        <i class="fas fa-trash-alt"></i>
-    </button>
+                                    @endif
+
+                                    @if (\App\Helpers\AccessRightsHelper::checkPermission('categories.delete') === 'inline')
+                                        <button class="btn btn-secondary btn-sm delete-category" 
+                                            data-category-id="{{ $category->id }}"
+                                            data-category-name="{{ $category->name }}">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    @endif
                                 </td>
 
 
