@@ -391,12 +391,14 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
             <div class="music-player" >
                 <!-- Tab buttons -->
                 <div class="flex tab-buttons">
-                    <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->vocals_mp3_path) }}">Vocals</button>
+                    <button class="tab-button-mp3 active" data-path="{{ asset('storage/' . $music->vocals_mp3_path) }}">Vocals</button>
                     <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->organ_mp3_path) }}">Organ</button>
                     <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->preludes_mp3_path) }}">Preludes</button>
+                    <button class="tab-button ml-2 active" data-path="{{ asset('storage/' . $music->music_score_path) }}">Music Score</button>
+                    <button class="tab-button" data-path="{{ asset('storage/' . $music->lyrics_path) }}">Lyrics Only</button>
                 </div>
 
-                <div class="flex row mt-1 mb-1">
+                <div class="flex row mt-1 mb-0">
                     <!-- Audio player -->
                     <audio id="musicPlayer" controls preload="auto" >
                         <!-- Include source elements -->
@@ -404,8 +406,7 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
                     </audio>
                     <!-- Tab Lyrics -->
                     <div class="tab-buttons">
-                        <button class="tab-button active" data-path="{{ asset('storage/' . $music->music_score_path) }}">Music Score</button>
-                        <button class="tab-button" data-path="{{ asset('storage/' . $music->lyrics_path) }}">Lyrics Only</button>
+                        
                     </div>
                 </div>
             </div>
