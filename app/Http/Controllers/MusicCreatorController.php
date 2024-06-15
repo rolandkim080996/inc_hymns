@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MusicCreator;
 
+use App\Helpers\ActivityLogHelper;
+
 class MusicCreatorController extends Controller
 {
  // Display a listing of the music creators with search functionality
@@ -50,8 +52,12 @@ class MusicCreatorController extends Controller
             'designation' => 'nullable|string',
         ]);
 
+    
         // Create new music creator
-        MusicCreator::create($validatedData);
+        $musicCreator = MusicCreator::create($validatedData);
+
+        ActivityLogHelper::log('created', 'MusicCreator', $musicCreator->id, 'add new credit');
+
 
         return redirect()->route('credits.index')->with('success', 'Music creator created successfully!');
     }
@@ -94,6 +100,8 @@ class MusicCreatorController extends Controller
             'designation' => $request->edit_designation,
         ]);
 
+        ActivityLogHelper::log('updated', $credit->name, $credit->id,  'update the credit');
+
         return redirect()->route('credits.index')->with('success', 'Music creator updated successfully!');
     }
 
@@ -101,6 +109,8 @@ class MusicCreatorController extends Controller
     public function destroy(MusicCreator $credit)
     {
         $credit->delete();
+
+        ActivityLogHelper::log('deleted', $credit->name, $credit->id,  'delete the credit');
 
         return redirect()->route('credits.index')->with('success', 'Music creator deleted successfully!');
     }

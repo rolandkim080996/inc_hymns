@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Permission;
+use App\Helpers\ActivityLogHelper;
 use App\Models\PermissionCategory;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,12 @@ class PermissionController extends Controller
         ]);
 
         $permission = Permission::create($request->only(['name', 'description']));
+
         $permission->categories()->attach($request->category_id);
+
+        
+        ActivityLogHelper::log('created', 'Permission', $permission->id, 'add new permission');
+
 
         return redirect()->route('permissions.index')->with('success', 'Permission created successfully.');
     }
@@ -53,12 +59,17 @@ class PermissionController extends Controller
         $permission->update($request->only(['name', 'description']));
         $permission->categories()->sync($request->category_id);
 
+        ActivityLogHelper::log('updated', 'Permission', $permission->id,  'update the permission');
+
         return redirect()->route('permissions.index')->with('success', 'Permission updated successfully.');
     }
 
     public function destroy(Permission $permission)
     {
         $permission->delete();
+
+        ActivityLogHelper::log('deleted', 'Permission', $permission->id,  'delete the permission');
+
         return redirect()->route('permissions.index')->with('success', 'Permission deleted successfully.');
     }
 }

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
+use App\Helpers\ActivityLogHelper;
+
 class ProfileController extends Controller
 {
     /**
@@ -34,6 +36,8 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
+        ActivityLogHelper::log('updated', $request->user()->name, $request->user()->id, 'update the profile');
+
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
@@ -55,6 +59,9 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
+
+        ActivityLogHelper::log('deleted', $user->name, $user->id,  'delete the user');
+        
         return Redirect::to('/');
     }
 }

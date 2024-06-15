@@ -26,11 +26,11 @@ class PermissionCategoryController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
         ]);
-
-        PermissionCategory::create($request->all());
-
-        ActivityLogHelper::log('created', 'Permission Category', 1, null);
-
+    
+        $newCategory = PermissionCategory::create($request->all());
+    
+        ActivityLogHelper::log('created', 'Permission Category', $newCategory->id, 'add new category');
+    
         return redirect()->route('permission_categories.index')
                          ->with('success', 'Category created successfully.');
     }
@@ -52,7 +52,8 @@ class PermissionCategoryController extends Controller
         
 
         
-    ActivityLogHelper::log('updated', 'Permission Category', $request->id,  'update the category');
+        ActivityLogHelper::log('updated', 'Permission Category', $permissionCategory->id,  'update the category');
+
         return redirect()->route('permission_categories.index')
                          ->with('success', 'Category updated successfully.');
     }
@@ -60,6 +61,8 @@ class PermissionCategoryController extends Controller
     public function destroy(PermissionCategory $permissionCategory)
     {
         $permissionCategory->delete();
+
+        ActivityLogHelper::log('deleted', 'Permission Category', $permissionCategory->id,  'delete the category');
 
         return redirect()->route('permission_categories.index')
                          ->with('success', 'Category deleted successfully.');

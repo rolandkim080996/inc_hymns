@@ -98,6 +98,23 @@
                         </div>
                         @endif
 
+                        <!-- List of Languages -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                                <div class="box-body text-center mt-4">
+                                    <h5>
+                                        <a href="{{ route('languages.index') }}" class="settings_button">
+                                        <i class="fas fa-language fa-4x icon" aria-hidden="true"></i>
+                                            <br><br>
+                                            <span class="name">Languages</span>
+                                            <span class="keywords" aria-hidden="true" style="display:none">languages, management</span>
+                                        </a>
+                                    </h5>
+                                    <p class="help-block" style="display:none">Manage languages</p>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- List of Permissions -->
                         @if (\App\Helpers\AccessRightsHelper::checkPermission('permissions.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">

@@ -71,12 +71,12 @@
 
                         <!-- Hymns of Music Count -->
                         @if($totalChurchHymns->sum('musics_count') > 0)
-                            <a href="{{ route('musics.index') }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 4px solid #686D76; text-decoration: none;">
+                            <a href="{{ route('musics.index') }}" class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 3px solid #686D76; text-decoration: none;">
                                 <span class="font-bold text-center mb-2" style="color:#32012F; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</span>
                                 <h4 class="font-semibold text-center" style="color:#32012F; font-size: 15px;">Total Hymns</h4>
                             </a>
                         @else
-                            <div class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 4px solid #686D76;">
+                            <div class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 3px solid #686D76;">
                                 <span class="font-bold text-center mb-2" style="color:#32012F; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</span>
                                 <h4 class="font-semibold text-center" style="color:#32012F; font-size: 15px;">Hymns</h4>
                             </div>
@@ -103,12 +103,12 @@
                             @endphp
 
                             @if($hymn->musics_count > 0)
-                                <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #{{ $colors[$colorIndex] }}; border: 4px solid #686D76; text-decoration: none;">
+                                <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #{{ $colors[$colorIndex] }}; border: 3px solid #686D76; text-decoration: none;">
                                     <span class="font-bold text-center mb-2" style="color: #{{ $currentTextColor }}; font-size: 45px;">{{ $hymn->musics_count }}</span>
                                     <h4 class="font-semibold text-center" style="color: #{{ $currentTextColor }}; font-size: 15px;">{{ $serviceName }}</h4>
                                 </a>
                             @else
-                                <div class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #{{ $colors[$colorIndex] }}; border: 4px solid #686D76;">
+                                <div class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #{{ $colors[$colorIndex] }}; border: 3px solid #686D76;">
                                     <span class="font-bold text-center mb-2" style="color: #{{ $currentTextColor }}; font-size: 45px;">{{ $hymn->musics_count }}</span>
                                     <h4 class="font-semibold text-center" style="color: #{{ $currentTextColor }}; font-size: 15px;">{{ $serviceName }}</h4>
                                 </div>
@@ -122,12 +122,12 @@
 
                         <!-- Users Count -->
                         @if($totalUsers > 0)
-                            <a href="{{ route('users.index') }}" class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 2px solid #686D76; text-decoration: none;">
+                            <a href="{{ route('users.index') }}" class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 3px solid #686D76; text-decoration: none;">
                                 <span class="font-bold text-center mb-2" style="color:#32012F; font-size: 45px;">{{ $totalUsers }}</span>
                                 <h4 class="font-semibold text-center" style="color:#32012F; font-size: 15px;">Users</h4>
                             </a>
                         @else
-                            <div class="flex-1 p-6 rounded-lg border flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 2px solid #686D76;">
+                            <div class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 3px solid #686D76;">
                                 <span class="font-bold text-center mb-2" style="color:#32012F; font-size: 45px;">{{ $totalUsers }}</span>
                                 <h4 class="font-semibold text-center" style="color:#32012F; font-size: 15px;">Users</h4>
                             </div>

@@ -6,6 +6,7 @@ use App\Models\GroupPermission;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
+use App\Helpers\ActivityLogHelper;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,6 +66,8 @@ class AuthenticatedSessionController extends Controller
             // If the user's account is activated, proceed with the normal login process
             $request->session()->regenerate();
     
+            ActivityLogHelper::log('login', $user->name,  $user->id, 'login user');
+
             // Redirect to the intended page after successful login
             return redirect()->intended(RouteServiceProvider::HOME);
         }

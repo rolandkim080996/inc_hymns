@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\UserController;
+
+use App\Http\Controllers\LanguageController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -84,6 +87,8 @@ Route::resource('groups', GroupController::class);
 
 Route::get('groups/{group}/users', [GroupController::class, 'showUsers'])->name('groups.users');
 
+
+Route::resource('languages', LanguageController::class);
 
 
 Route::resource('permission_categories', PermissionCategoryController::class);

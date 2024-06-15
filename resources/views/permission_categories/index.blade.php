@@ -42,33 +42,40 @@
         @endif
 
         <table class="table table-bordered">
-            <thead>
-                <tr>
-                    
-                    <th class="text-center">#</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Description</th>
-                    <th style="width:15%;" class="text-center">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($categories as $category)
-                    <tr>
-                    <td class="text-center" style="width: 5%;">{{ $loop->iteration }}</td>
-                        <td>{{ $category->name }}</td>
-                        <td>{{ $category->description }}</td>
-                        <td class="text-center">
-                            <a href="{{ route('permission_categories.edit', $category->id) }}" class="btn btn-secondary"> <i class="fas fa-edit"></i></a>
-                            <form action="{{ route('permission_categories.destroy', $category->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-secondary"> <i class="fas fa-trash"></i></button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <thead>
+        <tr>
+            <th class="text-center">#</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Description</th>
+            <th style="width:15%;" class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($categories as $category)
+            <tr>
+                <td class="text-center" style="width: 5%;">{{ $loop->iteration }}</td>
+                <td>{{ $category->name }}</td>
+                <td>{{ $category->description }}</td>
+                <td class="text-center">
+                    <a href="{{ route('permission_categories.edit', $category->id) }}" class="btn btn-secondary"> <i class="fas fa-edit"></i></a>
+                    <form action="{{ route('permission_categories.destroy', $category->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $category->id }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" class="btn btn-secondary" onclick="confirmDelete('{{ $category->name }}', {{ $category->id }})"> <i class="fas fa-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+
+<script>
+    function confirmDelete(name, id) {
+        if (confirm("Are you sure you want to delete the category '" + name + "'?")) {
+            document.getElementById('delete-form-' + id).submit();
+        }
+    }
+</script>
 
 
                 </div>

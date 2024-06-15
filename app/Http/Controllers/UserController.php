@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Group;
 use Illuminate\Http\Request;
+use App\Helpers\ActivityLogHelper;
 
 class UserController extends Controller
 {
@@ -45,6 +46,8 @@ class UserController extends Controller
             $user->groups()->attach($request->groups);
         }
     
+        ActivityLogHelper::log('created', $user->name, $user->id, 'add new user');
+
         return redirect()->route('groups.users', ['group' => $request->groups[0] ?? 1])->with('success', 'User created successfully.');
     }
     
@@ -81,6 +84,8 @@ class UserController extends Controller
        
         $user->groups()->sync($request->groups);
     
+        ActivityLogHelper::log('updated', $user->name, $user->id,  'update the user');
+
         return redirect()->route('groups.users', ['group' => $request->groups[0] ?? 1])->with('success', 'User updated successfully.');
     }
     
@@ -90,6 +95,8 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+
+        ActivityLogHelper::log('deleted', $user->name, $user->id,  'delete the user');
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
 }

@@ -3,21 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Language; // Replace with relevant model
+use App\Models\Language;
 
-class LanguageController  extends Controller
-{ 
-    // Display a listing of the language
+class LanguageController extends Controller
+{
+    // Display a listing of the languages
     public function index()
     {
-        $language = Language::all();
-        return view('language.index', compact('language'));
-    }
-
-    // Show the form for creating a new language
-    public function create()
-    {
-        return view('language.create');
+        $languages = Language::all();
+        return view('languages.index', compact('languages'));
     }
 
     // Store a newly created language in the database
@@ -29,19 +23,7 @@ class LanguageController  extends Controller
 
         Language::create($validatedData);
 
-        return redirect()->route('language.index')->with('success', 'Language created successfully!');
-    }
-
-    // Display the specified language
-    public function show(Language $language)
-    {
-        return view('language.show', compact('language'));
-    }
-
-    // Show the form for editing the specified language
-    public function edit(Language $language)
-    {
-        return view('language.edit', compact('language'));
+        return redirect()->route('languages.index')->with('success', 'Language created successfully!');
     }
 
     // Update the specified language in the database
@@ -53,7 +35,7 @@ class LanguageController  extends Controller
 
         $language->update($validatedData);
 
-        return redirect()->route('language.index')->with('success', 'Language updated successfully!');
+        return redirect()->route('languages.index')->with('success', 'Language updated successfully!');
     }
 
     // Delete the specified language from the database
@@ -61,6 +43,6 @@ class LanguageController  extends Controller
     {
         $language->delete();
 
-        return redirect()->route('language.index')->with('success', 'Language deleted successfully!');
+        return redirect()->route('languages.index')->with('success', 'Language deleted successfully!');
     }
 }
