@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const shuffleButton = document.getElementById("shuffleButton");
     const repeatButton = document.getElementById("repeatButton");
     const volumeSlider = document.getElementById("volumeSlider");
-    const fileInput = document.getElementById("fileInput");
     const progressContainer = document.getElementById("progressContainer");
+    const tabButtons = document.querySelectorAll(".tab-button-mp3");
 
     let shuffle = false;
     let repeat = false;
@@ -23,12 +23,11 @@ document.addEventListener("DOMContentLoaded", function () {
     volumeSlider.addEventListener("input", changeVolume);
     progressContainer.addEventListener("click", seekTrack);
 
-    fileInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const objectURL = URL.createObjectURL(file);
-            loadTrack(objectURL);
-        }
+    tabButtons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+            const path = event.currentTarget.getAttribute("data-path");
+            loadTrack(path);
+        });
     });
 
     function loadTrack(src) {
@@ -51,6 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         playPauseButton.textContent = "▶️";
         isPlaying = false;
+        sound.play();
+        playPauseButton.textContent = "⏸️";
+        isPlaying = true;
     }
 
     function togglePlayPause() {

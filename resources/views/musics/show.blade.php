@@ -6,7 +6,15 @@
 <!-- Include jQuery before Bootstrap -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="{{ asset('css/musicplayer.css') }}">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+
+<!-- Verify if the script path is correct and file exists -->
+<script>
+    console.log("Loading musicplayer.js from: {{ asset('js/musicplayer.js') }}");
+</script>
+<script src="{{ asset('js/musicplayer.js') }}"></script>
 
 <x-app-layout>
     <x-slot name="header">
@@ -409,6 +417,12 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
                         
                     </div>
                 </div>
+
+
+
+
+                
+
             </div>
 
 
