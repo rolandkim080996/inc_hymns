@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ChurchHymn;
+use App\Helpers\ActivityLogHelper;
+use Illuminate\Support\Facades\Log;
 
 class ChurchHymnController extends Controller
 {
@@ -27,9 +29,11 @@ class ChurchHymnController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        ChurchHymn::create($validatedData);
+       $church_hymn =  ChurchHymn::create($validatedData);
 
-        return redirect()->route('hymns.index')->with('success', 'Church hymn created successfully!');
+        ActivityLogHelper::log('created', $church_hymn->name, $church_hymn->id, 'add new Church Hymn');
+
+        return redirect()->route('church_hymns.index')->with('success', 'Church hymn created successfully!');
     }
 
     // Display the specified church hymn
@@ -44,23 +48,42 @@ class ChurchHymnController extends Controller
         return view('church_hymns.edit', compact('hymn'));
     }
 
-    // Update the specified church hymn in the database
-    public function update(Request $request, ChurchHymn $hymn)
+    public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-        ]);
-
-        $hymn->update($validatedData);
-
-        return redirect()->route('hymns.index')->with('success', 'Church hymn updated successfully!');
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|max:255',
+            ]);
+    
+            $hymn = ChurchHymn::findOrFail($id);
+            $hymn->update($validatedData);
+    
+            // Log activity
+            ActivityLogHelper::log('updated', 'Church Hymn', $hymn->id, 'update Church Hymn');
+    
+            return redirect()->route('church_hymns.index')->with('success', 'Church hymn updated successfully!');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->back()->with('error', 'Failed to update Church hymn!');
+        }
     }
+    
+    
 
-    // Delete the specified church hymn from the database
-    public function destroy(ChurchHymn $hymn)
+
+    public function destroy($id)
     {
-        $hymn->delete();
-
-        return redirect()->route('hymns.index')->with('success', 'Church hymn deleted successfully!');
+        try {
+            $hymn = ChurchHymn::findOrFail($id);
+            $hymn->delete();
+    
+            ActivityLogHelper::log('deleted', $hymn->name, $hymn->id, 'delete Church Hymn');
+    
+            return redirect()->route('church_hymns.index')->with('success', 'Church hymn deleted successfully!');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->back()->with('error', 'Failed to delete Church hymn!');
+        }
     }
+    
 }

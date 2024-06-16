@@ -6,6 +6,7 @@ use App\Http\Controllers\MusicController;
 use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\ChurchHymnController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -79,6 +80,10 @@ Route::delete('/musics/{music}', [MusicController::class, 'destroy'])->name('mus
 // Route for showing a single music details
 Route::get('/musics/{id}', [MusicController::class, 'show'])->name('musics.show');
 
+
+Route::get('/musicplayer', [MusicController::class, 'musicPlayer'])->name('musics.musicPlayer');
+
+
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
 Route::resource('users', UserController::class);
@@ -89,6 +94,7 @@ Route::get('groups/{group}/users', [GroupController::class, 'showUsers'])->name(
 
 
 Route::resource('languages', LanguageController::class);
+Route::resource('church_hymns', ChurchHymnController::class);
 
 
 Route::resource('permission_categories', PermissionCategoryController::class);

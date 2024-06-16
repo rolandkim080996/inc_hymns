@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Instrumentation; // Replace with relevant model
+use App\Helpers\ActivityLogHelper;
 
 class InstrumentationController extends Controller
 {
@@ -28,7 +29,9 @@ class InstrumentationController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        Instrumentation::create($validatedData);
+        $instrumentation = Instrumentation::create($validatedData);
+        
+        ActivityLogHelper::log('created', $instrumentation->name, $instrumentation->id, 'add new instrumentation');
 
         return redirect()->route('instrumentations.index')->with('success', 'Instrumentation created successfully!');
     }
@@ -56,6 +59,7 @@ class InstrumentationController extends Controller
             'name' => $request->edit_name,
         ]);
 
+        ActivityLogHelper::log('updated', $instrumentation->name, $instrumentation->id,  'update the instrumentation');
 
         return redirect()->route('instrumentations.index')->with('success', 'Instrumentation updated successfully!');
     }
@@ -64,6 +68,9 @@ class InstrumentationController extends Controller
     public function destroy(Instrumentation $instrumentation)
     {
         $instrumentation->delete();
+
+
+        ActivityLogHelper::log('deleted', $instrumentation->name, $instrumentation->id,  'delete the instrumentation');
 
         return redirect()->route('instrumentations.index')->with('success', 'Instrumentation deleted successfully!');
     }

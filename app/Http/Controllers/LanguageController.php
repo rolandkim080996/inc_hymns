@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Language;
 
+use App\Helpers\ActivityLogHelper;
+
 class LanguageController extends Controller
 {
     // Display a listing of the languages
@@ -21,7 +23,10 @@ class LanguageController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        Language::create($validatedData);
+        $language = Language::create($validatedData);
+
+        ActivityLogHelper::log('created', $language->name, $language->id, 'add new language');
+    
 
         return redirect()->route('languages.index')->with('success', 'Language created successfully!');
     }
@@ -35,6 +40,9 @@ class LanguageController extends Controller
 
         $language->update($validatedData);
 
+
+        ActivityLogHelper::log('updated', $language->name, $language->id,  'update the language');
+
         return redirect()->route('languages.index')->with('success', 'Language updated successfully!');
     }
 
@@ -43,6 +51,7 @@ class LanguageController extends Controller
     {
         $language->delete();
 
+        ActivityLogHelper::log('deleted', $language->name, $language->id,  'delete the language');
         return redirect()->route('languages.index')->with('success', 'Language deleted successfully!');
     }
 }

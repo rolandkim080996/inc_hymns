@@ -98,6 +98,24 @@
                         </div>
                         @endif
 
+
+                           <!-- List of Church Hymns -->
+                           <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                                <div class="box-body text-center mt-4">
+                                    <h5>
+                                        <a href="{{ route('church_hymns.index') }}" class="settings_button">
+                                        <i class="fas fa-music fa-4x icon" aria-hidden="true"></i>
+                                            <br><br>
+                                            <span class="name">Church Hymns</span>
+                                            <span class="keywords" aria-hidden="true" style="display:none">church_hymns, management</span>
+                                        </a>
+                                    </h5>
+                                    <p class="help-block" style="display:none">Manage Church Hymns</p>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- List of Languages -->
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">

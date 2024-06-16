@@ -47,7 +47,7 @@ class DashboardController extends Controller
         ->join('categories', 'music_category.category_id', '=', 'categories.id')
         ->get();
 
-        $logs = ActivityLog::with('user')->latest()->paginate(10);
+        $logs = ActivityLog::with('user')->latest()->paginate(5);
 
 
         // Fetch counts of hymns per language

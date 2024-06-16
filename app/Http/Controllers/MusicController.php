@@ -14,6 +14,7 @@ use App\Models\GroupPermission;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use App\Helpers\ActivityLogHelper;
 
 class MusicController extends Controller
 {
@@ -163,6 +164,7 @@ class MusicController extends Controller
         // Create music entry
         $music = Music::create(array_merge($validatedData, $filePaths));
       
+        ActivityLogHelper::log('created', $music->title, $music->id, 'add new hymn');
 
         // Attach related categories to the music model
         $categoryIds = $request->input('category_id', []);
@@ -288,10 +290,20 @@ class MusicController extends Controller
     }
     
 
+
+    public function musicPlayer()
+    {
+      //  dd("AD");
+        return view('musics.musicplayer');
+    }
+
     // Display the specified music entry
     public function show($id)
     {
+        
         $music = Music::findOrFail($id); // Assuming Music is the model for your music records
+
+        ActivityLogHelper::log('viewed', $music->title, $music->id, 'view hymn');
 
         return view('musics.show', compact('music'));
     }
@@ -299,7 +311,6 @@ class MusicController extends Controller
     // Show the form for editing the specified music entry
     public function edit($id)
     {
-       
         $musics = Music::findOrFail($id);
        // dd($musics);
         $churchHymns = ChurchHymn::all();
@@ -384,6 +395,8 @@ class MusicController extends Controller
             'language_id' => $request->edit_language_id,
         ] + $filePaths);
 
+        ActivityLogHelper::log('updated', $music->title, $music->id, 'update hymn');
+
         // Retrieve selected IDs from the request
         $selectedCategoryIds = $request->input('category_id', []);
         $selectedInstrumentationIds = $request->input('instrumentation_id', []);
@@ -449,6 +462,8 @@ class MusicController extends Controller
     public function destroy(Music $music)
     {
         $music->delete();
+
+        ActivityLogHelper::log('deleted', $music->title, $music->id, 'delete hymn');
 
         return redirect()->route('musics.index')->with('success', 'Music entry deleted successfully!');
     }

@@ -7,6 +7,7 @@ use App\Models\GroupPermission;
 use App\Models\PermissionCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Helpers\ActivityLogHelper;
 
 class GroupController extends Controller
 {
@@ -119,6 +120,9 @@ class GroupController extends Controller
             }
         }
 
+        
+        ActivityLogHelper::log('created', $group->name, $group->id, 'add new group');
+
         return redirect()->route('groups.index')->with('success', 'Group created successfully.');
     }
 
@@ -139,6 +143,8 @@ class GroupController extends Controller
                 $groupPermissionsArray[$permission->name] = $groupPermission->accessrights;
             }
         }
+
+        ActivityLogHelper::log('updated', $group->name, $group->id, 'update group');
 
         return view('groups.edit', compact('group', 'permissionsArray', 'groupPermissionsArray'));
     }
@@ -218,11 +224,12 @@ class GroupController extends Controller
     
         return redirect()->route('groups.index')->with('success', 'Group updated successfully.');
     }
-    
 
     public function destroy(Group $group)
     {
         $group->delete();
+
+        ActivityLogHelper::log('deleted', $group->name, $group->id, 'delete group');
 
         return redirect()->route('groups.index')->with('success', 'Group deleted successfully.');
     }

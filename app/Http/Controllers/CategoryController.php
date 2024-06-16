@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category; // Replace with relevant model
 
+use App\Helpers\ActivityLogHelper;
+
 class CategoryController extends Controller
 {
     // Display a listing of the categories
@@ -27,7 +29,10 @@ class CategoryController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        Category::create($validatedData);
+        $category = Category::create($validatedData);
+
+        
+        ActivityLogHelper::log('created', $category->name, $category->id, 'add new category');
 
         return redirect()->route('categories.index')->with('success', 'Category created successfully!');
     }
@@ -56,6 +61,9 @@ class CategoryController extends Controller
             'name' => $request->edit_name,
         ]);
 
+
+        ActivityLogHelper::log('updated', $category->name, $category->id,  'update the category');
+
         return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
     }
 
@@ -63,6 +71,8 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
+
+        ActivityLogHelper::log('deleted', $category->name, $category->id,  'delete the category');
 
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
     }

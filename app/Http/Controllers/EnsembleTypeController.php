@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\EnsembleType; // Replace with relevant model
+use App\Helpers\ActivityLogHelper;
 
 class EnsembleTypeController extends Controller
 { 
@@ -28,7 +29,9 @@ class EnsembleTypeController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        EnsembleType::create($validatedData);
+        $ensembleType = EnsembleType::create($validatedData);
+
+        ActivityLogHelper::log('created', $ensembleType->name, $ensembleType->id, 'add new ensemble type');
 
         return redirect()->route('ensemble_types.index')->with('success', 'EnsembleType created successfully!');
     }
@@ -57,6 +60,7 @@ class EnsembleTypeController extends Controller
             'name' => $request->edit_name,
         ]);
 
+        ActivityLogHelper::log('updated', $ensemble_type->name, $ensemble_type->id,  'update the ensemble_type');
 
         return redirect()->route('ensemble_types.index')->with('success', 'EnsembleType updated successfully!');
     }
@@ -65,6 +69,8 @@ class EnsembleTypeController extends Controller
     public function destroy(EnsembleType $ensemble_type)
     {
         $ensemble_type->delete();
+
+        ActivityLogHelper::log('deleted', $ensemble_type->name, $ensemble_type->id,  'delete the ensemble_type');
 
         return redirect()->route('ensemble_types.index')->with('success', 'EnsembleType deleted successfully!');
     }
