@@ -8,6 +8,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="{{ asset('css/musicplayer.css') }}">
+<link rel="stylesheet" href="{{ asset('css/musicdetails.css') }}">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
 
 <!-- Verify if the script path is correct and file exists -->
@@ -200,57 +201,6 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
 
 </script>
 
-<style>
-.music-details {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    max-height: 95vh; /* Set a maximum height */
-    overflow-y: auto; /* Enable vertical scrolling */
-    position: fixed;
-    top: 50%;
-    left: 50px; /* Adjust this value as needed */
-    transform: translateY(-50%);
-    z-index: 1000;
-}
-
-.show-details-btn {
-    position: fixed;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.show-details-btn:hover {
-    background-color: #0056b3;
-}
-
-.show-details-btn i {
-    font-size: 18px;
-}
-
-.list-inside {
-    max-height: 90px; /* Set the max height to show 3 items by default */
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-}
-
-.list-inside.expanded {
-    max-height: none; /* Allow full height when expanded */
-}
-
-
-</style>
-
 <div class="music-container">
 
 
@@ -258,141 +208,7 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
 
 
     <style>
-        /* Custom CSS styles for music details section */
-
-        .music-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 20px; /* Adjust the gap between left and right sections */
-        }
-
-        .music-player-details {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%; /* Make the music-player-details take the full width of the container */
-        }
-        .music-player {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            max-width: 800px;
-            z-index: 50;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Center horizontally */
-            justify-content: center; /* Center vertically */
-            text-align: center; /* Center text */
-            margin-bottom:0px;
-            background-color: rgba(21, 21, 21, 0.1);
-        }
- 
-        .music-score {
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Center horizontally */
-            justify-content: center; /* Center vertically */
-            text-align: center; /* Center text */
-            width: 100%;
-            max-width: 800px;
-            margin-bottom: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .tab-button-mp3 {
-            background-color: #f9f9f9; /* Green background */
-            border: none;
-            color: #2d2a2a;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .tab-button-mp3:hover {
-            background-color: #e3dfdf; /* Darker green on hover */
-        }
-
-        .tab-button-mp3.active {
-            background-color: #303639; /* Blue background for active tab */
-            
-            color: #f9f9f9;
-        }
-
-        .tab-button {
-            background-color: #f9f9f9; /* Green background */
-            border: none;
-            color: #2d2a2a;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .tab-button:hover {
-            background-color: #e3dfdf; /* Darker green on hover */
-        }
-
-        .tab-button.active {
-            background-color: #303639; /* Blue background for active tab */
-            
-            color: #f9f9f9;
-        }
-
-        /* Ensure the PDF container is responsive */
-        .pdf-container {
-            width: 100%;
-            overflow-x: auto;
-        }
-
-        /* Ensure each canvas scales responsively */
-        .pdf-container canvas {
-            display: block;
-            max-width: 100%;
-            height: auto;
-            margin: 10px auto;
-        }
-
-        /* Responsive Styles (Optional) */
-        @media (max-width: 768px) {
-            .music-container {
-                flex-direction: column; /* Stack sections vertically on smaller screens */
-            }
-
-            .music-score {
-                flex-basis: 100%; /* Full width for PDF on smaller screens */
-            }
-        }
-
-        .font-semibold {
-            font-weight: 600;
-        }
-
-        .text-lg {
-            font-size: 1.125rem;
-        }
-
-        .list-disc {
-            list-style-type: disc;
-        }
-
-        .list-inside {
-            padding-left: 1.5rem;
-        }
+       
     </style>
            
 
@@ -494,6 +310,8 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
 
     </div>
 </div>
+
+
 <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
 <script src="https://cdn.plyr.io/3.6.8/plyr.polyfilled.js"></script>
 
@@ -553,7 +371,7 @@ $(document).ready(function() {
             // Loop through each page and render it
             for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
                 pdf.getPage(pageNum).then(function(page) {
-                    var viewport = page.getViewport({ scale: 1.0 });
+                    var viewport = page.getViewport({ scale: 5.0 });
                     
                     // Create a canvas for each page
                     var canvas = document.createElement('canvas');

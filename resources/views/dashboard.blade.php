@@ -137,38 +137,37 @@
                     @if (\App\Helpers\AccessRightsHelper::checkPermission('dashboard.hymns_info') == 'inline')
                         <div class="flex mt-8 gap-4 mt-4">
                             <!-- Recent Activity -->
-                             <!-- Recent Activity -->
-    <div class="bg-gray-100 p-4 rounded-lg shadow flex-grow w-full md:w-1/2">
-        <h3 class="text-lg font-semibold mb-4">Recent Activity</h3>
-        
-            <table class="min-w-full bg-white">
-                <thead>
-                    <tr>
-                        <th class="py-2 px-4 border-b border-gray-300">Date</th>
-                        <th class="py-2 px-4 border-b border-gray-300">User</th>
-                        <th class="py-2 px-4 border-b border-gray-300">Action</th>
-                        <th class="py-2 px-4 border-b border-gray-300">Item</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($logs as $activity)
-                        <tr>
-                            <td class="py-2 px-4 border-b border-gray-300">{{ $activity->created_at->format('Y-m-d H:i:s') }}</td>
-                            <td class="py-2 px-4 border-b border-gray-300">{{ optional($activity->user)->name }}</td>
-                            <td class="py-2 px-4 border-b border-gray-300">{{ $activity->action }}</td>
-                            <td class="py-2 px-4 border-b border-gray-300">
-                                {{ $activity->model? class_basename($activity->model). 'ID: '. $activity->model_id. ')' : '-' }}
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="overflow-x-auto mt-4">
-            {{ $logs->links() }}
-        </div>
-      
-  
-    </div>
+                            <div class="bg-gray-100 p-4 rounded-lg shadow flex-grow w-full md:w-1/2">
+                                <h3 class="text-lg font-semibold mb-4">Recent Activity</h3>
+                                
+                                    <table class="min-w-full bg-white">
+                                        <thead>
+                                            <tr>
+                                                <th class="py-2 px-4 border-b border-gray-300">Date</th>
+                                                <th class="py-2 px-4 border-b border-gray-300">User</th>
+                                                <th class="py-2 px-4 border-b border-gray-300">Action</th>
+                                                <th class="py-2 px-4 border-b border-gray-300">Item</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($logs as $activity)
+                                                <tr>
+                                                    <td class="py-2 px-4 border-b border-gray-300">{{ $activity->created_at->format('Y-m-d H:i:s') }}</td>
+                                                    <td class="py-2 px-4 border-b border-gray-300">{{ optional($activity->user)->name }}</td>
+                                                    <td class="py-2 px-4 border-b border-gray-300">{{ $activity->action }}</td>
+                                                    <td class="py-2 px-4 border-b border-gray-300">
+                                                        {{ $activity->model? class_basename($activity->model). 'ID: '. $activity->model_id. ')' : '-' }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <div class="overflow-x-auto mt-4">
+                                    {{ $logs->links() }}
+                                </div>
+                            
+                        
+                            </div>
 
                             <div class="bg-gray-100 p-4 rounded-lg shadow flex-grow w-full md:w-1/2">
                             <h3 class="text-lg font-semibold mb-4">Hymns Chart</h3>
