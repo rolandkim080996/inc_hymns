@@ -27,6 +27,13 @@
     border-radius: 5px;
     transition: width 0.1s;
 }
+.time-display {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -10px;
+    font-size: 14px;
+    color: #b0c4de;
+}
 .control-buttons {
     display: flex;
     justify-content: space-around;

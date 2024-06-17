@@ -81,7 +81,7 @@ Route::delete('/musics/{music}', [MusicController::class, 'destroy'])->name('mus
 Route::get('/musics/{id}', [MusicController::class, 'show'])->name('musics.show');
 
 
-Route::get('/musicplayer', [MusicController::class, 'musicPlayer'])->name('musics.musicPlayer');
+Route::get('/musicplayer/{id}', [MusicController::class, 'musicPlayer'])->name('musics.musicPlayer');
 
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');

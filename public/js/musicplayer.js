@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const repeatButton = document.getElementById("repeatButton");
     const volumeSlider = document.getElementById("volumeSlider");
     const progressContainer = document.getElementById("progressContainer");
+    const currentTimeDisplay = document.getElementById("currentTime");
+    const totalTimeDisplay = document.getElementById("totalTime");
     const tabButtons = document.querySelectorAll(".tab-button-mp3");
 
     let shuffle = false;
@@ -24,8 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
     progressContainer.addEventListener("click", seekTrack);
 
     tabButtons.forEach((button) => {
-        button.addEventListener("click", (event) => {
-            const path = event.currentTarget.getAttribute("data-path");
+        button.addEventListener("click", function () {
+            const path = button.getAttribute("data-path");
             loadTrack(path);
         });
     });
@@ -39,6 +41,11 @@ document.addEventListener("DOMContentLoaded", function () {
             html5: true,
             onplay: () => {
                 requestAnimationFrame(updateProgressBar);
+                playPauseButton.textContent = "⏸️";
+                isPlaying = true;
+            },
+            onload: () => {
+                totalTimeDisplay.textContent = formatTime(sound.duration());
             },
             onend: () => {
                 if (repeat) {
@@ -48,11 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             },
         });
-        playPauseButton.textContent = "▶️";
-        isPlaying = false;
         sound.play();
-        playPauseButton.textContent = "⏸️";
-        isPlaying = true;
     }
 
     function togglePlayPause() {
@@ -93,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const seek = sound.seek() || 0;
             const progressPercent = (seek / sound.duration()) * 100;
             progressBar.style.width = `${progressPercent}%`;
+            currentTimeDisplay.textContent = formatTime(seek);
         }
 
         if (sound.playing()) {
@@ -117,4 +121,10 @@ document.addEventListener("DOMContentLoaded", function () {
         isSeeking = false;
         updateProgressBar();
     });
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
+    }
 });

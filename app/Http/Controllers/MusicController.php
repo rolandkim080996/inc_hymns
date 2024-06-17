@@ -291,10 +291,13 @@ class MusicController extends Controller
     
 
 
-    public function musicPlayer()
+    public function musicPlayer($id)
     {
       //  dd("AD");
-        return view('musics.musicplayer');
+      $music = Music::findOrFail($id); // Assuming Music is the model for your music records
+
+
+        return view('musics.musicplayer', compact('music'));
     }
 
     // Display the specified music entry
