@@ -59,9 +59,9 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(60, 129, 209, 0.1);
+    background-color: #ffffff;
+    border-radius: 1px;
+    box-shadow: 0 4px 8px rgba(60, 129, 209, 0.0);
     width: 100%; /* Make the music-player-details take the full width of the container */
 }
 .music-player {

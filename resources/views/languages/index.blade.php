@@ -51,21 +51,21 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>#</th>
+                <th class="text-center" style="width: 5%;">#</th>
                 <th>Name</th>
-                <th>Actions</th>
+                <th style="width: 10%;">Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($languages as $language)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td class="text-center" style="width: 5%;">{{ $loop->iteration }}</td>
                     <td>{{ $language->name }}</td>
-                    <td>
+                    <td style="width: 10%;">
                         <button class="btn btn-secondary" data-toggle="modal" data-target="#editLanguageModal{{ $language->id }}">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteLanguageModal{{ $language->id }}">
+                        <button class="btn btn-secondary" data-toggle="modal" data-target="#deleteLanguageModal{{ $language->id }}">
                             <i class="fas fa-trash"></i>
                         </button>
                     </td>

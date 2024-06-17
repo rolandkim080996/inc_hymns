@@ -28,13 +28,10 @@
                     $displayLabel = str_contains($currentUrl, 'groups') ? 'Edit Group' : 'New User';
                     $displayIcon = str_contains($currentUrl, 'groups') ? 'fas fa-edit' : 'fas fa-plus';
                 @endphp
-
-                <a href="{{ $displayRoute }}" class="btn btn-primary ml-3"><i class="{{ $displayIcon }}"></i> {{ $displayLabel }}</a>
-
                 <a href="{{ $cancelRoute }}" class="btn btn-secondary">
                     {{ __('Back') }}
                 </a>
-
+                <a href="{{ $displayRoute }}" class="btn btn-primary ml-1"><i class="{{ $displayIcon }}"></i> {{ $displayLabel }}</a>
             </div>
         </div>
     </x-slot>
@@ -100,7 +97,7 @@
                                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirmDelete(event)">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded" style="margin-top:16px;margin-left:5px;">
+                                                    <button type="submit" class="btn btn-secondary text-white font-bold py-1 px-2 rounded" style="margin-top:16px;margin-left:5px;">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </form>

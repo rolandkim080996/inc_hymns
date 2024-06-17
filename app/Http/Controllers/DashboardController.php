@@ -36,10 +36,11 @@ class DashboardController extends Controller
         //$recentActivities = ActivityLog::latest()->take(10)->get();
 
         // Fetch top 5 categories, instrumentations, ensemble types, and credits
-        $categories = Category::take(5)->get();
-        $instrumentations = Instrumentation::take(5)->get();
-        $ensembleTypes = EnsembleType::take(5)->get();
-        $credits = MusicCreator::take(5)->get();
+        $categories = Category::paginate(5);
+
+        $instrumentations = Instrumentation::paginate(5);
+        $ensembleTypes = EnsembleType::paginate(5);
+        $credits = MusicCreator::paginate(5);
 
 
         // Fetch counts of hymns per category with category names

@@ -16,8 +16,6 @@
         </h2>
         <div>
 
-       
-
         <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back</a>
         <button id="addMusicButton" class="btn btn-primary mb-0" style="display: {{ \App\Helpers\AccessRightsHelper::checkPermission('musics.create') }}">
             <i class="fas fa-plus"></i>
@@ -74,7 +72,7 @@
             </select>
                     
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
+                        <button type="submit" class="btn btn-primary ml-1" id="searchButton">Search</button>
                     </div>
                 </form>
 
@@ -253,9 +251,10 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                <div class="pagination flex justify-center items-center" style="padding:0px;margin-bottom:10px;">
-                        {{ $musics->appends(['query' => request()->query('query')])->links() }}
-                    </div>
+                <!-- <div class="pagination flex justify-left items-center" style="padding:0px;margin-bottom:10px;">
+                       
+                    </div> -->
+                    {{ $musics->appends(['query' => request()->query('query')])->links() }}
                     <!-- Music Table -->
                     <div class="overflow-x-auto">
                     <table class="min-w-full">
@@ -431,9 +430,10 @@ tbody tr:hover {
                     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
                     </div>
-                    <div class="pagination flex justify-center items-center" style="padding:0px;margin-top:10px;">
-                        {{ $musics->appends(['query' => request()->query('query')])->links() }}
-                    </div>
+                    <!-- <div class="pagination flex justify-center items-center" style="padding:0px;margin-top:10px;">
+                       
+                    </div> -->
+                    {{ $musics->appends(['query' => request()->query('query')])->links() }}
                     <!-- Message when no music is found -->
                     <p id="noMusicFoundMessage" class="text-center text-gray-500 mt-4" style="display: none;">No music found</p>
                 </div>

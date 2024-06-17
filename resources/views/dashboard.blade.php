@@ -344,34 +344,7 @@
                         </div>
 
                         <div class="flex mt-8 gap-4 mt-6 mb-6">
-                            <!-- Hymn Categories -->
-                            <div class="w-full md:w-1/2">
-                                <div class="bg-gray-100 p-4 rounded-lg shadow">
-                                <h3 class="text-lg font-semibold mb-4">Hymn Categories</h3>
-                                    <table class="min-w-full bg-white">
-                                        <thead>
-                                            <tr>
-                                                <th class="py-2 px-4 border-b border-gray-300">#</th>
-                                                <th class="py-2 px-4 border-b border-gray-300">Name</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($categories as $category)
-                                                <tr>
-                                                <td style="width: 5%;" class="py-2 px-4 border-b border-gray-300">{{ $loop->iteration }}</td>
-                                    
-                                                    <td class="py-2 px-4 border-b border-gray-300">{{ $category->name }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <!-- View All Button -->
-                                    <div class="text-center mt-4">
-                                        <a href="{{ route('categories.index') }}" class="btn btn-primary">View All</a>
-                                    </div>
-                                </div>
-
-                            </div>
+                            
 
                             <!-- Instrumentations -->
                             <div class="w-full md:w-1/2">
@@ -400,11 +373,9 @@
                                 </div>
 
                             </div>
-                        </div>
 
-                        <div class="flex mt-8 gap-4">
-                            <!-- Ensemble Types -->
-                            <div class="w-full md:w-1/2">
+                                  <!-- Ensemble Types -->
+                                  <div class="w-full md:w-1/2">
                                 <div class="bg-gray-100 p-4 rounded-lg shadow">
                                 <h3 class="text-lg font-semibold mb-4">Hymn Ensemble Types</h3>
                                     <table class="min-w-full bg-white">
@@ -430,36 +401,69 @@
                                 </div>
 
                             </div>
-
-                            <!-- Credits -->
-                            <div class="w-full md:w-1/2">
-                                <div class="bg-gray-100 p-4 rounded-lg shadow">
-                                <h3 class="text-lg font-semibold mb-4">Hymn Credits</h3>
-                                    <table class="min-w-full bg-white">
-                                        <thead>
-                                            <tr>
-                                                <th class="py-2 px-4 border-b border-gray-300">#</th>
-                                                <th class="py-2 px-4 border-b border-gray-300">Name</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($credits as $credit)
-                                                <tr>
-                                                    <td style="width: 5%;" class="py-2 px-4 border-b border-gray-300">{{ $loop->iteration }}</td>
-                                                    <td class="py-2 px-4 border-b border-gray-300">{{ $credit->name }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <!-- View All Button -->
-                                    <div class="text-center mt-4">
-                                        <a href="{{ route('credits.index') }}" class="btn btn-primary">View All</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            
                         </div>
+
+                        <div class="flex mt-8 gap-4 mt-6 mb-6">
+        <!-- Hymn Categories -->
+        <div class="w-full md:w-1/2">
+            <div class="bg-gray-100 p-4 rounded-lg shadow">
+                <h3 class="text-lg font-semibold mb-4">Hymn Categories</h3>
+                {{ $categories->links() }}
+                <table class="min-w-full bg-white">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;" class="py-2 px-4 border-b border-gray-300">#</th>
+                            <th style="width: 90%;" class="py-2 px-4 border-b border-gray-300">Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($categories as $category)
+                            <tr>
+                                <td style="width: 10%;" class="py-2 px-4 border-b border-gray-300">{{ $loop->iteration }}</td>
+                                <td style="width: 90%;" class="py-2 px-4 border-b border-gray-300">{{ $category->name }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                {{ $categories->links() }}
+                <!-- View All Button -->
+                <div class="text-center mt-4">
+                    <a href="{{ route('categories.index') }}" class="btn btn-primary">View All</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Credits -->
+        <div class="w-full md:w-1/2">
+            <div class="bg-gray-100 p-4 rounded-lg shadow">
+                <h3 class="text-lg font-semibold mb-4">Hymn Credits</h3>
+                {{ $credits->links() }}
+                <table class="min-w-full bg-white">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;" class="py-2 px-4 border-b border-gray-300">#</th>
+                            <th style="width: 90%;" class="py-2 px-4 border-b border-gray-300">Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($credits as $credit)
+                            <tr>
+                                <td style="width: 10%;" class="py-2 px-4 border-b border-gray-300">{{ $loop->iteration }}</td>
+                                <td style="width: 90%;" class="py-2 px-4 border-b border-gray-300">{{ $credit->name }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                {{ $credits->links() }}
+                <!-- View All Button -->
+                <div class="text-center mt-4">
+                    <a href="{{ route('credits.index') }}" class="btn btn-primary">View All</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
                     @endif
                 </div>
             </div>

@@ -18,9 +18,11 @@
             {{ __('API Documentation') }}
             </h2>
             <div>
-                <a href="{{ route('api_documentations.create') }}" class="btn btn-primary ml-3"><i class="fas fa-plus"></i> New Endpoint</a>
+            <a href="{{ route('admin.settings') }}" class="btn btn-secondary">Back</a>
+
+                <a href="{{ route('api_documentations.create') }}" class="btn btn-primary ml-1"><i class="fas fa-plus"></i> New Endpoint</a>
                 
-                <a href="{{ route('admin.settings') }}" class="btn btn-secondary">Back</a>
+                
             </div>
         </div>
     </x-slot>
@@ -60,7 +62,7 @@
                     <form action="{{ route('api_documentations.destroy', $apiDocumentation->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this?')"><i class="fas fa-trash-alt"></i></button>
+                        <button type="submit" class="btn btn-sm btn-secondary" onclick="return confirm('Are you sure you want to delete this?')"><i class="fas fa-trash-alt"></i></button>
                     </form>
                 </td>
             </tr>
