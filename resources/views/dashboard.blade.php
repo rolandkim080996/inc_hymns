@@ -135,6 +135,44 @@
                     </div>
 
                     @if (\App\Helpers\AccessRightsHelper::checkPermission('dashboard.hymns_info') == 'inline')
+
+                    <div class="flex mt-8 gap-4 mt-4">
+                            
+<!-- Most Viewed Hymns -->
+<div class="w-full md:w-1/2 px-2">
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <h3 class="text-lg font-semibold mb-4">Most Viewed Hymns</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white mb-2">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;" class="py-2 px-4 border-b border-gray-300">#</th>
+                            <th style="width: 30%;" class="text-center py-2 px-4 border-b border-gray-300">Title</th>
+                            <th style="width: 30%;" class="text-center py-2 px-4 border-b border-gray-300">Hymn #</th>
+                            <th style="width: 30%;" class="text-center py-2 px-4 border-b border-gray-300">Views Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($mostViewedHymns as $index => $hymn)
+                            <tr>
+                                <td style="width: 5%;" class="py-2 px-4 border-b border-gray-300">{{ $index + 1 }}</td>
+                                <td style="width: 30%;" class="py-2 px-4 border-b border-gray-300">
+                                    <a href="{{ route('musics.show', $hymn->id) }}" class="flex items-center">
+                                        <i class="fas fa-music" style="margin-right: 12px; margin-left: 4px;color:#50727B;"></i>
+                                        {{ $hymn->title }}
+                                    </a>
+                                 </td>
+                                <td style="width: 30%;" class="text-center py-2 px-4 border-b border-gray-300">{{ $hymn->song_number }}</td>
+                                <td style="width: 30%;" class="text-center py-2 px-4 border-b border-gray-300">{{ $hymn->views_count }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                {{ $mostViewedHymns->links() }}
+            </div>
+        </div>
+    </div>
+                        </div>
                         <div class="flex mt-8 gap-4 mt-4">
                             <!-- Recent Activity -->
                             <div class="bg-gray-100 p-4 rounded-lg shadow flex-grow w-full md:w-1/2">
@@ -404,11 +442,11 @@
                         </div>
 
                         <div class="flex mt-8 gap-4 mt-6 mb-6">
-        <!-- Hymn Categories -->
-        <div class="w-full md:w-1/2">
-            <div class="bg-gray-100 p-4 rounded-lg shadow">
-                <h3 class="text-lg font-semibold mb-4">Hymn Categories</h3>
-                {{ $categories->links() }}
+    <!-- Hymn Categories -->
+    <div class="w-full md:w-1/2">
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <h3 class="text-lg font-semibold mb-4">Hymn Categories</h3>
+            <div class="overflow-x-auto">
                 <table class="min-w-full bg-white">
                     <thead>
                         <tr>
@@ -425,20 +463,19 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $categories->links() }}
-                <!-- View All Button -->
-                <div class="text-center mt-4">
-                    <a href="{{ route('categories.index') }}" class="btn btn-primary">View All</a>
-                </div>
             </div>
-
+            <!-- View All Button -->
+            <div class="text-center mt-4">
+                <a href="{{ route('categories.index') }}" class="btn btn-primary">View All</a>
+            </div>
         </div>
+    </div>
 
-        <!-- Credits -->
-        <div class="w-full md:w-1/2">
-            <div class="bg-gray-100 p-4 rounded-lg shadow">
-                <h3 class="text-lg font-semibold mb-4">Hymn Credits</h3>
-                {{ $credits->links() }}
+    <!-- Hymn Credits -->
+    <div class="flex-grow w-full md:w-1/2">
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <h3 class="text-lg font-semibold mb-4">Hymn Credits</h3>
+            <div class="overflow-x-auto">
                 <table class="min-w-full bg-white">
                     <thead>
                         <tr>
@@ -455,15 +492,43 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $credits->links() }}
-                <!-- View All Button -->
-                <div class="text-center mt-4">
-                    <a href="{{ route('credits.index') }}" class="btn btn-primary">View All</a>
-                </div>
             </div>
-
+            <!-- View All Button -->
+            <div class="text-center mt-4">
+                <a href="{{ route('credits.index') }}" class="btn btn-primary">View All</a>
+            </div>
         </div>
     </div>
+</div>
+
+<style>
+    .pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination-container .pagination {
+    display: inline-flex;
+}
+
+.pagination-container .pagination li {
+    margin: 0 10px;
+}
+
+.pagination-container .pagination li a {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    color: #333;
+    text-decoration: none;
+}
+
+.pagination-container .pagination li a:hover {
+    background-color: #eee;
+}
+</style>
+
                     @endif
                 </div>
             </div>

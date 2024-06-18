@@ -290,7 +290,6 @@ class MusicController extends Controller
     }
     
 
-
     public function musicPlayer($id)
     {
       //  dd("AD");

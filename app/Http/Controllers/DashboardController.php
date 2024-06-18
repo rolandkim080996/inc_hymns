@@ -15,6 +15,9 @@ use App\Models\MusicCreator;
 use App\Models\ActivityLog;
 use App\Models\User;
 use App\Models\Language;
+use Illuminate\Support\Facades\DB;
+
+
 class DashboardController extends Controller
 {
     /**
@@ -36,11 +39,11 @@ class DashboardController extends Controller
         //$recentActivities = ActivityLog::latest()->take(10)->get();
 
         // Fetch top 5 categories, instrumentations, ensemble types, and credits
-        $categories = Category::paginate(5);
+        $categories = Category::paginate(10);
 
         $instrumentations = Instrumentation::paginate(5);
         $ensembleTypes = EnsembleType::paginate(5);
-        $credits = MusicCreator::paginate(5);
+        $credits = MusicCreator::paginate(10);
 
 
         // Fetch counts of hymns per category with category names
@@ -54,6 +57,14 @@ class DashboardController extends Controller
         // Fetch counts of hymns per language
         $languageCounts = Language::withCount('musics')->get();
         
+    // Fetch most viewed hymns with views count and song number
+    $mostViewedHymns = ActivityLog::where('changes', 'view hymn')
+        ->join('musics', 'activity_logs.model_id', '=', 'musics.id')
+        ->select('musics.id', 'musics.title', 'musics.song_number', DB::raw('COUNT(activity_logs.id) as views_count'))
+        ->groupBy('musics.id', 'musics.title', 'musics.song_number')
+        ->orderByDesc('views_count')
+        ->paginate(4);
+
         // Return the dashboard view with data
         return view('dashboard', [
             'totalChurchHymns' => $totalChurchHymns,
@@ -68,6 +79,7 @@ class DashboardController extends Controller
             'categoryCounts' => $categoryCounts,
             'logs' => $logs,
             'languageCounts' => $languageCounts, // Pass language counts to the view
+            'mostViewedHymns' => $mostViewedHymns, // Pass most viewed hymns to the view
         ]);
     }
 }

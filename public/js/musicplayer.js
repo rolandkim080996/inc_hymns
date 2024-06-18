@@ -1,33 +1,45 @@
+src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
+
+
 document.addEventListener("DOMContentLoaded", function () {
     let sound;
     let isPlaying = false;
     let isSeeking = false;
-    const progressBar = document.getElementById("progressBar");
-    const playPauseButton = document.getElementById("playPauseButton");
-    const prevButton = document.getElementById("prevButton");
-    const nextButton = document.getElementById("nextButton");
-    const shuffleButton = document.getElementById("shuffleButton");
-    const repeatButton = document.getElementById("repeatButton");
-    const volumeSlider = document.getElementById("volumeSlider");
-    const progressContainer = document.getElementById("progressContainer");
-    const currentTimeDisplay = document.getElementById("currentTime");
-    const totalTimeDisplay = document.getElementById("totalTime");
-    const tabButtons = document.querySelectorAll(".tab-button-mp3");
+    const progressBar = document.getElementById('progressBar');
+    const playPauseButton = document.getElementById('playPauseButton');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    const shuffleButton = document.getElementById('shuffleButton');
+    const repeatButton = document.getElementById('repeatButton');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const progressContainer = document.getElementById('progressContainer');
+    const currentTimeDisplay = document.getElementById('currentTime');
+    const totalTimeDisplay = document.getElementById('totalTime');
+    const tabButtons = document.querySelectorAll('.tab-button-mp3');
 
     let shuffle = false;
     let repeat = false;
 
-    playPauseButton.addEventListener("click", togglePlayPause);
-    prevButton.addEventListener("click", prevTrack);
-    nextButton.addEventListener("click", nextTrack);
-    shuffleButton.addEventListener("click", toggleShuffle);
-    repeatButton.addEventListener("click", toggleRepeat);
-    volumeSlider.addEventListener("input", changeVolume);
-    progressContainer.addEventListener("click", seekTrack);
+    playPauseButton.addEventListener('click', togglePlayPause);
+    prevButton.addEventListener('click', prevTrack);
+    nextButton.addEventListener('click', nextTrack);
+    shuffleButton.addEventListener('click', toggleShuffle);
+    repeatButton.addEventListener('click', toggleRepeat);
+    volumeSlider.addEventListener('input', changeVolume);
+    progressContainer.addEventListener('click', seekTrack);
+
+    fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const objectURL = URL.createObjectURL(file);
+            loadTrack(objectURL);
+        }
+    });
 
     tabButtons.forEach((button) => {
         button.addEventListener("click", function () {
             const path = button.getAttribute("data-path");
+            console.log(`Loading track from path: ${path}`);  // Debugging message
             loadTrack(path);
         });
     });
@@ -41,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
             html5: true,
             onplay: () => {
                 requestAnimationFrame(updateProgressBar);
-                playPauseButton.textContent = "⏸️";
+                playPauseButton.textContent = '⏸️';
                 isPlaying = true;
             },
             onload: () => {
@@ -53,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 } else {
                     nextTrack();
                 }
-            },
+            }
         });
         sound.play();
     }
@@ -61,10 +73,10 @@ document.addEventListener("DOMContentLoaded", function () {
     function togglePlayPause() {
         if (isPlaying) {
             sound.pause();
-            playPauseButton.textContent = "▶️";
+            playPauseButton.textContent = '▶️';
         } else {
             sound.play();
-            playPauseButton.textContent = "⏸️";
+            playPauseButton.textContent = '⏸️';
         }
         isPlaying = !isPlaying;
     }
@@ -79,12 +91,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function toggleShuffle() {
         shuffle = !shuffle;
-        shuffleButton.style.color = shuffle ? "#4caf50" : "white";
+        shuffleButton.style.color = shuffle ? '#4caf50' : 'white';
     }
 
     function toggleRepeat() {
         repeat = !repeat;
-        repeatButton.style.color = repeat ? "#4caf50" : "white";
+        repeatButton.style.color = repeat ? '#4caf50' : 'white';
     }
 
     function changeVolume() {
@@ -111,13 +123,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const seek = (clickX / width) * duration;
         sound.seek(seek);
         isSeeking = false;
+        updateProgressBar(); // Immediately update progress bar after seeking
     }
 
-    progressContainer.addEventListener("mousedown", () => {
+    progressContainer.addEventListener('mousedown', () => {
         isSeeking = true;
     });
 
-    progressContainer.addEventListener("mouseup", () => {
+    progressContainer.addEventListener('mouseup', () => {
         isSeeking = false;
         updateProgressBar();
     });
@@ -125,6 +138,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function formatTime(seconds) {
         const minutes = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60);
-        return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
     }
 });
