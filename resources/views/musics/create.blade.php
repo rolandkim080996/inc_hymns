@@ -34,22 +34,21 @@
         </div>
     </div>
 
-
     <div class="w-full md:w-1/3 px-4">
-        <!-- Title -->
-        <div class="mb-4 mt-4">
-            <label for="add_title" class="block text-sm font-bold text-gray-700 mb-2">Title:</label>
-            <input required type="text" id="add_title" name="add_title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-        </div>
+    <!-- Title -->
+    <div class="mb-4 mt-4">
+        <label for="add_title" class="block text-sm font-bold text-gray-700 mb-2">Title:</label>
+        <input required type="text" id="add_title" name="add_title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" maxlength="75">
     </div>
+</div>
 
-
-    <div class="w-full md:w-1/3 px-4">
+<div class="w-full md:w-1/3 px-4">
     <!-- Song Number -->
     <div class="mb-4 mt-4">
         <label for="song_number" class="block text-sm font-bold text-gray-700 mb-2">Hymn Number:</label>
-        <input required type="number" id="song_number" name="song_number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" pattern="[0-9]*" inputmode="numeric" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+        <input required type="number" id="song_number" name="song_number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" maxlength="4">
     </div>
+</div>
 </div>
 
 </div>

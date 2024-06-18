@@ -139,7 +139,7 @@
                     <div class="flex mt-8 gap-4 mt-4">
                             
 <!-- Most Viewed Hymns -->
-<div class="w-full md:w-1/2 px-2">
+<div class="w-full px-2">
         <div class="bg-gray-100 p-4 rounded-lg shadow">
             <h3 class="text-lg font-semibold mb-4">Most Viewed Hymns</h3>
             <div class="overflow-x-auto">

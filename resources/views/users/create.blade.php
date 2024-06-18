@@ -72,12 +72,13 @@
 
 
                         <div class="flex items-center justify-end mt-4">
-                            <button class="btn btn-primary mr-2"  style="height:40px;">
-                            <i class="fas fa-check icon-white" aria-hidden="true"></i>{{ __('Save') }}
-                            </button>
-                            <a href="{{ route('groups.index') }}" class="btn btn-secondary">
+                        <a href="{{ route('groups.index') }}" class="btn btn-secondary mr-2">
                                 {{ __('Cancel') }}
                             </a>
+                            <button class="btn btn-primary mr-2"  style="height:40px;">
+                            <i class="fas fa-check icon-white" aria-hidden="true"></i>{{ __('Save User') }}
+                            </button>
+                       
                         </div>
                     </form>
                 </div>

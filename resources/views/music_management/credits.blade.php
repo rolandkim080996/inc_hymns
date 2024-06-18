@@ -59,7 +59,7 @@
                     <div class="input-group">
                         <input type="text" id="searchCredit" name="query" class="form-control" placeholder="Search credits by name, district, local, or designation">
                         <div class="input-group-append">
-                            <button type="submit" class="btn btn-success">Search</button>
+                            <button type="submit" class="btn btn-primary">Search</button>
                         </div>
                     </div>
                 </form>
@@ -75,7 +75,7 @@
                             <tr>
                                 <th scope="col" style="width: 5%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">#</th>
                                 <th scope="col" style="width: 30%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Name</th>
-                                <th scope="col" style="width: 10%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Local</th>
+                                <th scope="col" style="width: 10%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Local Congregation</th>
                                 <th scope="col" style="width: 10%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">District</th>
                                 <th scope="col" style="width: 15%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Duty</th>
                                 <th scope="col" style="width: 15%;" class="px-6 py-3 bg-gray-50 text-center font-bold text-s text-gray-500 uppercase tracking-wider">Birthday</th>
@@ -171,12 +171,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="local">Local:</label>
-                            <input type="text" class="form-control" id="local" name="local" required>
-                        </div>
-                        <div class="form-group">
                             <label for="district">District:</label>
                             <input type="text" class="form-control" id="district" name="district" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="local">Local Congregation:</label>
+                            <input type="text" class="form-control" id="local" name="local" required>
                         </div>
 
                         <div class="form-group">
@@ -237,14 +238,15 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="edit_local">Local:</label>
-                                <input type="text" class="form-control" id="edit_local" name="edit_local" required>
-                            </div>
-
-                            <div class="form-group">
                                 <label for="edit_district">District:</label>
                                 <input type="text" class="form-control" id="edit_district" name="edit_district" required>
                             </div>
+
+                            <div class="form-group">
+                                <label for="edit_local">Local Congregation:</label>
+                                <input type="text" class="form-control" id="edit_local" name="edit_local" required>
+                            </div>
+
 
                             <div class="form-group">
                                 <label for="edit_duty">Duty:</label>

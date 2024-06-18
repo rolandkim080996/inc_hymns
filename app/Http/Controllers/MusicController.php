@@ -59,8 +59,8 @@ class MusicController extends Controller
         $queryBuilder->where('language_id', $languageId);
     }
 
-     // Fetch all records if no search query is provided
-     $musics = $queryBuilder->latest()->paginate(10)->withQueryString();
+// Fetch all records if no search query is provided
+$musics = $queryBuilder->orderByRaw('CAST(song_number AS UNSIGNED) ASC')->latest()->paginate(10)->withQueryString();
 
      // Fetch other data
      $churchHymns = ChurchHymn::all();

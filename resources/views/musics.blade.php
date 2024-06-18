@@ -260,13 +260,13 @@
                     <table class="min-w-full">
     <thead>
         <tr style="display:none;">
-            <th scope="col" class="px-4 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
-            <th style="width: 35% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-left text-s font-large text-black-500 uppercase tracking-wider" onclick="sortTable(1)">
-                Title <i id="titleSortIcon" class="fas fa-sort"></i>
-            </th>
             <th style="width: 18% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-center text-s font-large text-black-500 uppercase tracking-wider" onclick="sortTable(2)">
                 Hymn # <i id="hymnSortIcon" class="fas fa-sort"></i>
             </th>
+            <th style="width: 35% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-left text-s font-large text-black-500 uppercase tracking-wider" onclick="sortTable(1)">
+                Title <i id="titleSortIcon" class="fas fa-sort"></i>
+            </th>
+         
             <th style="width: 25% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-left text-s font-large text-black-500 uppercase tracking-wider">Category</th>
             <th style="width: 15% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-left text-s font-large text-black-500 uppercase tracking-wider">Language</th>
             @if (\App\Helpers\AccessRightsHelper::checkPermission('musics.action') == 'inline')
@@ -277,16 +277,16 @@
     <tbody id="musicList" class="bg-white divide-y divide-gray-200">
         @foreach($musics as $index => $music)
         <tr class="hoverable">
-            <td style="width: 5%;" class="px-4 py-3 whitespace-nowrap text-center">{{ ($musics->currentPage() - 1) * $musics->perPage() + $loop->iteration }}</td>
+            <td style="width: 18% !important; white-space: normal;" class="px-4 py-3 whitespace-nowrap text-left">
+                {{ $music->song_number }}
+            </td>
             <td style="width: 35% !important; white-space: normal;" class="px-4 py-3 whitespace-nowrap">
                 <a href="{{ route('musics.show', $music->id) }}" class="flex items-center">
                     <i class="fas fa-music" style="margin-right: 12px; margin-left: 4px;color:#50727B;"></i>
                     {{ $music->title }}
                 </a>
             </td>
-            <td style="width: 18% !important; white-space: normal;" class="px-4 py-3 whitespace-nowrap text-left">
-                {{ $music->song_number }}
-            </td>
+         
             <td style="width: 25% !important; white-space: normal;" class="px-4 py-3 whitespace-normal">
                 @foreach($music->categories as $category)
                     {{ $loop->first ? '' : ', ' }}{{ $category->name }}
