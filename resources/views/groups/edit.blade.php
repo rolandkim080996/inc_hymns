@@ -22,12 +22,14 @@
             @csrf
             @method('PUT')
 
+        
             <div class="flex items-center justify-end mt-4">
-                <x-primary-button class="ml-4">
-                <i class="fas fa-check icon-white" aria-hidden="true"></i> {{ __('Save') }}
+                <a href="{{ route('groups.index') }}" class="btn btn-secondary">Cancel</a>
+                <x-primary-button class="ml-2" style="background-color:#007bff;height:39px;">
+                <i class="fas fa-check icon-white" aria-hidden="true"></i>{{ __('Save') }}
                 </x-primary-button>
-                <a href="{{ route('groups.index') }}" class="ml-4 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Cancel</a>
             </div>
+        
             <div>
                 <x-input-label for="name" :value="__('Name')" />
                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="$group->name" required autofocus />
@@ -69,10 +71,10 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <x-primary-button class="ml-4">
+                <a href="{{ route('groups.index') }}" class="btn btn-secondary">Cancel</a>
+                <x-primary-button class="ml-2" style="background-color:#007bff;height:39px;">
                 <i class="fas fa-check icon-white" aria-hidden="true"></i>{{ __('Save') }}
                 </x-primary-button>
-                <a href="{{ route('groups.index') }}" class="ml-4 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Cancel</a>
             </div>
         </form>
     </div>

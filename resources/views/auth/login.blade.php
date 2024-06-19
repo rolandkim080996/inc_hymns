@@ -41,13 +41,10 @@
         <a href="{{ route('register') }}" class="sm:hidden ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
         @endif
 
-        <x-primary-button class="ms-3">
+        <x-primary-button class="ms-3" style="width:200px;justify-content: center; background-color:#007bff;">
             {{ __('Log in') }}
         </x-primary-button>
 
-        <button type="button" style="height:34px;" class="ml-3 py-1 px-3 text-sm text-white bg-gray-500 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-800 rounded-md focus:outline-none h-10 w-20" onclick="clearLoginForm()">
-            CLEAR
-        </button>
     </div>
 
     </form>
