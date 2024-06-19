@@ -25,7 +25,7 @@
                         <!-- List of Categories -->
                         @if (\App\Helpers\AccessRightsHelper::checkPermission('categories.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;  border-radius: 15px;">
                                 <div class="box-body text-center mt-4">
                                     <h5>
                                         <a href="{{ route('categories.index') }}" class="settings_button">
@@ -44,7 +44,7 @@
                         <!-- List of Instrumentations -->
                         @if (\App\Helpers\AccessRightsHelper::checkPermission('instrumentations.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px; border-radius: 15px;">
                                 <div class="box-body text-center mt-4">
                                     <h5>
                                         <a href="{{ route('instrumentations.index') }}" class="settings_button">
@@ -63,7 +63,7 @@
                         <!-- List of Ensemble Types -->
                         @if (\App\Helpers\AccessRightsHelper::checkPermission('ensemble_types.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px; border-radius: 15px;">
                                 <div class="box-body text-center mt-4">
                                     <h5>
                                         <a href="{{ route('ensemble_types.index') }}" class="settings_button">
@@ -82,7 +82,7 @@
                         <!-- List of Credits -->
                         @if (\App\Helpers\AccessRightsHelper::checkPermission('credits.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px; border-radius: 15px;">
                                 <div class="box-body text-center mt-4">
                                     <h5>
                                         <a href="{{ route('credits.index') }}" class="settings_button">
@@ -101,7 +101,7 @@
 
                            <!-- List of Church Hymns -->
                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px; border-radius: 15px;">
                                 <div class="box-body text-center mt-4">
                                     <h5>
                                         <a href="{{ route('church_hymns.index') }}" class="settings_button">
@@ -118,7 +118,7 @@
 
                         <!-- List of Languages -->
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px; border-radius: 15px;">
                                 <div class="box-body text-center mt-4">
                                     <h5>
                                         <a href="{{ route('languages.index') }}" class="settings_button">
@@ -136,7 +136,7 @@
                         <!-- List of Permissions -->
                         @if (\App\Helpers\AccessRightsHelper::checkPermission('permissions.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px; border-radius: 15px;">
                                 <div class="box-body text-center mt-4">
                                     <h5>
                                         <a href="{{ route('permissions.index') }}" class="settings_button">
@@ -155,7 +155,7 @@
                         @if (\App\Helpers\AccessRightsHelper::checkPermission('permission_categories.view') == 'inline')
                         <!-- List of Permissions Categories -->
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px; border-radius: 15px;">
                                 <div class="box-body text-center mt-4">
                                     <h5>
                                         <a href="{{ route('permission_categories.index') }}" class="settings_button">
@@ -174,7 +174,7 @@
                         <!-- List of Groups -->
                         @if (\App\Helpers\AccessRightsHelper::checkPermission('groups.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px; border-radius: 15px;">
                                 <div class="box-body text-center mt-4">
                                     <h5>
                                         <a href="{{ route('groups.index') }}" class="settings_button">
@@ -193,7 +193,7 @@
                         <!-- List of Users -->
                         @if (\App\Helpers\AccessRightsHelper::checkPermission('users.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px; border-radius: 15px;">
                                 <div class="box-body text-center mt-4">
                                     <h5>
                                         <a href="{{ route('users.index') }}" class="settings_button">
@@ -212,7 +212,7 @@
                         <!-- List of Activity Logs -->
                         @if (\App\Helpers\AccessRightsHelper::checkPermission('activity_logs.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px; border-radius: 15px;">
                                 <div class="box-body text-center mt-4">
                                     <h5>
                                         <a href="{{ route('activity_logs.index') }}" class="settings_button">
@@ -240,7 +240,7 @@
                         <!-- Add a new box for API Documentation below the Groups box -->
                         @if (\App\Helpers\AccessRightsHelper::checkPermission('api_documentation.view') == 'inline')
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px;">
+                            <div class="box box-default" style="border: 2px solid #bbb; margin: 10px; border-radius: 15px;">
                                 <div class="box-body text-center mt-4">
                                     <h5>
                                         <a href="{{ route('api_documentations.index') }}" class="settings_button">

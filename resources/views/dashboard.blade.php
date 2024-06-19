@@ -9,6 +9,9 @@
 
 
 <style>
+       .flex-1:hover {
+    background-color:#050C9C;
+}
     /* Small screens (max-width: 640px) */
 @media (max-width: 640px) {
    .flex {
@@ -28,6 +31,9 @@
         min-width: 100px;
         margin-right: 10px;
     }
+    .flex-1:hover {
+    background-color:#f7f7f7;
+}
 }
 
 /* Medium screens (min-width: 641px and max-width: 1024px) */
@@ -38,6 +44,9 @@
    .bg-gray-100 {
         margin-bottom: 0;
     }
+    .flex-1:hover {
+    background-color:#f7f7f7;
+}
 }
 
 /* Large screens (min-width: 1025px) */
@@ -48,6 +57,9 @@
    .bg-gray-100 {
         margin-bottom: 0;
     }
+    .flex-1:hover {
+    background-color:#f7f7f7;
+}
 }
 </style>
 <x-app-layout>
@@ -69,19 +81,7 @@
                             $colorIndex = 0;
                         @endphp
 
-                        <!-- Hymns of Music Count -->
-                        @if($totalChurchHymns->sum('musics_count') > 0)
-                            <a href="{{ route('musics.index') }}" class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 3px solid #686D76; text-decoration: none;">
-                                <span class="font-bold text-center mb-2" style="color:#32012F; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</span>
-                                <h4 class="font-semibold text-center" style="color:#32012F; font-size: 15px;">Total Hymns</h4>
-                            </a>
-                        @else
-                            <div class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 3px solid #686D76;">
-                                <span class="font-bold text-center mb-2" style="color:#32012F; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</span>
-                                <h4 class="font-semibold text-center" style="color:#32012F; font-size: 15px;">Hymns</h4>
-                            </div>
-                        @endif
-
+                
                         @foreach($totalChurchHymns as $hymn)
                             @php
                                 $serviceName = '';
@@ -122,60 +122,67 @@
 
                         <!-- Users Count -->
                         @if($totalUsers > 0)
-                            <a href="{{ route('users.index') }}" class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 3px solid #686D76; text-decoration: none;">
+                            <a href="{{ route('users.index') }}" class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 3px solid #686D76; text-decoration: none; display:none;">
                                 <span class="font-bold text-center mb-2" style="color:#32012F; font-size: 45px;">{{ $totalUsers }}</span>
                                 <h4 class="font-semibold text-center" style="color:#32012F; font-size: 15px;">Users</h4>
                             </a>
                         @else
-                            <div class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 3px solid #686D76;">
+                            <div class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 3px solid #686D76; display:none;">
                                 <span class="font-bold text-center mb-2" style="color:#32012F; font-size: 45px;">{{ $totalUsers }}</span>
                                 <h4 class="font-semibold text-center" style="color:#32012F; font-size: 15px;">Users</h4>
                             </div>
                         @endif
+
+                                <!-- Hymns of Music Count -->
+                                <div class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 3px solid #686D76;">
+                                <span class="font-bold text-center mb-2" style="color:#32012F; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</span>
+                                <h4 class="font-semibold text-center" style="color:#32012F; font-size: 15px;">Total Hymns</h4>
+                            </div>
+
+                            
                     </div>
 
                     @if (\App\Helpers\AccessRightsHelper::checkPermission('dashboard.hymns_info') == 'inline')
 
                     <div class="flex mt-8 gap-4 mt-4">
-                            
-<!-- Most Viewed Hymns -->
-<div class="w-full px-2">
-        <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 class="text-lg font-semibold mb-4">Most Viewed Hymns</h3>
-            <div class="overflow-x-auto">
-                <table class="min-w-full bg-white mb-2">
-                    <thead>
-                        <tr>
-                            <th style="width: 5%;" class="py-2 px-4 border-b border-gray-300">#</th>
-                            <th style="width: 30%;" class="text-center py-2 px-4 border-b border-gray-300">Title</th>
-                            <th style="width: 30%;" class="text-center py-2 px-4 border-b border-gray-300">Hymn #</th>
-                            <th style="width: 30%;" class="text-center py-2 px-4 border-b border-gray-300">Views Count</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($mostViewedHymns as $index => $hymn)
-                            <tr>
-                                <td style="width: 5%;" class="py-2 px-4 border-b border-gray-300">{{ $index + 1 }}</td>
-                                <td style="width: 30%;" class="py-2 px-4 border-b border-gray-300">
-                                    <a href="{{ route('musics.show', $hymn->id) }}" class="flex items-center">
-                                        <i class="fas fa-music" style="margin-right: 12px; margin-left: 4px;color:#50727B;"></i>
-                                        {{ $hymn->title }}
-                                    </a>
-                                 </td>
-                                <td style="width: 30%;" class="text-center py-2 px-4 border-b border-gray-300">{{ $hymn->song_number }}</td>
-                                <td style="width: 30%;" class="text-center py-2 px-4 border-b border-gray-300">{{ $hymn->views_count }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                {{ $mostViewedHymns->links() }}
-            </div>
-        </div>
-    </div>
+                                                
+                    <!-- Most Viewed Hymns -->
+                    <div class="w-full px-2">
+                            <div class="bg-gray-100 p-4 rounded-lg shadow">
+                                <h3 class="text-lg font-semibold mb-4">Most Viewed Hymns</h3>
+                                <div class="overflow-x-auto">
+                                    <table class="min-w-full bg-white mb-2">
+                                        <thead>
+                                            <tr>
+                                            <th style="width: 30%;" class="text-center py-2 px-4 border-b border-gray-300">Hymn #</th>
+                                                <th style="width: 30%;" class="text-center py-2 px-4 border-b border-gray-300">Title</th>
+                                                <th style="width: 30%;" class="text-center py-2 px-4 border-b border-gray-300">Views Count</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($mostViewedHymns as $index => $hymn)
+                                                <tr>
+                                                <td style="width: 30%;" class="text-center py-2 px-4 border-b border-gray-300">{{ $hymn->song_number }}</td>
+                                                    <td style="width: 30%;" class="py-2 px-4 border-b border-gray-300">
+                                                        <a href="{{ route('musics.show', $hymn->id) }}" class="flex items-center">
+                                                            <i class="fas fa-music" style="margin-right: 12px; margin-left: 4px;color:#50727B;"></i>
+                                                            {{ $hymn->title }}
+                                                        </a>
+                                                    </td>
+                                                    
+                                                    <td style="width: 30%;" class="text-center py-2 px-4 border-b border-gray-300">{{ $hymn->views_count }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    {{ $mostViewedHymns->links() }}
+                                </div>
+                            </div>
+                        </div>
                         </div>
                         <div class="flex mt-8 gap-4 mt-4">
                             <!-- Recent Activity -->
-                            <div class="bg-gray-100 p-4 rounded-lg shadow flex-grow w-full md:w-1/2">
+                            <div class="bg-gray-100 p-4 rounded-lg shadow  w-full md:w-1/2">
                                 <h3 class="text-lg font-semibold mb-4">Recent Activity</h3>
                                 
                                     <table class="min-w-full bg-white">
@@ -207,7 +214,7 @@
                         
                             </div>
 
-                            <div class="bg-gray-100 p-4 rounded-lg shadow flex-grow w-full md:w-1/2">
+                            <div class="bg-gray-100 p-4 rounded-lg shadow  w-full md:w-1/2">
                             <h3 class="text-lg font-semibold mb-4">Hymns Chart</h3>
                                 <div style="position: relative; height: 350px; width: 100%;">
                                     <canvas id="churchHymnsChart" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0; width: 100%; height: 100%;"></canvas>
@@ -316,7 +323,7 @@
                             <div class="w-full md:w-1/2">
                                 <div class="bg-gray-100 p-4 rounded-lg shadow">
                                 <h3 class="text-lg font-semibold mb-4">Hymn Categories Chart</h3>
-                                    <div style="position: relative; height: 400px;">
+                                    <div class="overflow-x-auto" style="position: relative; height: 400px;">
                                         <canvas id="hymnCategoriesChart"></canvas>
                                     </div>
                                 </div>

@@ -46,7 +46,7 @@
     <div id="overlay" class="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 z-50 hidden"></div>
 
         <!-- Search Input and Tabs -->
-        <form action="{{ route('musics.index') }}" method="GET" class="mt-4 mb-4">
+        <form action="{{ route('musics.index') }}" method="GET" class="mt-4 mb-4" >
             <div class="flex items-center justify-between mb-4">
                 <form method="GET" action="{{ route('musics.index') }}" method="GET" class="mt-4 mb-4">
                 <input type="text" id="searchInput" name="query" class="form-control rounded-md" value="{{ request('query') }}" placeholder="Search hymns ..." onkeypress="handleEnterKey(event)">
@@ -135,7 +135,7 @@
         </style>
 
 <!-- Categories Section -->
-<div id="context-menu" class="mb-4 mx-auto">
+<div id="context-menu" class="mb-4 mx-auto"    style="position: fixed;">
     <div id="categoriesSection">
         <h2 class="text-lg font-semibold mb-2">Categories</h2>
         <div id="topCategories" class="flex flex-wrap -mx-2">
@@ -258,7 +258,7 @@
                     <!-- Music Table -->
                     <div class="overflow-x-auto">
                     <table class="min-w-full">
-    <thead>
+    <thead >
         <tr style="display:none;">
             <th style="width: 18% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-center text-s font-large text-black-500 uppercase tracking-wider" onclick="sortTable(2)">
                 Hymn # <i id="hymnSortIcon" class="fas fa-sort"></i>

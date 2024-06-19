@@ -46,10 +46,13 @@ class DashboardController extends Controller
         $credits = MusicCreator::paginate(10);
 
 
-        // Fetch counts of hymns per category with category names
-        $categoryCounts = MusicCategory::selectRaw('music_category.*, categories.name as category_name, (select count(*) from musics where music_category.music_id = musics.id) as musics_count')
-        ->join('categories', 'music_category.category_id', '=', 'categories.id')
-        ->get();
+        $categoryCounts = Category::selectRaw('categories.id, categories.name as category_name, COUNT(music_category.music_id) as musics_count')
+    ->leftJoin('music_category', 'categories.id', '=', 'music_category.category_id')
+    ->leftJoin('musics', 'music_category.music_id', '=', 'musics.id')
+    ->groupBy('categories.id', 'categories.name')
+    ->get();
+
+
 
         $logs = ActivityLog::with('user')->latest()->paginate(5);
 
