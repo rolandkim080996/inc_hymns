@@ -73,74 +73,85 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="flex gap-4">
-                        <!-- Total Church Hymns -->
-                        @php
-                            $colors = ['FEFDFF', 'FEFDFF', 'FEFDFF', 'FEFDFF'];
-                            $colorText = ['32012F', '32012F', '32012F', '32012F'];
-                            $colorIndex = 0;
-                        @endphp
+                <div class="flex mt-8 gap-4">
+    <table class="min-w-full bg-white border-collapse w-full border">
+        <thead>
+            <tr>
+                <th class="py-4 px-6 border-b border-gray-300 text-center">Hymns Count</th>
+                <th class="py-4 px-6 border-b border-gray-300 text-center">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php
+                $colors = ['FEFDFF', 'FEFDFF', 'FEFDFF', 'FEFDFF'];
+                $colorText = ['32012F', '32012F', '32012F', '32012F'];
+                $colorIndex = 0;
+            @endphp
 
-                
-                        @foreach($totalChurchHymns as $hymn)
-                            @php
-                                $serviceName = '';
-                                switch($hymn->name) {
-                                    case 'AWS':
-                                        $serviceName = 'Adult Worship Service';
-                                        break;
-                                    case 'CWS':
-                                        $serviceName = 'Children Worship Service';
-                                        break;
-                                    case 'EM':
-                                        $serviceName = 'Evanglical Mission';
-                                        break;
-                                    case 'Wedding':
-                                        $serviceName = 'Wedding';
-                                        break;
-                                }
-                                $currentTextColor = $colorText[$colorIndex];
-                            @endphp
+            @foreach($totalChurchHymns as $hymn)
+                @php
+                    $serviceName = '';
+                    switch($hymn->name) {
+                        case 'AWS':
+                            $serviceName = 'Adult Worship Service';
+                            break;
+                        case 'CWS':
+                            $serviceName = 'Children Worship Service';
+                            break;
+                        case 'EM':
+                            $serviceName = 'Evangelical Mission';
+                            break;
+                        case 'Wedding':
+                            $serviceName = 'Wedding';
+                            break;
+                    }
+                    $currentTextColor = $colorText[$colorIndex];
+                @endphp
 
-                            @if($hymn->musics_count > 0)
-                                <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #{{ $colors[$colorIndex] }}; border: 3px solid #686D76; text-decoration: none;">
-                                    <span class="font-bold text-center mb-2" style="color: #{{ $currentTextColor }}; font-size: 45px;">{{ $hymn->musics_count }}</span>
-                                    <h4 class="font-semibold text-center" style="color: #{{ $currentTextColor }}; font-size: 15px;">{{ $serviceName }}</h4>
-                                </a>
-                            @else
-                                <div class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #{{ $colors[$colorIndex] }}; border: 3px solid #686D76;">
-                                    <span class="font-bold text-center mb-2" style="color: #{{ $currentTextColor }}; font-size: 45px;">{{ $hymn->musics_count }}</span>
-                                    <h4 class="font-semibold text-center" style="color: #{{ $currentTextColor }}; font-size: 15px;">{{ $serviceName }}</h4>
-                                </div>
-                            @endif
+                @if($hymn->musics_count > 0)
+                    <tr style="background-color: #{{ $colors[$colorIndex] }}; border: 3px solid #686D76;">
+                        <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color: #{{ $currentTextColor }}; font-size: 45px;">
+                            <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" style="text-decoration: none; color: #{{ $currentTextColor }};">{{ $hymn->musics_count }}</a>
+                        </td>
+                        <td class="py-4 px-6 border-b border-gray-300 text-center" style="color: #{{ $currentTextColor }}; font-size: 18px;">
+                            <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" style="text-decoration: none; color: #{{ $currentTextColor }};">{{ $serviceName }}</a>
+                        </td>
+                    </tr>
+                @else
+                    <tr style="background-color: #{{ $colors[$colorIndex] }}; border: 3px solid #686D76;">
+                        <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color: #{{ $currentTextColor }}; font-size: 45px;">{{ $hymn->musics_count }}</td>
+                        <td class="py-4 px-6 border-b border-gray-300 text-center" style="color: #{{ $currentTextColor }}; font-size: 18px;">{{ $serviceName }}</td>
+                    </tr>
+                @endif
 
-                            @php
-                                $colorIndex = ($colorIndex + 1) % count($colors);
-                            @endphp
-                        @endforeach
+                @php
+                    $colorIndex = ($colorIndex + 1) % count($colors);
+                @endphp
+            @endforeach
+
+            <!-- Hymns of Music Count -->
+            <tr style="background-color: #FEFDFF; border: 3px solid #686D76;">
+                <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color:#32012F; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</td>
+                <td class="py-4 px-6 border-b border-gray-300 text-center" style="color:#32012F; font-size: 18px;">Total Hymns</td>
+            </tr>
+
+            <!-- Users Count (hidden) -->
+            @if($totalUsers > 0)
+                <tr style="background-color: #FEFDFF; border: 3px solid #686D76; display:none;">
+                    <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color:#32012F; font-size: 45px;">{{ $totalUsers }}</td>
+                    <td class="py-4 px-6 border-b border-gray-300 text-center" style="color:#32012F; font-size: 18px;">Users</td>
+                </tr>
+            @else
+                <tr style="background-color: #FEFDFF; border: 3px solid #686D76; display:none;">
+                    <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color:#32012F; font-size: 45px;">{{ $totalUsers }}</td>
+                    <td class="py-4 px-6 border-b border-gray-300 text-center" style="color:#32012F; font-size: 18px;">Users</td>
+                </tr>
+            @endif
+        </tbody>
+    </table>
+</div>
 
 
-                        <!-- Users Count -->
-                        @if($totalUsers > 0)
-                            <a href="{{ route('users.index') }}" class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 3px solid #686D76; text-decoration: none; display:none;">
-                                <span class="font-bold text-center mb-2" style="color:#32012F; font-size: 45px;">{{ $totalUsers }}</span>
-                                <h4 class="font-semibold text-center" style="color:#32012F; font-size: 15px;">Users</h4>
-                            </a>
-                        @else
-                            <div class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 3px solid #686D76; display:none;">
-                                <span class="font-bold text-center mb-2" style="color:#32012F; font-size: 45px;">{{ $totalUsers }}</span>
-                                <h4 class="font-semibold text-center" style="color:#32012F; font-size: 15px;">Users</h4>
-                            </div>
-                        @endif
-
-                                <!-- Hymns of Music Count -->
-                                <div class="flex-1 p-6 rounded-lg border-1 flex flex-col justify-center items-center mb-4" style="background-color: #FEFDFF; border: 3px solid #686D76;">
-                                <span class="font-bold text-center mb-2" style="color:#32012F; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</span>
-                                <h4 class="font-semibold text-center" style="color:#32012F; font-size: 15px;">Total Hymns</h4>
-                            </div>
-
-                            
-                    </div>
 
                     @if (\App\Helpers\AccessRightsHelper::checkPermission('dashboard.hymns_info') == 'inline')
 

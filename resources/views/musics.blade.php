@@ -257,9 +257,9 @@
                     {{ $musics->appends(['query' => request()->query('query')])->links() }}
                     <!-- Music Table -->
                     <div class="overflow-x-auto">
-                    <table class="min-w-full">
+                    <table class="min-w-full mt-3">
     <thead >
-        <tr style="display:none;">
+        <tr style="display:none1;">
             <th style="width: 18% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-center text-s font-large text-black-500 uppercase tracking-wider" onclick="sortTable(2)">
                 Hymn # <i id="hymnSortIcon" class="fas fa-sort"></i>
             </th>
