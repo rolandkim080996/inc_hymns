@@ -103,53 +103,54 @@
         @endif
     </div>
 
-    <!-- Lyricists -->
-    <div class="mb-4">
-        <p class="font-semibold text-lg">Lyricist:</p>
-        <ul class="list-disc list-inside" id="lyricistsList">
-            @foreach ($music->lyricists->take(3) as $lyricist)
-                <li>{{ $lyricist->name }}</li>
-            @endforeach
-            @foreach ($music->lyricists->skip(3) as $lyricist)
-                <li class="hidden">{{ $lyricist->name }}</li>
-            @endforeach
-        </ul>
-        @if ($music->lyricists->count() > 3)
-            <button onclick="toggleList('lyricistsList', this)">See More</button>
-        @endif
-    </div>
+    
+   <!-- Lyricists -->
+<div class="mb-4">
+    <p class="font-semibold text-lg">Lyricist:</p>
+    <ul class="list-disc list-inside" id="lyricistsList">
+        @foreach ($music->lyricists->take(3) as $lyricist)
+            <li data-creator-id="{{ $lyricist->id }}" data-music-id="{{ $music->id }}">{{ $lyricist->name }}</li>
+        @endforeach
+        @foreach ($music->lyricists->skip(3) as $lyricist)
+            <li class="hidden" data-creator-id="{{ $lyricist->id }}" data-music-id="{{ $music->id }}">{{ $lyricist->name }}</li>
+        @endforeach
+    </ul>
+    @if ($music->lyricists->count() > 3)
+        <button onclick="toggleList('lyricistsList', this)">See More</button>
+    @endif
+</div>
 
-    <!-- Composer -->
-    <div class="mb-4">
-        <p class="font-semibold text-lg">Composer:</p>
-        <ul class="list-disc list-inside" id="composerList">
-            @foreach ($music->composers->take(3) as $composer)
-                <li>{{ $composer->name }}</li>
-            @endforeach
-            @foreach ($music->composers->skip(3) as $composer)
-                <li class="hidden">{{ $composer->name }}</li>
-            @endforeach
-        </ul>
-        @if ($music->composers->count() > 3)
-            <button onclick="toggleList('composerList', this)">See More</button>
-        @endif
-    </div>
+<!-- Composer -->
+<div class="mb-4">
+    <p class="font-semibold text-lg">Composer:</p>
+    <ul class="list-disc list-inside" id="composerList">
+        @foreach ($music->composers->take(3) as $composer)
+            <li data-creator-id="{{ $composer->id }}" data-music-id="{{ $music->id }}">{{ $composer->name }}</li>
+        @endforeach
+        @foreach ($music->composers->skip(3) as $composer)
+            <li class="hidden" data-creator-id="{{ $composer->id }}" data-music-id="{{ $music->id }}">{{ $composer->name }}</li>
+        @endforeach
+    </ul>
+    @if ($music->composers->count() > 3)
+        <button onclick="toggleList('composerList', this)">See More</button>
+    @endif
+</div>
 
-    <!-- Arranger -->
-    <div class="mb-4">
-        <p class="font-semibold text-lg">Arranger:</p>
-        <ul class="list-disc list-inside" id="arrangerList">
-            @foreach ($music->arrangers->take(3) as $arranger)
-                <li>{{ $arranger->name }}</li>
-            @endforeach
-            @foreach ($music->arrangers->skip(3) as $arranger)
-                <li class="hidden">{{ $arranger->name }}</li>
-            @endforeach
-        </ul>
-        @if ($music->arrangers->count() > 3)
-            <button onclick="toggleList('arrangerList', this)">See More</button>
-        @endif
-    </div>
+<!-- Arranger -->
+<div class="mb-4">
+    <p class="font-semibold text-lg">Arranger:</p>
+   <ul class="list-disc list-inside" id="arrangerList">
+        @foreach ($music->arrangers->take(3) as $arranger)
+            <li data-creator-id="{{ $arranger->id }}" data-music-id="{{ $music->id }}">{{ $arranger->name }}</li>
+        @endforeach
+        @foreach ($music->arrangers->skip(3) as $arranger)
+            <li class="hidden" data-creator-id="{{ $arranger->id }}" data-music-id="{{ $music->id }}">{{ $arranger->name }}</li>
+        @endforeach
+    </ul>
+    @if ($music->arrangers->count() > 3)
+        <button onclick="toggleList('arrangerList', this)">See More</button>
+    @endif
+</div>
 
     <!-- Language -->
     <div class="mb-4">
@@ -164,7 +165,80 @@
     </div>
 </div>
 
+
+<style>
+
+.context-menu {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  display: none;
+}
+
+.context-menu:hover {
+  display:block;
+}
+
+.context-menu h2 {
+  margin-top: 0;
+}
+
+.context-menu img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+  </style>
 <script>
+
+// Get all list items with data-creator-id attribute
+const creatorListItems = document.querySelectorAll('[data-creator-id]');
+
+// Add event listener to each list item
+creatorListItems.forEach((item) => {
+  item.addEventListener('mouseover', (event) => {
+    const musicId = {{ $music->id }};
+    const creatorId = event.target.getAttribute('data-creator-id');
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+    displayContextMenu(musicId, creatorId, mouseX, mouseY);
+  });
+});
+
+function displayContextMenu(musicId, creatorId, mouseX, mouseY) {
+  fetch(`/musics/${musicId}/creators/${creatorId}`)
+    .then(response => response.json())
+    .then(data => {
+      // Create the context menu HTML
+      const contextMenuHtml = `
+        <div class="context-menu" style="left: ${mouseX}px; top: ${mouseY}px;">
+          <h2>${data.name}</h2>
+          <p>Local: ${data.local}</p>
+          <p>District: ${data.district}</p>
+          <p>Duty: ${data.duty}</p>
+          <p>Birthday: ${data.birthday}</p>
+          <p>Music Background: ${data.music_background}</p>
+          <p>Designation: ${data.designation}</p>
+          <img src="${data.image_url}" alt="${data.name}">
+        </div>
+      `;
+
+      // Append the context menu to the body
+      document.body.innerHTML += contextMenuHtml;
+
+      // Add event listener to close the context menu on click outside
+      document.addEventListener('click', (event) => {
+        if (!event.target.closest('.context-menu')) {
+          document.querySelector('.context-menu').remove();
+        }
+      });
+    });
+}
+
+
 function toggleList(listId, button) {
     const list = document.getElementById(listId);
     const items = list.querySelectorAll('li.hidden');
