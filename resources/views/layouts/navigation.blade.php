@@ -15,18 +15,13 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:flex">
                     <!-- List of Musics -->
-                    <x-nav-link :href="route('musics.index')" :active="request()->routeIs('musics.index')">
-                        {{ __('Hymns') }}
-                    </x-nav-link>
-
-
+                    {{ __('INC Hymns') }}
                 </div>
 
             </div>
 
             <!-- User Profile Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-
                <x-dropdown align="right" width="48">
                 
                     <x-slot name="trigger">

@@ -10,18 +10,17 @@ use App\Http\Controllers\ChurchHymnController;
 
 use Illuminate\Support\Facades\Route;
 
-
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InstrumentationController;
 use App\Http\Controllers\EnsembleTypeController;
 use App\Http\Controllers\MusicCreatorController;
 
-use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PermissionCategoryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ApiDocumentationController;
 use App\Http\Controllers\ActivityLogController;
 
@@ -40,7 +39,6 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -56,8 +54,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
-
-
 });
 
 require __DIR__.'/auth.php';
@@ -80,9 +76,7 @@ Route::delete('/musics/{music}', [MusicController::class, 'destroy'])->name('mus
 // Route for showing a single music details
 Route::get('/musics/{id}', [MusicController::class, 'show'])->name('musics.show');
 
-
 Route::get('/musicplayer/{id}', [MusicController::class, 'musicPlayer'])->name('musics.musicPlayer');
-
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
@@ -92,10 +86,8 @@ Route::resource('groups', GroupController::class);
 
 Route::get('groups/{group}/users', [GroupController::class, 'showUsers'])->name('groups.users');
 
-
 Route::resource('languages', LanguageController::class);
 Route::resource('church_hymns', ChurchHymnController::class);
-
 
 Route::resource('permission_categories', PermissionCategoryController::class);
 

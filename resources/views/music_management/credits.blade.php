@@ -187,7 +187,7 @@
                         
                         <div class="form-group">
                             <label for="birthday">Birthday:</label>
-                            <input type="date" class="form-control" id="birthday" name="birthday" required>
+                            <input type="date" class="form-control" id="birthday" name="birthday">
                         </div>
 
                         <div class="form-group">
@@ -255,7 +255,7 @@
 
                             <div class="form-group">
                                 <label for="edit_birthday">Birthday:</label>
-                                <input type="date" class="form-control" id="edit_birthday" name="edit_birthday" required>
+                                <input type="date" class="form-control" id="edit_birthday" name="edit_birthday">
                             </div>
 
                             <div class="form-group">
