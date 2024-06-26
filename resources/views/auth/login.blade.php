@@ -1,4 +1,13 @@
+
 <x-guest-layout>
+<style>
+  .bg-gray-100 {
+    background-image: url("{{ asset('images/login_bg.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* prevent the image from repeating */
+  }
+</style>
     <!-- Session Status -->
     <h2 class="text-center" style="color:#0a2d2e;font-size:30px;">INC Hymns</h2>
     

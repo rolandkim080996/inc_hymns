@@ -74,7 +74,7 @@ body {
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg  mt-4">
+            <div class="overflow-hidden shadow-sm sm:rounded-lg mt-4" style="border-radius:2rem;">
                 <div class="p-6 bg-blue" style="background-color: #79b7de;">
                 <div class="flex mt-8 gap-4">
     <table class="min-w-full bg-blue w-full" style="background-color: #79b7de;">

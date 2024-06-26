@@ -167,7 +167,9 @@
 
 
 <style>
-
+body {
+  background: linear-gradient(to bottom, #5eb8d3, #4975b4);
+}
 .context-menu {
     position: absolute;
   z-index: 1000;

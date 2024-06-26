@@ -8,6 +8,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<style>
+    body {
+  background: linear-gradient(to bottom, #5eb8d3, #4975b4);
+}
+</style>
 <x-app-layout>
     <x-slot name="header">
     <div class="flex justify-between items-center my-8">
@@ -249,35 +254,35 @@
     });
 </script>
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6">
-                <!-- <div class="pagination flex justify-left items-center" style="padding:0px;margin-bottom:10px;">
-                       
-                    </div> -->
-                    {{ $musics->appends(['query' => request()->query('query')])->links() }}
+<div class="overflow-hidden shadow-sm sm:rounded-lg" style="background: linear-gradient(to bottom, #5eb8d3, #4975b4);">
+                <div class="p-6" >
+                <div class="items-center text-white" style="padding:0px;margin-bottom:10px;">
+    {{ $musics->appends(['query' => request()->query('query')])->links() }}
+</div>
+                    
                     <!-- Music Table -->
-                    <div class="overflow-x-auto">
-                    <table class="min-w-full mt-3">
+                    <div class="overflow-x-auto margin:10px;" >
+                    <table class="min-w-full mt-3 mb-3">
     <thead >
         <tr style="display:none1;">
-            <th style="width: 18% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-center text-s font-large text-black-500 uppercase tracking-wider" onclick="sortTable(2)">
+            <th style="width: 18% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-center text-s font-large text-white uppercase tracking-wider" onclick="sortTable(2)">
                 Hymn # <i id="hymnSortIcon" class="fas fa-sort"></i>
             </th>
-            <th style="width: 35% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-left text-s font-large text-black-500 uppercase tracking-wider" onclick="sortTable(1)">
+            <th style="width: 35% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-left text-s font-large text-white uppercase tracking-wider" onclick="sortTable(1)">
                 Title <i id="titleSortIcon" class="fas fa-sort"></i>
             </th>
          
-            <th style="width: 25% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-left text-s font-large text-black-500 uppercase tracking-wider">Category</th>
-            <th style="width: 15% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-left text-s font-large text-black-500 uppercase tracking-wider">Language</th>
+            <th style="width: 25% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-left text-s font-large text-white uppercase tracking-wider">Category</th>
+            <th style="width: 15% !important; white-space: normal;" scope="col" class="px-4 py-2 bg-gray-50 text-left text-s font-large text-white uppercase tracking-wider">Language</th>
             @if (\App\Helpers\AccessRightsHelper::checkPermission('musics.action') == 'inline')
-                <th scope="col" class="px-4 py-2 bg-gray-50 text-center text-s font-large text-black-500 uppercase tracking-wider">Action</th>
+                <th scope="col" class="px-4 py-2 bg-gray-50 text-center text-s font-large text-white uppercase tracking-wider">Action</th>
             @endif
         </tr>
     </thead>
     <tbody id="musicList" class="bg-white divide-y divide-gray-200">
         @foreach($musics as $index => $music)
         <tr class="hoverable">
-            <td style="width: 18% !important; white-space: normal;" class="px-4 py-3 whitespace-nowrap text-left">
+            <td style="width: 18% !important; white-space: normal;" class="px-4 py-3 whitespace-nowrap text-center">
                 {{ $music->song_number }}
             </td>
             <td style="width: 35% !important; white-space: normal;" class="px-4 py-3 whitespace-nowrap">
