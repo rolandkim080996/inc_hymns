@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 25, 2024 at 10:24 AM
+-- Generation Time: Jun 26, 2024 at 10:34 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -273,7 +273,86 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `action`, `model`, `model_id`, `ch
 (225, 8, 'login', 'Admin', 8, 'login user', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 00:06:51', '2024-06-25 00:06:51'),
 (226, 8, 'updated', 'Ryan Solitario', 15, 'update the user', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 00:07:07', '2024-06-25 00:07:07'),
 (227, 8, 'viewed', 'Huwag Iiwan Ang', 79, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 00:16:01', '2024-06-25 00:16:01'),
-(228, 8, 'viewed', 'Huwag Iiwan Ang', 79, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 00:16:02', '2024-06-25 00:16:02');
+(228, 8, 'viewed', 'Huwag Iiwan Ang', 79, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 00:16:02', '2024-06-25 00:16:02'),
+(229, 8, 'login', 'Admin', 8, 'login user', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 14:47:47', '2024-06-25 14:47:47'),
+(230, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 14:47:54', '2024-06-25 14:47:54'),
+(231, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 14:47:54', '2024-06-25 14:47:54'),
+(232, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 14:55:39', '2024-06-25 14:55:39'),
+(233, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 14:55:39', '2024-06-25 14:55:39'),
+(234, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 14:55:50', '2024-06-25 14:55:50'),
+(235, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 14:55:50', '2024-06-25 14:55:50'),
+(236, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 14:55:56', '2024-06-25 14:55:56'),
+(237, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 14:59:43', '2024-06-25 14:59:43'),
+(238, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 14:59:43', '2024-06-25 14:59:43'),
+(239, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 14:59:49', '2024-06-25 14:59:49'),
+(240, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 14:59:49', '2024-06-25 14:59:49'),
+(241, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 15:00:28', '2024-06-25 15:00:28'),
+(242, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 15:00:29', '2024-06-25 15:00:29'),
+(243, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 15:00:31', '2024-06-25 15:00:31'),
+(244, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 15:02:02', '2024-06-25 15:02:02'),
+(245, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 15:02:02', '2024-06-25 15:02:02'),
+(246, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 15:02:04', '2024-06-25 15:02:04'),
+(247, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 15:02:08', '2024-06-25 15:02:08'),
+(248, 8, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 15:02:08', '2024-06-25 15:02:08'),
+(249, 8, 'login', 'Admin', 8, 'login user', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 18:01:46', '2024-06-25 18:01:46'),
+(250, 5, 'login', 'EVM', 5, 'login user', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 18:06:22', '2024-06-25 18:06:22'),
+(251, 5, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 18:17:12', '2024-06-25 18:17:12'),
+(252, 5, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 18:17:13', '2024-06-25 18:17:13'),
+(253, 8, 'login', 'Admin', 8, 'login user', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 19:05:04', '2024-06-25 19:05:04'),
+(254, 5, 'login', 'EVM', 5, 'login user', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 19:18:11', '2024-06-25 19:18:11'),
+(255, 5, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 19:25:01', '2024-06-25 19:25:01'),
+(256, 5, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 19:25:01', '2024-06-25 19:25:01'),
+(257, 8, 'login', 'Admin', 8, 'login user', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 19:38:28', '2024-06-25 19:38:28'),
+(258, 5, 'login', 'EVM', 5, 'login user', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 19:39:02', '2024-06-25 19:39:02'),
+(259, 5, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 20:09:19', '2024-06-25 20:09:19'),
+(260, 5, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 20:09:20', '2024-06-25 20:09:20'),
+(261, 8, 'login', 'Admin', 8, 'login user', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 22:55:52', '2024-06-25 22:55:52'),
+(262, 5, 'login', 'EVM', 5, 'login user', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 22:56:21', '2024-06-25 22:56:21'),
+(263, 5, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 23:23:25', '2024-06-25 23:23:25'),
+(264, 5, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 23:23:26', '2024-06-25 23:23:26'),
+(265, 5, 'viewed', 'Kami\'y Iyong Dingin', 73, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 23:24:03', '2024-06-25 23:24:03'),
+(266, 5, 'viewed', 'Kami\'y Iyong Dingin', 73, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 23:24:04', '2024-06-25 23:24:04'),
+(267, 5, 'viewed', 'Kami\'y Iyong Dingin', 73, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 23:24:07', '2024-06-25 23:24:07'),
+(268, 5, 'viewed', 'Ang Aking Panalangin', 78, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 23:52:12', '2024-06-25 23:52:12'),
+(269, 5, 'viewed', 'Ang Aking Panalangin', 78, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 23:52:13', '2024-06-25 23:52:13'),
+(270, 5, 'viewed', 'Ang Aking Panalangin', 78, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 23:52:18', '2024-06-25 23:52:18'),
+(271, 5, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 23:52:26', '2024-06-25 23:52:26'),
+(272, 5, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 23:52:27', '2024-06-25 23:52:27'),
+(273, 5, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 23:52:28', '2024-06-25 23:52:28'),
+(274, 5, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 23:53:44', '2024-06-25 23:53:44'),
+(275, 5, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 23:53:44', '2024-06-25 23:53:44'),
+(276, 5, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 23:56:43', '2024-06-25 23:56:43'),
+(277, 5, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 23:56:44', '2024-06-25 23:56:44'),
+(278, 5, 'viewed', 'Ang Aming Pagsisikapan', 74, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 23:57:18', '2024-06-25 23:57:18'),
+(279, 5, 'viewed', 'Ang Aming Pagsisikapan', 74, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-25 23:57:19', '2024-06-25 23:57:19'),
+(280, 8, 'login', 'Admin', 8, 'login user', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:08:38', '2024-06-26 00:08:38'),
+(281, 8, 'updated', 'ATG', 6, 'update the user', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-26 00:08:55', '2024-06-26 00:08:55'),
+(282, 8, 'updated', 'GMG', 7, 'update the user', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-26 00:09:01', '2024-06-26 00:09:01'),
+(283, 7, 'login', 'GMG', 7, 'login user', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-26 00:09:09', '2024-06-26 00:09:09'),
+(284, 6, 'login', 'ATG', 6, 'login user', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:09:32', '2024-06-26 00:09:32'),
+(285, 8, 'login', 'Admin', 8, 'login user', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:09:53', '2024-06-26 00:09:53'),
+(286, 6, 'login', 'ATG', 6, 'login user', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-26 00:11:57', '2024-06-26 00:11:57'),
+(287, 6, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:24:48', '2024-06-26 00:24:48'),
+(288, 6, 'viewed', 'Ako Nawa Ay Patawarin', 69, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:24:48', '2024-06-26 00:24:48'),
+(289, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:24:57', '2024-06-26 00:24:57'),
+(290, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:24:58', '2024-06-26 00:24:58'),
+(291, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:25:01', '2024-06-26 00:25:01'),
+(292, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:26:23', '2024-06-26 00:26:23'),
+(293, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:26:24', '2024-06-26 00:26:24'),
+(294, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:26:28', '2024-06-26 00:26:28'),
+(295, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:26:41', '2024-06-26 00:26:41'),
+(296, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:26:41', '2024-06-26 00:26:41'),
+(297, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:26:45', '2024-06-26 00:26:45'),
+(298, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:29:37', '2024-06-26 00:29:37'),
+(299, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15', '2024-06-26 00:29:37', '2024-06-26 00:29:37'),
+(300, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-26 00:30:17', '2024-06-26 00:30:17'),
+(301, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-26 00:30:18', '2024-06-26 00:30:18'),
+(302, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-26 00:30:41', '2024-06-26 00:30:41'),
+(303, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-26 00:30:42', '2024-06-26 00:30:42'),
+(304, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-26 00:31:27', '2024-06-26 00:31:27'),
+(305, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-26 00:31:27', '2024-06-26 00:31:27'),
+(306, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-26 00:31:44', '2024-06-26 00:31:44'),
+(307, 6, 'viewed', 'DARATING DIN ANG KAGALAKAN', 71, 'view hymn', '172.18.125.134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-26 00:31:45', '2024-06-26 00:31:45');
 
 -- --------------------------------------------------------
 
@@ -1382,8 +1461,8 @@ INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_verified_at`, `pa
 (3, 'Kyrt Jurada', 'kjurada', 'kjurada@gmail.com', NULL, '$2y$12$gdJNOpmcVydXmnStkBxnHe1oPVIpWlFtfNPx9c3GsHA/sycQn94ie', NULL, 1, NULL, '2024-06-02 23:08:48', '2024-06-05 16:44:33'),
 (4, 'Roland Kim Amaro123', 'rkamaro', 'rkamaro@gmail.com', NULL, '$2y$12$X6mlU56RRbC5zxyy5IVGde/q0Tsr9MgUQt4afweD2JbZKokf1Nbo2', NULL, 1, NULL, '2024-06-03 19:42:53', '2024-06-07 07:08:16'),
 (5, 'EVM', 'evm', 'evm@gmail.com', NULL, '$2y$12$Cp0HvJC.wabZ/NtmJ8TyquM0wSDUpNKxblvJix3j1zl0AblSLbyp.', NULL, 1, NULL, '2024-06-03 21:31:13', '2024-06-13 23:36:29'),
-(6, 'ATG', 'atg', 'atg@gmail.com', NULL, '$2y$12$u3ikFSmmBU44bVQ9vK160emXzhh98nLkiGTCnO7Gdo5ClMlOcFcPe', NULL, 0, NULL, '2024-06-03 21:34:13', '2024-06-13 23:36:46'),
-(7, 'GMG', 'gmg', 'gmg@gmail.com', NULL, '$2y$12$T7j3WfGYbg7Po9iFTI474epUuzRwS2sFtgLsdQNGD06imTmKxC4Im', NULL, 0, NULL, '2024-06-03 21:53:50', '2024-06-13 23:36:59'),
+(6, 'ATG', 'atg', 'atg@gmail.com', NULL, '$2y$12$u3ikFSmmBU44bVQ9vK160emXzhh98nLkiGTCnO7Gdo5ClMlOcFcPe', NULL, 1, NULL, '2024-06-03 21:34:13', '2024-06-26 00:08:55'),
+(7, 'GMG', 'gmg', 'gmg@gmail.com', NULL, '$2y$12$T7j3WfGYbg7Po9iFTI474epUuzRwS2sFtgLsdQNGD06imTmKxC4Im', NULL, 1, NULL, '2024-06-03 21:53:50', '2024-06-26 00:09:01'),
 (8, 'Admin', 'admin', 'admin@gmail.com', NULL, '$2y$12$9zTjKojCzPWeitLa/ka0uerS76ygPIPIxE0Vwn/XcR/Xyd6Ynm9RG', NULL, 1, NULL, '2024-06-05 16:46:18', '2024-06-11 15:54:29'),
 (9, 'Music Encoder 01', 'music.encoder01', 'music@yahoo.com', NULL, '$2y$12$nefsbqHML1NlRqegOB3.4OM4AdqdAtwulFYBkeo1eUB3eE.d6vU8i', NULL, 1, NULL, '2024-06-12 22:15:58', '2024-06-18 16:44:03'),
 (10, 'Music Encoder 02', 'music.encoder02', 'music.encoder02@google.com', NULL, '$2y$12$n.9Lnz1rMCq7NPJA08lTkuGWxnNXm4hYNMP2B7atofAwPFlbltIga', NULL, 1, NULL, '2024-06-13 18:13:31', '2024-06-13 18:13:31'),
@@ -1599,7 +1678,7 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=308;
 
 --
 -- AUTO_INCREMENT for table `api_documentations`
