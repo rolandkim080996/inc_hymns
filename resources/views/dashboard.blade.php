@@ -9,6 +9,9 @@
 
 
 <style>
+body {
+  background: linear-gradient(to bottom, #5eb8d3, #4975b4);
+}
        .flex-1:hover {
     background-color:#050C9C;
 }
@@ -71,15 +74,15 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg  mt-4">
+                <div class="p-6 bg-blue" style="background-color: #79b7de;">
                 <div class="flex mt-8 gap-4">
-    <table class="min-w-full bg-white border-collapse w-full border">
+    <table class="min-w-full bg-blue w-full" style="background-color: #79b7de;">
         <thead>
-            <tr>
-                <th class="py-4 px-6 border-b border-gray-300 text-center">Hymns Count</th>
-                <th class="py-4 px-6 border-b border-gray-300 text-center">Description</th>
-            </tr>
+        <tr> 
+  <th style="background-color: #79b7de;" class="py-4 px-6 text-center"><span style="text-transform: uppercase;color:white;font-size:3vw;">HYMNS COUNT</span></th> 
+  <th style="background-color: #79b7de;" class="py-4 px-6 text-left"><span style="text-transform: uppercase;color:white;font-size:3vw;">DESCRIPTION</span></th> 
+</tr>
         </thead>
         <tbody>
             @php
@@ -109,41 +112,44 @@
                 @endphp
 
                 @if($hymn->musics_count > 0)
-                    <tr style="background-color: #{{ $colors[$colorIndex] }}; border: 3px solid #686D76;">
-                        <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color: #{{ $currentTextColor }}; font-size: 45px;">
-                            <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" style="text-decoration: none; color: #{{ $currentTextColor }};">{{ $hymn->musics_count }}</a>
-                        </td>
-                        <td class="py-4 px-6 border-b border-gray-300 text-center" style="color: #{{ $currentTextColor }}; font-size: 18px;">
-                            <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" style="text-decoration: none; color: #{{ $currentTextColor }};">{{ $serviceName }}</a>
-                        </td>
-                    </tr>
-                @else
-                    <tr style="background-color: #{{ $colors[$colorIndex] }}; border: 3px solid #686D76;">
-                        <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color: #{{ $currentTextColor }}; font-size: 45px;">{{ $hymn->musics_count }}</td>
-                        <td class="py-4 px-6 border-b border-gray-300 text-center" style="color: #{{ $currentTextColor }}; font-size: 18px;">{{ $serviceName }}</td>
-                    </tr>
-                @endif
+        <tr style="background-color: #{{ $colors[$colorIndex] }};">
+            <td class="py-8 px-6 text-center" style="color: #{{ $currentTextColor }}; font-size:3.5vw; padding: 20px; border-radius: 20px 0 0 20px;">
+                <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" style="text-decoration: none; color: #{{ $currentTextColor }};">{{ $hymn->musics_count }}</a>
+            </td>
+            <td class="py-8 px-6 text-left" style="color: #{{ $currentTextColor }}; font-size: 18px; padding: 20px; border-radius: 0 20px 20px 0;">
+                <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" style="text-decoration: none; color: #{{ $currentTextColor }};font-size:3vw;">{{ $serviceName }}</a>
+            </td>
+        </tr>
+    @else
+        <tr style="background-color: #{{ $colors[$colorIndex] }};">
+            <td class="py-8 px-6 text-center" style="color: #{{ $currentTextColor }}; font-size:3.5vw; padding: 20px; border-radius: 20px 0 0 20px;">{{ $hymn->musics_count }}</td>
+            <td class="py-8 px-6 text-left" style="color: #{{ $currentTextColor }}; font-size:3vw; padding: 20px; border-radius: 0 20px 20px 0;">{{ $serviceName }}</td>
+        </tr>
+    @endif
+    <!-- Add spacing row -->
+    <tr style="height: 20px;"></tr>
+
 
                 @php
                     $colorIndex = ($colorIndex + 1) % count($colors);
                 @endphp
             @endforeach
 
-            <!-- Hymns of Music Count -->
-            <tr style="background-color: #FEFDFF; border: 3px solid #686D76;">
-                <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color:#32012F; font-size: 45px;">{{ $totalChurchHymns->sum('musics_count') }}</td>
-                <td class="py-4 px-6 border-b border-gray-300 text-center" style="color:#32012F; font-size: 18px;">Total Hymns</td>
-            </tr>
+       <!-- Hymns of Music Count -->
+<tr style="background-color: #79b7de;">
+    <td class="py-8 px-6 text-center" style="color: white; font-size:3vw; padding: 20px; border-radius: 20px 0 0 20px; border-top: 4px solid white;">{{ $totalChurchHymns->sum('musics_count') }}</td>
+    <td class="py-8 px-6 text-left" style="color: white; font-size:3vw; padding: 20px; border-radius: 0 20px 20px 0; border-top: 4px solid white;">TOTAL HYMNS</td>
+</tr>
 
             <!-- Users Count (hidden) -->
             @if($totalUsers > 0)
                 <tr style="background-color: #FEFDFF; border: 3px solid #686D76; display:none;">
-                    <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color:#32012F; font-size: 45px;">{{ $totalUsers }}</td>
+                    <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color:#32012F; font-size:3vw;">{{ $totalUsers }}</td>
                     <td class="py-4 px-6 border-b border-gray-300 text-center" style="color:#32012F; font-size: 18px;">Users</td>
                 </tr>
             @else
                 <tr style="background-color: #FEFDFF; border: 3px solid #686D76; display:none;">
-                    <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color:#32012F; font-size: 45px;">{{ $totalUsers }}</td>
+                    <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color:#32012F; font-size:3vw;">{{ $totalUsers }}</td>
                     <td class="py-4 px-6 border-b border-gray-300 text-center" style="color:#32012F; font-size: 18px;">Users</td>
                 </tr>
             @endif

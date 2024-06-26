@@ -169,11 +169,12 @@
 <style>
 
 .context-menu {
-  position: absolute;
-  background-color: #fff;
-  border: 1px solid #ddd;
+    position: absolute;
+  z-index: 1000;
+  background: white;
+  border: 1px solid #ccc;
   padding: 10px;
-  display: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .context-menu:hover {
@@ -192,6 +193,8 @@
 }
 
   </style>
+
+
 <script>
 
 // Get all list items with data-creator-id attribute
@@ -214,7 +217,7 @@ function displayContextMenu(musicId, creatorId, mouseX, mouseY) {
     .then(data => {
       // Create the context menu HTML
       const contextMenuHtml = `
-        <div class="context-menu" style="left: ${mouseX}px; top: ${mouseY}px;">
+        <div class="context-menu" style="position: absolute; left: ${mouseX}px; top: ${mouseY}px; z-index: 1000; background: white; border: 1px solid #ccc; padding: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
           <h2>${data.name}</h2>
           <p>Local: ${data.local}</p>
           <p>District: ${data.district}</p>
@@ -222,9 +225,15 @@ function displayContextMenu(musicId, creatorId, mouseX, mouseY) {
           <p>Birthday: ${data.birthday}</p>
           <p>Music Background: ${data.music_background}</p>
           <p>Designation: ${data.designation}</p>
-          <img src="${data.image_url}" alt="${data.name}">
+          <img src="${data.image_url}" alt="${data.name}" style="max-width: 100%;">
         </div>
       `;
+
+      // Remove any existing context menu
+      const existingMenu = document.querySelector('.context-menu');
+      if (existingMenu) {
+        existingMenu.remove();
+      }
 
       // Append the context menu to the body
       document.body.innerHTML += contextMenuHtml;
@@ -232,11 +241,15 @@ function displayContextMenu(musicId, creatorId, mouseX, mouseY) {
       // Add event listener to close the context menu on click outside
       document.addEventListener('click', (event) => {
         if (!event.target.closest('.context-menu')) {
-          document.querySelector('.context-menu').remove();
+          const contextMenu = document.querySelector('.context-menu');
+          if (contextMenu) {
+            contextMenu.remove();
+          }
         }
       });
     });
 }
+
 
 
 function toggleList(listId, button) {

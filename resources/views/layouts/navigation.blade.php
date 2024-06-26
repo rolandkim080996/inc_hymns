@@ -12,11 +12,10 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:flex">
-                    <!-- List of Musics -->
-                    {{ __('INC Hymns') }}
-                </div>
+      <!-- Navigation Links -->
+<div class="hidden space-x-8 sm:-my-px sm:flex">
+<span style="background: linear-gradient(to right, #475b9a, #6aa8c4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;">INC Hymns</span>
+</div>
 
             </div>
 
@@ -61,7 +60,9 @@
                         <button class="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition duration-150 ease-in-out">
                             
                             @if (Auth::check())
-                                <div>{{ Auth::user()->name }}</div>
+                                <div>
+                                    <span style="background: linear-gradient(to right, #475b9a, #6aa8c4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;">{{ Auth::user()->name }}</span>
+                                </div>
                             @else
                                 <script type="text/javascript">
                                     window.location.href = "{{ route('login') }}"; // Redirect to the login page
