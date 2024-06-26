@@ -163,94 +163,72 @@
         <p class="font-semibold text-lg">Verses Used:</p>
         <p>{{ $music->verses_used }}</p>
     </div>
+
+
+    
 </div>
+
 
 
 <style>
 body {
   background: linear-gradient(to bottom, #5eb8d3, #4975b4);
 }
-.context-menu {
+.hidden {
+    display: none;
+}
+
+#creatorDetails {
     position: absolute;
-  z-index: 1000;
-  background: white;
-  border: 1px solid #ccc;
-  padding: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.context-menu:hover {
-  display:block;
-}
-
-.context-menu h2 {
-  margin-top: 0;
-}
-
-.context-menu img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin: 10px;
+    z-index: 1000;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
   </style>
 
 
 <script>
-
 // Get all list items with data-creator-id attribute
 const creatorListItems = document.querySelectorAll('[data-creator-id]');
 
 // Add event listener to each list item
 creatorListItems.forEach((item) => {
   item.addEventListener('mouseover', (event) => {
-    const musicId = {{ $music->id }};
+    const musicId = event.target.getAttribute('data-music-id');
     const creatorId = event.target.getAttribute('data-creator-id');
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
-    displayContextMenu(musicId, creatorId, mouseX, mouseY);
+  
+    displayCreatorDetails(musicId, creatorId);
+  });
+
+  item.addEventListener('mouseout', () => {
+    const creatorDetails = document.getElementById('creatorDetails');
+    creatorDetails.classList.add('hidden');
   });
 });
 
-function displayContextMenu(musicId, creatorId, mouseX, mouseY) {
+function displayCreatorDetails(musicId, creatorId) {
   fetch(`/musics/${musicId}/creators/${creatorId}`)
     .then(response => response.json())
     .then(data => {
-      // Create the context menu HTML
-      const contextMenuHtml = `
-        <div class="context-menu" style="position: absolute; left: ${mouseX}px; top: ${mouseY}px; z-index: 1000; background: white; border: 1px solid #ccc; padding: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-          <h2>${data.name}</h2>
-          <p>Local: ${data.local}</p>
-          <p>District: ${data.district}</p>
-          <p>Duty: ${data.duty}</p>
-          <p>Birthday: ${data.birthday}</p>
-          <p>Music Background: ${data.music_background}</p>
-          <p>Designation: ${data.designation}</p>
-          <img src="${data.image_url}" alt="${data.name}" style="max-width: 100%;">
-        </div>
+      const creatorDetails = document.getElementById('creatorDetails');
+      creatorDetails.innerHTML = `
+        <h2>${data.name}</h2>
+        <p>Local: ${data.local}</p>
+        <p>District: ${data.district}</p>
+        <p>Duty: ${data.duty}</p>
+        <p>Birthday: ${data.birthday}</p>
+        <p>Music Background: ${data.music_background}</p>
+        <p>Designation: ${data.designation}</p>
+        <img src="${data.image_url}" alt="${data.name}" style="max-width: 100%;">
       `;
-
-      // Remove any existing context menu
-      const existingMenu = document.querySelector('.context-menu');
-      if (existingMenu) {
-        existingMenu.remove();
-      }
-
-      // Append the context menu to the body
-      document.body.innerHTML += contextMenuHtml;
-
-      // Add event listener to close the context menu on click outside
-      document.addEventListener('click', (event) => {
-        if (!event.target.closest('.context-menu')) {
-          const contextMenu = document.querySelector('.context-menu');
-          if (contextMenu) {
-            contextMenu.remove();
-          }
-        }
-      });
+      creatorDetails.classList.remove('hidden');
     });
 }
+
+
 
 
 
@@ -289,7 +267,9 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
 
 
 </script>
-
+<div id="creatorDetails" class="hidden">
+    <!-- Creator details will be populated here -->
+</div>
 <div class="music-container">
 
 
