@@ -181,9 +181,10 @@ body {
 #creatorDetails {
     position: absolute;
     z-index: 1000;
-    background: white;
+    background: linear-gradient(to bottom, #5eb8d3, #4975b4);
     border: 1px solid #ccc;
     padding: 10px;
+    color:white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -191,16 +192,15 @@ body {
 
 
 <script>
+
 // Get all list items with data-creator-id attribute
 const creatorListItems = document.querySelectorAll('[data-creator-id]');
 
 // Add event listener to each list item
 creatorListItems.forEach((item) => {
   item.addEventListener('mouseover', (event) => {
-    const musicId = event.target.getAttribute('data-music-id');
     const creatorId = event.target.getAttribute('data-creator-id');
-  
-    displayCreatorDetails(musicId, creatorId);
+    displayCreatorDetails(creatorId, event.clientX, event.clientY);
   });
 
   item.addEventListener('mouseout', () => {
@@ -209,28 +209,32 @@ creatorListItems.forEach((item) => {
   });
 });
 
-function displayCreatorDetails(musicId, creatorId) {
-  fetch(`/musics/${musicId}/creators/${creatorId}`)
-    .then(response => response.json())
-    .then(data => {
+function displayCreatorDetails(creatorId, mouseX, mouseY) {
+  fetch(`/creators/${creatorId}`)
+  .then(response => response.json())
+  .then(data => {
       const creatorDetails = document.getElementById('creatorDetails');
+      const birthdayDisplay = data.birthday? (data.birthday === '0000-00-00 00:00:00'? 'N/A' : new Date(data.birthday).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })) : 'N/A';
+      const musicBackgroundDisplay = data.music_background? data.music_background : 'N/A';
+      const nameDisplay = data.name? data.name : 'N/A';
+      const localDisplay = data.local? data.local : 'N/A';
+      const districtDisplay = data.district? data.district : 'N/A';
+      const dutyDisplay = data.duty? data.duty : 'N/A';
+
       creatorDetails.innerHTML = `
-        <h2>${data.name}</h2>
-        <p>Local: ${data.local}</p>
-        <p>District: ${data.district}</p>
-        <p>Duty: ${data.duty}</p>
-        <p>Birthday: ${data.birthday}</p>
-        <p>Music Background: ${data.music_background}</p>
-        <p>Designation: ${data.designation}</p>
-        <img src="${data.image_url}" alt="${data.name}" style="max-width: 100%;">
+        <h1><b>${nameDisplay}</b></h1>
+        <img src="/images/blank_image.png" alt="${nameDisplay}" style="max-width: 50%;">
+        <p>Local: ${localDisplay}</p>
+        <p>District: ${districtDisplay}</p>
+        <p>Duty: ${dutyDisplay}</p>
+        <p>Birthday: ${birthdayDisplay}</p>
+        <p>Music Background: ${musicBackgroundDisplay}</p>
       `;
+      creatorDetails.style.left = `${mouseX}px`;
+      creatorDetails.style.top = `${mouseY}px`;
       creatorDetails.classList.remove('hidden');
     });
 }
-
-
-
-
 
 function toggleList(listId, button) {
     const list = document.getElementById(listId);
