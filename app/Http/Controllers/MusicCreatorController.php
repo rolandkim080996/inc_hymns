@@ -71,9 +71,9 @@ class MusicCreatorController extends Controller
     
     public function showinfo($id)
 {
-    dd($id);
+   
     $creator = MusicCreator::find($id);
-
+   
 
     return response()->json([
         'name' => $creator->name,

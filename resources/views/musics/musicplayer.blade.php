@@ -28,15 +28,10 @@
     <div class="py-10 mb-4">
     <div class="music-player">
     <!-- Tab buttons -->
-    <div class="flex tab-buttons">
+    <div class="tab-buttons">
         <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->vocals_mp3_path) }}">Vocals</button>
         <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->organ_mp3_path) }}">Organ</button>
         <button class="tab-button-mp3" data-path="{{ asset('storage/' . $music->preludes_mp3_path) }}">Preludes</button>
-        <button class="tab-button" data-path="{{ asset('storage/music_files/' . $music->music_score_path) }}">Music Score</button>
-        <button class="tab-button" data-path="{{ asset('storage/music_files/' . $music->lyrics_path) }}">Lyrics Only</button>
-    </div>
-    <div class="file-upload">
-        <input type="file" id="fileInput" accept="audio/*">
     </div>
     <div class="progress-container" id="progressContainer">
         <div class="progress-bar" id="progressBar"></div>
@@ -54,68 +49,80 @@
     </div>
     <div class="volume-control">
         <span>🔊</span>
-        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01">
+        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01" />
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    let sound;
+    const tracks = {
+        vocals: "{{ asset('storage/' . $music->vocals_mp3_path) }}",
+        organ: "{{ asset('storage/' . $music->organ_mp3_path) }}",
+        preludes: "{{ asset('storage/' . $music->preludes_mp3_path) }}"
+    };
+
+    let currentTrack = tracks.vocals;
+    let sound = new Howl({
+        src: [currentTrack],
+        html5: true,
+        onplay: () => {
+            requestAnimationFrame(updateProgressBar);
+        },
+        onload: () => {
+            totalTimeDisplay.textContent = formatTime(sound.duration());
+        },
+        onend: () => {
+            if (repeat) {
+                sound.play();
+            } else {
+                nextTrack();
+            }
+        },
+    });
+
     let isPlaying = false;
     let isSeeking = false;
-    const progressBar = document.getElementById('progressBar');
-    const playPauseButton = document.getElementById('playPauseButton');
-    const prevButton = document.getElementById('prevButton');
-    const nextButton = document.getElementById('nextButton');
-    const shuffleButton = document.getElementById('shuffleButton');
-    const repeatButton = document.getElementById('repeatButton');
-    const volumeSlider = document.getElementById('volumeSlider');
-    const fileInput = document.getElementById('fileInput');
-    const progressContainer = document.getElementById('progressContainer');
-    const currentTimeDisplay = document.getElementById('currentTime');
-    const totalTimeDisplay = document.getElementById('totalTime');
-    const tabButtons = document.querySelectorAll('.tab-button-mp3');
-   
+    const progressBar = document.getElementById("progressBar");
+    const playPauseButton = document.getElementById("playPauseButton");
+    const prevButton = document.getElementById("prevButton");
+    const nextButton = document.getElementById("nextButton");
+    const shuffleButton = document.getElementById("shuffleButton");
+    const repeatButton = document.getElementById("repeatButton");
+    const volumeSlider = document.getElementById("volumeSlider");
+    const progressContainer = document.getElementById("progressContainer");
+    const currentTimeDisplay = document.getElementById("currentTime");
+    const totalTimeDisplay = document.getElementById("totalTime");
+    const tabButtons = document.querySelectorAll(".tab-button-mp3");
+
     let shuffle = false;
     let repeat = false;
 
-    playPauseButton.addEventListener('click', togglePlayPause);
-    prevButton.addEventListener('click', prevTrack);
-    nextButton.addEventListener('click', nextTrack);
-    shuffleButton.addEventListener('click', toggleShuffle);
-    repeatButton.addEventListener('click', toggleRepeat);
-    volumeSlider.addEventListener('input', changeVolume);
-    progressContainer.addEventListener('click', seekTrack);
-    
-    fileInput.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const objectURL = URL.createObjectURL(file);
-            loadTrack(objectURL);
-        }
-    });
+    playPauseButton.addEventListener("click", togglePlayPause);
+    prevButton.addEventListener("click", prevTrack);
+    nextButton.addEventListener("click", nextTrack);
+    shuffleButton.addEventListener("click", toggleShuffle);
+    repeatButton.addEventListener("click", toggleRepeat);
+    volumeSlider.addEventListener("input", changeVolume);
+    progressContainer.addEventListener("click", seekTrack);
 
     tabButtons.forEach((button) => {
-        button.addEventListener("click", function () {
-            const path = button.getAttribute("data-path");
-            loadTrack(path);
+        button.addEventListener("click", () => {
+            const track = button.getAttribute("data-path");
+            switchTrack(track);
         });
     });
 
-    function loadTrack(src) {
-        if (sound) {
-            sound.unload();
-        }
+    function switchTrack(track) {
+        const currentTime = sound.seek() || 0;
+        sound.unload();
         sound = new Howl({
-            src: [src],
+            src: [track],
             html5: true,
             onplay: () => {
                 requestAnimationFrame(updateProgressBar);
-                playPauseButton.textContent = '⏸️';
-                isPlaying = true;
             },
             onload: () => {
+                sound.seek(currentTime);
                 totalTimeDisplay.textContent = formatTime(sound.duration());
             },
             onend: () => {
@@ -124,27 +131,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 } else {
                     nextTrack();
                 }
-            },
-            onloaderror: (id, error) => {
-                console.error('Error loading track:', error);
-            },
-            onplayerror: (id, error) => {
-                console.error('Error playing track:', error);
-                sound.once('unlock', () => {
-                    sound.play();
-                });
             }
         });
         sound.play();
+        playPauseButton.textContent = "⏸️";
+        isPlaying = true;
     }
 
     function togglePlayPause() {
         if (isPlaying) {
             sound.pause();
-            playPauseButton.textContent = '▶️';
+            playPauseButton.textContent = "▶️";
         } else {
             sound.play();
-            playPauseButton.textContent = '⏸️';
+            playPauseButton.textContent = "⏸️";
         }
         isPlaying = !isPlaying;
     }
@@ -159,12 +159,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function toggleShuffle() {
         shuffle = !shuffle;
-        shuffleButton.style.color = shuffle ? '#4caf50' : 'white';
+        shuffleButton.style.color = shuffle ? "#4caf50" : "white";
     }
 
     function toggleRepeat() {
         repeat = !repeat;
-        repeatButton.style.color = repeat ? '#4caf50' : 'white';
+        repeatButton.style.color = repeat ? "#4caf50" : "white";
     }
 
     function changeVolume() {
@@ -191,14 +191,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const seek = (clickX / width) * duration;
         sound.seek(seek);
         isSeeking = false;
-        updateProgressBar();
     }
 
-    progressContainer.addEventListener('mousedown', () => {
+    progressContainer.addEventListener("mousedown", () => {
         isSeeking = true;
     });
 
-    progressContainer.addEventListener('mouseup', () => {
+    progressContainer.addEventListener("mouseup", () => {
         isSeeking = false;
         updateProgressBar();
     });
@@ -206,10 +205,10 @@ document.addEventListener("DOMContentLoaded", function () {
     function formatTime(seconds) {
         const minutes = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60);
-        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
     }
-});
 </script>
+
 
 
 

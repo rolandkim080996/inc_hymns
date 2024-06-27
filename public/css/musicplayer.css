@@ -62,7 +62,23 @@
     width: 100px;
 }
 .file-upload {
+    display: none;
+}
+.tab-buttons {
     display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.tab-button-mp3 {
+    flex: 1;
+    margin: 0 5px;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+.tab-button-mp3:hover {
+    background: #0056b3;
 }
