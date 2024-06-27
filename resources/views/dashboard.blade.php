@@ -50,6 +50,9 @@ body {
     .flex-1:hover {
     background-color:#f7f7f7;
 }
+.table-font-size {
+    font-size: 3vw;
+  }
 }
 
 /* Large screens (min-width: 1025px) */
@@ -62,7 +65,46 @@ body {
     }
     .flex-1:hover {
     background-color:#f7f7f7;
+    
 }
+
+.table-font-size {
+    font-size: 1.5vw;
+  }
+}
+
+/* Add this to your CSS file or <style> block */
+.table-font-size {
+  font-size: 1vw;
+}
+
+
+/* Media queries to adjust font size based on screen width */
+@media only screen and (max-width: 1024px) {
+ .table-font-size {
+    font-size: 3.5vw;
+  }
+}
+
+/* Media queries to adjust font size based on screen width */
+@media only screen and (max-width: 820px) {
+ .table-font-size {
+    font-size: 3.5vw;
+  }
+}
+
+
+/* Media queries to adjust font size based on screen width */
+@media only screen and (max-width: 768px) {
+ .table-font-size {
+    font-size: 3.5vw;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+ .table-font-size {
+    font-size: 5vw;
+  }
 }
 </style>
 <x-app-layout>
@@ -80,8 +122,8 @@ body {
     <table class="min-w-full bg-blue w-full" style="background-color: #79b7de;">
         <thead>
         <tr> 
-  <th style="background-color: #79b7de;" class="py-4 px-6 text-center"><span style="text-transform: uppercase;color:white;font-size:3vw;">HYMNS COUNT</span></th> 
-  <th style="background-color: #79b7de;" class="py-4 px-6 text-left"><span style="text-transform: uppercase;color:white;font-size:3vw;">DESCRIPTION</span></th> 
+  <th style="background-color: #79b7de;" class="py-4 px-6 text-center table-font-size"><span style="text-transform: uppercase;color:white">HYMNS COUNT</span></th> 
+  <th style="background-color: #79b7de;" class="py-4 px-6 text-left table-font-size"><span style="text-transform: uppercase;color:white">DESCRIPTION</span></th> 
 </tr>
         </thead>
         <tbody>
@@ -113,17 +155,17 @@ body {
 
                 @if($hymn->musics_count > 0)
         <tr style="background-color: #{{ $colors[$colorIndex] }};">
-            <td class="py-8 px-6 text-center" style="color: #{{ $currentTextColor }}; font-size:3.5vw; padding: 20px; border-radius: 20px 0 0 20px;">
-                <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" style="text-decoration: none; color: #{{ $currentTextColor }};">{{ $hymn->musics_count }}</a>
+            <td class="py-8 px-6 text-center" style="color: #{{ $currentTextColor }}; padding: 20px; border-radius: 20px 0 0 20px;">
+                <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" class="table-font-size" style="text-decoration: none; color: #{{ $currentTextColor }};">{{ $hymn->musics_count }}</a>
             </td>
             <td class="py-8 px-6 text-left" style="color: #{{ $currentTextColor }}; font-size: 18px; padding: 20px; border-radius: 0 20px 20px 0;">
-                <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" style="text-decoration: none; color: #{{ $currentTextColor }};font-size:3vw;">{{ $serviceName }}</a>
+                <a href="{{ route('musics.index', ['church_hymn_id' => $hymn->id]) }}" class="table-font-size" style="text-decoration: none; color: #{{ $currentTextColor }}">{{ $serviceName }}</a>
             </td>
         </tr>
     @else
         <tr style="background-color: #{{ $colors[$colorIndex] }};">
-            <td class="py-8 px-6 text-center" style="color: #{{ $currentTextColor }}; font-size:3.5vw; padding: 20px; border-radius: 20px 0 0 20px;">{{ $hymn->musics_count }}</td>
-            <td class="py-8 px-6 text-left" style="color: #{{ $currentTextColor }}; font-size:3vw; padding: 20px; border-radius: 0 20px 20px 0;">{{ $serviceName }}</td>
+            <td class="py-8 px-6 text-center table-font-size" style="color: #{{ $currentTextColor }}; padding: 20px; border-radius: 20px 0 0 20px;">{{ $hymn->musics_count }}</td>
+            <td class="py-8 px-6 text-left table-font-size" style="color: #{{ $currentTextColor }}; padding: 20px; border-radius: 0 20px 20px 0;">{{ $serviceName }}</td>
         </tr>
     @endif
     <!-- Add spacing row -->
@@ -137,19 +179,19 @@ body {
 
        <!-- Hymns of Music Count -->
 <tr style="background-color: #79b7de;">
-    <td class="py-8 px-6 text-center" style="color: white; font-size:3vw; padding: 20px; border-radius: 20px 0 0 20px; border-top: 4px solid white;">{{ $totalChurchHymns->sum('musics_count') }}</td>
-    <td class="py-8 px-6 text-left" style="color: white; font-size:3vw; padding: 20px; border-radius: 0 20px 20px 0; border-top: 4px solid white;">TOTAL HYMNS</td>
+    <td class="py-8 px-6 text-center table-font-size" style="color: white; padding: 20px; border-radius: 20px 0 0 20px; border-top: 4px solid white;">{{ $totalChurchHymns->sum('musics_count') }}</td>
+    <td class="py-8 px-6 text-left table-font-size" style="color: white; padding: 20px; border-radius: 0 20px 20px 0; border-top: 4px solid white;">TOTAL HYMNS</td>
 </tr>
 
             <!-- Users Count (hidden) -->
             @if($totalUsers > 0)
                 <tr style="background-color: #FEFDFF; border: 3px solid #686D76; display:none;">
-                    <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color:#32012F; font-size:3vw;">{{ $totalUsers }}</td>
+                    <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color:#32012F;">{{ $totalUsers }}</td>
                     <td class="py-4 px-6 border-b border-gray-300 text-center" style="color:#32012F; font-size: 18px;">Users</td>
                 </tr>
             @else
                 <tr style="background-color: #FEFDFF; border: 3px solid #686D76; display:none;">
-                    <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color:#32012F; font-size:3vw;">{{ $totalUsers }}</td>
+                    <td class="py-4 px-6 border-b border-gray-300 border-r text-center" style="color:#32012F;">{{ $totalUsers }}</td>
                     <td class="py-4 px-6 border-b border-gray-300 text-center" style="color:#32012F; font-size: 18px;">Users</td>
                 </tr>
             @endif
