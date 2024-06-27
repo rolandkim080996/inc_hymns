@@ -328,6 +328,12 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
                             switchTrack(path);
                         });
                     });
+
+                    // Play vocals automatically when page loads
+                    const vocalsPath = document.querySelector('.tab-button-mp3.active').getAttribute('data-path');
+                    switchTrack(vocalsPath);
+
+
                 });
                 // Get the audio element
                 const musicPlayer = document.getElementById('musicPlayer');
@@ -350,25 +356,27 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
                 // Attach seek event listener to the audio progress bar
                 musicPlayer.addEventListener('click', seekAudio);
 
-                // Function to switch audio source and maintain playback position
+                let storedCurrentTime = 0; // Store the current time globally
                 function switchTrack(path) {
-                    const audioSource = document.getElementById('audioSource');
-                    const musicPlayer = document.getElementById('musicPlayer');
-                    const currentTime = musicPlayer.currentTime;
+                   
+    const audioSource = document.getElementById('audioSource');
+    const musicPlayer = document.getElementById('musicPlayer');
+    
+    // Store the current time before switching tracks
+    storedCurrentTime = musicPlayer.currentTime;
 
-                    // Set new audio source path
-                    audioSource.src = path;
-
-                    // Load and play the new audio source
-                    musicPlayer.load();
-                    musicPlayer.play();
-
-                    // Restore playback position if available
-                    musicPlayer.addEventListener('loadedmetadata', function() {
-                        //alert(currentTime);
-                        musicPlayer.currentTime = currentTime;
-                    });
-                }
+    // Set new audio source path
+    audioSource.src = path;
+    
+    // Load the new audio source
+    musicPlayer.load();
+    // Wait for the new audio source to load and start playing, then set the seek time
+    musicPlayer.addEventListener('loadedmetadata', function() {
+      
+        musicPlayer.currentTime = storedCurrentTime; // Set the seek time to the stored value
+        musicPlayer.play(); // Start playing the new track
+    });
+}
             </script>
 
 

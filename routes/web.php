@@ -76,11 +76,16 @@ Route::delete('/musics/{music}', [MusicController::class, 'destroy'])->name('mus
 // Route for showing a single music details
 Route::get('/musics/{id}', [MusicController::class, 'show'])->name('musics.show');
 
+Route::get('/musicplayer/{id}', [MusicController::class, 'musicPlayer'])->name('musics.musicPlayer');
+
+
+Route::get('mplayer/{id}', [MusicController::class, 'musicPlayer'])->name('musics.mplayer');
+
 Route::get('/creators/{creatorId}', [MusicCreatorController::class, 'showinfo'])->name('creators.showinfo');
 
 Route::get('/musics/{musicId}/creators/{creatorId}', [MusicCreatorController::class, 'showinfo'])->name('musics.showinfo');
 
-Route::get('/musicplayer/{id}', [MusicController::class, 'musicPlayer'])->name('musics.musicPlayer');
+
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 

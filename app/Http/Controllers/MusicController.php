@@ -292,11 +292,11 @@ $musics = $queryBuilder->orderByRaw('CAST(song_number AS UNSIGNED) ASC')->latest
 
     public function musicPlayer($id)
     {
-      //  dd("AD");
+       
       $music = Music::findOrFail($id); // Assuming Music is the model for your music records
 
 
-        return view('musics.musicplayer', compact('music'));
+        return view('musics.mplayer', compact('music'));
     }
 
     // Display the specified music entry
