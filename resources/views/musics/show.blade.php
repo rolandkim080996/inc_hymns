@@ -257,7 +257,9 @@ function toggleList(listId, button) {
 
 document.getElementById('showMusicDetailsBtn').addEventListener('click', function() {
     const musicDetails = document.getElementById('musicDetails');
+    const creatorDetails = document.getElementById('creatorDetails');
     musicDetails.classList.toggle('hidden');
+    creatorDetails.classList.add('hidden'); // Add this line
 
     const icon = this.querySelector('i');
     if (musicDetails.classList.contains('hidden')) {
