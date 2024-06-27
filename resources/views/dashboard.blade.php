@@ -379,71 +379,78 @@ body {
                             </div>
 
                             <!-- Hymn Categories Chart -->
-                            <div class="w-full md:w-1/2">
-                                <div class="bg-gray-100 p-4 rounded-lg shadow">
-                                <h3 class="text-lg font-semibold mb-4">Hymn Categories Chart</h3>
-                                    <div class="overflow-x-auto" style="position: relative; height: 400px;">
-                                        <canvas id="hymnCategoriesChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
+<div class="w-full md:w-1/2">
+    <div class="bg-gray-100 p-4 rounded-lg shadow">
+        <h3 class="text-lg font-semibold mb-4">Hymn Categories Chart</h3>
+        <div class="overflow-x-auto" style="position: relative; height: 400px;">
+            <canvas id="hymnCategoriesChart"></canvas>
+        </div>
+    </div>
+</div>
 
-                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                            <script>
-                                // Extract labels and data from PHP variables
-                                var labels = [];
-                                var data = [];
-                                var hymnCounts = [];
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Extract labels and data from PHP variables
+    var labels = [];
+    var data = [];
 
-                                @foreach($categoryCounts as $categoryCount)
-                                    labels.push('{{ $categoryCount->category_name }}');
-                                    data.push({{ $categoryCount->musics_count }});
-                                    hymnCounts.push('{{ $categoryCount->musics_count }}');
-                                @endforeach
+    @foreach($categoryCounts as $categoryCount)
+        labels.push('{{ $categoryCount->category_name }}');
+        data.push({{ $categoryCount->musics_count }});
+    @endforeach
 
-                                // Create the chart only if both labels and data arrays are not empty
-                                if (labels.length > 0 && data.length > 0) {
-                                    // Get the context of the canvas element
-                                    var ctx = document.getElementById('hymnCategoriesChart').getContext('2d');
+    // Create the chart only if both labels and data arrays are not empty
+    if (labels.length > 0 && data.length > 0) {
+        // Get the context of the canvas element
+        var ctx = document.getElementById('hymnCategoriesChart').getContext('2d');
 
-                                    // Define the dataset for the chart
-                                    var dataset = {
-                                        labels: labels,
-                                        datasets: [{
-                                            label: 'Hymns per Category',
-                                            data: data,
-                                            backgroundColor: 'rgba(0, 119, 182, 0.7)',
-                                            borderColor: 'rgba(0, 119, 182, 1)',
-                                            borderWidth: 1
-                                        }]
-                                    };
+        // Define the dataset for the chart
+        var dataset = {
+            labels: labels,
+            datasets: [{
+                label: 'Hymns per Category',
+                data: data,
+                backgroundColor: 'rgba(0, 119, 182, 0.7)',
+                borderColor: 'rgba(0, 119, 182, 1)',
+                borderWidth: 1
+            }]
+        };
 
-                                    // Define the chart options
-                                    var options = {
-                                        responsive: true,
-                                        maintainAspectRatio: false,
-                                        tooltips: {
-                                            callbacks: {
-                                                label: function(tooltipItem, data) {
-                                                    var label = data.labels[tooltipItem.index];
-                                                    var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-                                                    return label + ': ' + value + ' Hymns';
-                                                }
-                                            }
-                                        },
-                                        legend: {
-                                            display: false,
-                                        }
-                                    };
+        // Define the chart options
+        var options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.labels[tooltipItem.index];
+                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        return label + ': ' + value + ' Hymns'; 
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    ticks: {
+                        callback: function(value) {
+                            return value; 
+                        }
+                    }
+                }
+            },
+            legend: {
+                display: false,
+            }
+        };
 
-                                    // Create the chart
-                                    var churchHymnsChart = new Chart(ctx, {
-                                        type: 'bar',
-                                        data: dataset,
-                                        options: options
-                                    });
-                                }
-                            </script>
+        // Create the chart
+        var churchHymnsChart = new Chart(ctx, {
+            type: 'bar',
+            data: dataset,
+            options: options
+        });
+    }
+</script>
 
                         </div>
 
