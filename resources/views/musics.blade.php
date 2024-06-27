@@ -146,7 +146,7 @@
         <div id="topCategories" class="flex flex-wrap -mx-2">
             @foreach($topCategories as $index => $category)
                 <div class="w-1/2 md:w-1/5 px-2 mb-4">
-                    <button id="categoryButton{{ $index }}" style="background-color:#686D76; height:150px; width:150px; border: 2px solid #00215E; border-radius: 0.5rem;" class="category-box bg-teal-400 hover:bg-teal-500 p-2 rounded text-center w-full" data-category-id="{{ $category->id }}" onclick="selectCategory({{ $index }})">
+                    <button id="categoryButton{{ $index }}" style="background-color:#5eb8d3; height:150px; width:150px; border: 2px solid #00215E; border-radius: 0.5rem;" class="category-box bg-teal-400 hover:bg-teal-500 p-2 rounded text-center w-full" data-category-id="{{ $category->id }}" onclick="selectCategory({{ $index }})">
                         <span class="flex items-center justify-center h-full text-white">{{ $category->name }} ({{ $category->musics_count }})</span>
                     </button>
                 </div>
@@ -157,7 +157,7 @@
             @foreach($categories as $index => $category)
                 @if($index >= 10) <!-- Start displaying from the 11th category -->
                     <div class="w-1/2 md:w-1/5 px-2 mb-4">
-                        <button id="categoryButton{{ $index }}" style="background-color:#686D76; height:150px;width:150px; border: 2px solid #00215E; border-radius: 0.5rem;" class="category-box border border-teal-400 hover:border-teal-500 bg-teal-400 hover:bg-teal-500 p-2 rounded text-center w-full" data-category-id="{{ $category->id }}" onclick="selectCategory({{ $index }})">
+                        <button id="categoryButton{{ $index }}" style="background-color:#5eb8d3; height:150px;width:150px; border: 2px solid #00215E; border-radius: 0.5rem;" class="category-box border border-teal-400 hover:border-teal-500 bg-teal-400 hover:bg-teal-500 p-2 rounded text-center w-full" data-category-id="{{ $category->id }}" onclick="selectCategory({{ $index }})">
                             <span class="flex items-center justify-center h-full text-white">{{ $category->name }} ({{ $category->musics_count }})</span>
                         </button>
                     </div>
@@ -173,10 +173,10 @@
 
     function selectCategory(index) {
         if (selectedCategoryId !== null) {
-            document.getElementById('categoryButton' + selectedCategoryId).style.backgroundColor = '#686D76';
+            document.getElementById('categoryButton' + selectedCategoryId).style.backgroundColor = '#5eb8d3';
         }
         selectedCategoryId = index;
-        document.getElementById('categoryButton' + index).style.backgroundColor = '#373A40';
+        document.getElementById('categoryButton' + index).style.backgroundColor = '#4975b4';
 
         // Hide the context menu
         const contextMenu = document.getElementById('context-menu');
@@ -188,7 +188,7 @@
 
         // Reset the button icon
         const showCategoriesBtn = document.getElementById('showCategoriesModal');
-        showCategoriesBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        showCategoriesBtn.innerHTML = '<i class="fas fa-info"></i>';
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -219,7 +219,7 @@
                 }, 0); // Allow time for the display to take effect
                 categoriesSection.classList.remove('hidden');
             }
-            showCategoriesBtn.innerHTML = contextMenu.classList.contains('visible') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>'; // Toggle icon between close and menu
+            showCategoriesBtn.innerHTML = contextMenu.classList.contains('visible') ? '<i class="fas fa-info"></i>' : '<i class="fas fa-info"></i>'; // Toggle icon between close and menu
         });
 
         hideCategoriesBtn.addEventListener('click', function() {
@@ -346,9 +346,6 @@ tbody tr:hover {
         }
     }
 </script>
-
-
-
                 <script>
                 var titleSortDirection = 1;
                 var hymnSortDirection = 1;

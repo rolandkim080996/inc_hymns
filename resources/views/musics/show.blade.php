@@ -25,7 +25,8 @@
             </h2>
             <div>
             
-                <a href="{{ route('musics.index') }}" class="btn btn-secondary">Back</a>
+                <!-- <a href="{{ route('musics.index') }}" class="btn btn-secondary">Back</a> -->
+                <a href="{{ session()->has('url.intended') ? session('url.intended') : route('musics.index') }}" class="btn btn-secondary">Back</a>
             </div>
         </div>
     </x-slot>
@@ -42,7 +43,7 @@
 </button>
 
 <!-- Display Music Details -->
-<div id="musicDetails" class="music-details">
+<div id="musicDetails" class="music-details hidden">
     <!-- Title -->
     <div class="mb-4">
         <p class="font-semibold text-lg">Title:</p>
@@ -177,7 +178,10 @@ body {
 .hidden {
     display: none;
 }
-
+li[data-creator-id]:hover {
+  font-weight: bold;
+  color:#5eb8d3;
+}
 #creatorDetails {
     position: absolute;
     z-index: 1000;
@@ -260,6 +264,7 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
     const creatorDetails = document.getElementById('creatorDetails');
     musicDetails.classList.toggle('hidden');
     creatorDetails.classList.add('hidden'); // Add this line
+   
 
     const icon = this.querySelector('i');
     if (musicDetails.classList.contains('hidden')) {
@@ -278,9 +283,7 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
 </div>
 <div class="music-container">
 
-
     <div class="music-player-details">
-
 
     <style>
        
@@ -309,13 +312,7 @@ document.getElementById('showMusicDetailsBtn').addEventListener('click', functio
                     </div>
                 </div>
 
-
-
-
-                
-
             </div>
-
 
  <!-- JavaScript to handle dropdown and audio playback -->
  <script>

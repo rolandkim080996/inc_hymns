@@ -15,13 +15,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use App\Helpers\ActivityLogHelper;
+use Illuminate\Support\Facades\URL;
 
 class MusicController extends Controller
 {
 // Display a listing of the music entries
  public function index(Request $request)
  {
-    
+
      // Get the query string from the request
      $query = $request->input('query');
      $categoryIds = $request->input('category_ids', []);
@@ -303,9 +304,14 @@ $musics = $queryBuilder->orderByRaw('CAST(song_number AS UNSIGNED) ASC')->latest
     public function show($id)
     {
         
+             // Store the current URL in the session
+             session()->put('url.intended', URL::previous());
         $music = Music::findOrFail($id); // Assuming Music is the model for your music records
 
         ActivityLogHelper::log('viewed', $music->title, $music->id, 'view hymn');
+
+
+     
 
         return view('musics.show', compact('music'));
     }
