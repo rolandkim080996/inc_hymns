@@ -1,7 +1,8 @@
 
 <x-guest-layout>
 <style>
-  .bg-gray-100 {
+  .bg-gray-100 
+  {
     background-image: url("{{ asset('images/login_bg.jpg') }}");
     background-size: cover;
     background-position: center;
@@ -13,7 +14,6 @@
     
     <form method="POST" action="{{ route('login') }}">
         @csrf
-
         <!-- Email Address -->
         <!-- <div>
             <x-input-label for="email" :value="__('Email')" />
@@ -21,8 +21,8 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div> -->
 
-          <!-- Username -->
-          <div>
+        <!-- Username -->
+        <div>
             <x-input-label for="username" :value="__('Username')" />
             <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('username')" class="mt-2" />
@@ -53,7 +53,6 @@
         <x-primary-button class="ms-3" style="width:200px;justify-content: center; background-color:#007bff;">
             {{ __('Log in') }}
         </x-primary-button>
-
     </div>
 
     </form>
