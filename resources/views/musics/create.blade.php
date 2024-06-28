@@ -46,7 +46,7 @@
     <!-- Song Number -->
     <div class="mb-4 mt-4">
         <label for="song_number" class="block text-sm font-bold text-gray-700 mb-2">Hymn Number:</label>
-        <input required type="number" id="song_number" name="song_number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" maxlength="4">
+        <input type="number" id="song_number" name="song_number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" maxlength="4">
     </div>
 </div>
 </div>

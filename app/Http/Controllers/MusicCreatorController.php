@@ -9,27 +9,29 @@ use App\Helpers\ActivityLogHelper;
 
 class MusicCreatorController extends Controller
 {
- // Display a listing of the music creators with search functionality
- public function index(Request $request)
- {
-     $query = $request->input('query');
-     
-     // If a search query is provided, filter the records
-     if ($query) {
-         $credits = MusicCreator::where('name', 'like', '%' . $query . '%')
-             ->orWhere('district', 'like', '%' . $query . '%')
-             ->orWhere('local', 'like', '%' . $query . '%')
-             ->orWhere('music_background', 'like', '%' . $query . '%')
-             ->orWhere('designation', 'like', '%' . $query . '%')
-             ->paginate(15)
-             ->withQueryString(); // Include query string in pagination links
-     } else {
-         // If no search query is provided, fetch all records
-         $credits = MusicCreator::latest()->paginate(15);
-     }
-     
-     return view('music_management/credits', compact('credits'));
- }
+// Display a listing of the music creators with search functionality
+public function index(Request $request)
+{
+    $query = $request->input('query');
+    
+    // If a search query is provided, filter the records
+    if ($query) {
+        $credits = MusicCreator::where('name', 'like', '%'. $query. '%')
+            ->orWhere('district', 'like', '%'. $query. '%')
+            ->orWhere('local', 'like', '%'. $query. '%')
+            ->orWhere('music_background', 'like', '%'. $query. '%')
+            ->orWhere('designation', 'like', '%'. $query. '%')
+            ->orderBy('name', 'asc') // Add this line to sort by name in ascending order
+            ->paginate(15)
+            ->withQueryString(); // Include query string in pagination links
+    } else {
+        // If no search query is provided, fetch all records
+        $credits = MusicCreator::orderBy('name', 'asc') // Add this line to sort by name in ascending order
+            ->paginate(15);
+    }
+    
+    return view('music_management/credits', compact('credits'));
+}
 
 
     // Show the form for creating a new music creator

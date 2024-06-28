@@ -45,7 +45,7 @@
                             <!-- Song Number -->
                             <div class="mb-4 mt-4">
                                 <label for="edit_song_number" class="block text-sm font-bold text-gray-700 mb-2">Hymn Number:</label>
-                                <input required type="text" id="edit_song_number" name="edit_song_number"  value="{{ $musics->song_number }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                <input type="text" id="edit_song_number" name="edit_song_number"  value="{{ $musics->song_number }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                             </div>
                         </div>
                     </div>
