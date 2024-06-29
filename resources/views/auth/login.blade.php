@@ -1,65 +1,132 @@
-
 <x-guest-layout>
 <style>
-  .bg-gray-100 
-  {
+  /* Add responsive background image */
+  .bg-gray-100 {
     background-image: url("{{ asset('images/login_bg.jpg') }}");
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat; /* prevent the image from repeating */
+    background-repeat: no-repeat;
+    height: 100vh; /* Set height to 100vh for full-screen background */
+  }
+
+ /* Add responsive styles for form and layout */
+ .left-aligned-div {
+    max-width: 400px; /* Set max-width for form container */
+    margin: 40px auto; /* Add margin for better spacing */
+    padding: 20px; /* Add padding for better spacing */
+    background-color: #fff; /* Add white background for better contrast */
+    border: 1px solid #ddd; /* Add border for better definition */
+    border-radius: 10px; /* Add rounded corners for better aesthetics */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add subtle shadow for better depth */
+    display: flex; /* Add flexbox to center elements */
+    flex-direction: column; /* Set flex direction to column */
+    align-items: center; /* Center elements horizontally */
+  }
+  /* Add responsive styles for form elements */
+  .block {
+    width: 100%; /* Set width to 100% for full-width form elements */
+  }
+
+  /* Add responsive styles for buttons */
+  .x-primary-button {
+    width: 100%; /* Set width to 100% for full-width buttons */
+    margin-top: 20px; /* Add margin for better spacing */
+  }
+
+  /* Add media queries for different screen sizes */
+  @media only screen and (max-width: 768px) {
+    .left-aligned-div {
+      max-width: 300px; /* Adjust max-width for smaller screens */
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    .left-aligned-div {
+      max-width: 250px; /* Adjust max-width for even smaller screens */
+    }
+  }
+
+  /* Add media queries for iPhone sizes */
+  @media only screen and (max-width: 414px) { /* iPhone 11, 11 Pro, XS, XS Max */
+    .left-aligned-div {
+      max-width: 350px; /* Adjust max-width for iPhone 11, 11 Pro, XS, XS Max */
+    }
+  }
+
+  @media only screen and (max-width: 390px) { /* iPhone 12, 12 Pro, 12 Pro Max */
+    .left-aligned-div {
+      max-width: 320px; /* Adjust max-width for iPhone 12, 12 Pro, 12 Pro Max */
+    }
+  }
+
+  @media only screen and (max-width: 428px) { /* iPhone 13, 13 Pro, 13 Pro Max */
+    .left-aligned-div {
+      max-width: 360px; /* Adjust max-width for iPhone 13, 13 Pro, 13 Pro Max */
+    }
+  }
+
+  @media only screen and (max-width: 458px) { /* iPhone 14, 14 Pro, 14 Pro Max */
+    .left-aligned-div {
+      max-width: 380px; /* Adjust max-width for iPhone 14, 14 Pro, 14 Pro Max */
+    }
+  }
+
+  @media only screen and (max-width: 492px) { /* iPhone 16, 16 Pro, 16 Pro Max */
+    .left-aligned-div {
+      max-width: 400px; /* Adjust max-width for iPhone 16, 16 Pro, 16 Pro Max */
+    }
   }
 </style>
-    <!-- Session Status -->
-    <h2 class="text-center" style="color:#0a2d2e;font-size:30px;">INC Hymns</h2>
-    
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-        <!-- Email Address -->
-        <!-- <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div> -->
 
-        <!-- Username -->
-        <div>
-            <x-input-label for="username" :value="__('Username')" />
-            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('username')" class="mt-2" />
-        </div>
+<!-- Session Status -->
+<div class="flex justify-center mb-4"> <!-- Add a container for the logo and h2 -->
+  <img src="{{ asset('images/logo.png') }}" alt="INC Hymns Logo" width="100" height="100" class="mr-4"> <!-- Add the logo image -->
+  <h2 class="text-center" style="color:#0a2d2e;font-size:30px;">INC Hymns</h2>
+</div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+<div class="left-aligned-div">
+  <form method="POST" action="{{ route('login') }}">
+    @csrf
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Forgot Password Link -->
-        <!-- <div class="mt-2">
-            <a href="{{ route('password.request') }}" class="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline-none">Forgot Password?</a>
-        </div> -->
-
-     <div class="flex items-center justify-center mt-4">
-        @if (Route::has('password.request'))
-        <a href="{{ route('register') }}" class="sm:hidden ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-        @endif
-
-        <x-primary-button class="ms-3" style="width:200px;justify-content: center; background-color:#007bff;">
-            {{ __('Log in') }}
-        </x-primary-button>
+    <!-- Username -->
+    <div>
+      <x-input-label for="username" :value="__('Username')" />
+      <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
+      <x-input-error :messages="$errors->get('username')" class="mt-2" />
     </div>
 
-    </form>
-</x-guest-layout>
+    <!-- Password -->
+    <div class="mt-4">
+      <x-input-label for="password" :value="__('Password')" />
+
+      <x-text-input id="password" class="block mt-1 w-full"
+                      type="password"
+                      name="password"
+                      required autocomplete="current-password" />
+
+      <x-input-error :messages="$errors->get('password')" class="mt-2" />
+    </div>
+
+    <!-- Forgot Password Link -->
+    <!-- <div class="mt-2">
+      <a href="{{ route('password.request') }}" class="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline-none">Forgot Password?</a>
+    </div> -->
+
+    <div class="flex items-center justify-center mt-4">
+  
+
+      <x-primary-button class="ms-3">
+        {{ __('Log in') }}
+      </x-primary-button>
+    </div>
+
+  </form>
+</div>
+
 <script>
-    function clearLoginForm() {
-        document.getElementById('username').value = ''; // Clear username field
-        document.getElementById('password').value = ''; // Clear password field
-    }
+  function clearLoginForm() {
+    document.getElementById('username').value = ''; // Clear username field
+    document.getElementById('password').value = ''; // Clear password field
+  }
 </script>
+</x-guest-layout>
