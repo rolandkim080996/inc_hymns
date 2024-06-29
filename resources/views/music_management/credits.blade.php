@@ -94,8 +94,8 @@
                                 <td style="width: 10%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $credit->district }}</td>
                                 <td style="width: 10%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $credit->duty }}</td>
                                 <td style="width: 15%;" class="px-6 py-4 whitespace-nowrap border text-center">
-                                    {{ $credit->birthday !== '0000-00-00 00:00:00' ? \Carbon\Carbon::parse($credit->birthday)->format('F j, Y') : '-' }}
-                                </td>
+    {{ $credit->birthday !== '0000-00-00 00:00:00' && $credit->birthday !== null && $credit->birthday !== '' ? \Carbon\Carbon::parse($credit->birthday)->format('F j, Y') : '-' }}
+</td>
                                 <td style="width: 10%;" class="px-6 py-4 whitespace-nowrap border text-center">{{ $credit->music_background }}</td>
                            
                                 <td style="width: 8%;" class="px-6 py-4 whitespace-nowrap border text-center">
@@ -226,6 +226,7 @@
                         <div class="modal-body">
                                 
                         <form id="editForm" method="POST">
+
                             @csrf
                             @method('PUT')
 
@@ -265,7 +266,7 @@
 
                             <div class="form-group">
                                 <label for="edit_designation">Designation:</label>
-                                <select class="form-control" id="edit_designation" name="edit_designation" required>
+                                <select required class="form-control" id="edit_designation" name="edit_designation" >
                                     <option value="0" selected disabled>Select Designation</option>
                                     <option value="1">Arranger</option>
                                     <option value="2">Composer</option>
@@ -318,8 +319,14 @@
                     var MusicBackground = $(this).data('music_background');
                     var Designation = $(this).data('designation');
             
+                    
+                    
                     // Format the birthday value if it's not empty
-                    if (Birthday !== '0000-00-00 00:00:00') {
+                    if (Birthday === '0000-00-00 00:00:00' || Birthday === null || Birthday === "") {
+                    
+                        var formattedBirthday = 'N/A'; // Set an empty string if the birthday value is '0000-00-00 00:00:00'
+                        
+                    } else {
                         // Convert birthday string to a Date object
                         var birthdayDate = new Date(Birthday);
 
@@ -328,10 +335,9 @@
 
                         // Format the adjusted date
                         var formattedBirthday = birthdayDate.toISOString().split('T')[0];
-                    } else {
-                        var formattedBirthday = ''; // Set an empty string if the birthday value is '0000-00-00 00:00:00'
+                        
                     }
-                    
+                    // alert(formattedBirthday);
                     $('#edit_name').val(CreditName);
                     $('#edit_local').val(Local);
                     $('#edit_district').val(District);

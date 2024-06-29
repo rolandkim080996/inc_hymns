@@ -51,7 +51,7 @@ public function index(Request $request)
             'duty' => 'nullable|string',
             'birthday' => 'nullable|date',
             'music_background' => 'nullable|string',
-            'designation' => 'nullable|string',
+            'designation' => 'required|integer',
         ]);
 
     
@@ -98,7 +98,7 @@ public function index(Request $request)
     // Update the specified music creator in the database
     public function update(Request $request, MusicCreator $credit)
     {
-        //dd($credit);
+        
         // Validate request data
         $validatedData = $request->validate([
             'edit_name' => 'required|max:255',
@@ -107,10 +107,10 @@ public function index(Request $request)
             'edit_duty' => 'nullable|string',
             'edit_birthday' => 'nullable|date',
             'edit_music_background' => 'nullable|string',
-            'edit_designation' => 'nullable|string',
+            'edit_designation' => 'required|integer',
         ]);
 
-      
+        
         $credit->update([
             'name' => $request->edit_name,
             'local' => $request->edit_local,
@@ -120,7 +120,7 @@ public function index(Request $request)
             'music_background' => $request->edit_music_background,
             'designation' => $request->edit_designation,
         ]);
-
+        
         ActivityLogHelper::log('updated', $credit->name, $credit->id,  'update the credit');
 
         return redirect()->route('credits.index')->with('success', 'Music creator updated successfully!');
