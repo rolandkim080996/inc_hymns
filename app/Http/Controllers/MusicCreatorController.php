@@ -43,6 +43,7 @@ public function index(Request $request)
     // Store a newly created music creator in the database
     public function store(Request $request)
     {
+        dd($request);
         // Validate request data
         $validatedData = $request->validate([
             'name' => 'required|max:255',
@@ -51,7 +52,7 @@ public function index(Request $request)
             'duty' => 'nullable|string',
             'birthday' => 'nullable|date',
             'music_background' => 'nullable|string',
-            'designation' => 'required|integer',
+            'add_designation' => 'required|integer',
         ]);
 
     

@@ -186,7 +186,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="birthday">Birthday:</label>
+                            <label for="birthday">Birthday(Optional):</label>
                             <input type="date" class="form-control" id="birthday" name="birthday">
                         </div>
 
@@ -196,8 +196,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="designation">Designation:</label>
-                            <select class="form-control" id="designation" name="designation" required>
+                            <label for="add_designation">Designation:</label>
+                            <select required class="form-control" id="add_designation" name="add_designation" >
                                 <option value="0" selected disabled>Select Designation</option>
                                 <option value="1">Arranger</option>
                                 <option value="2">Composer</option>
@@ -255,7 +255,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="edit_birthday">Birthday:</label>
+                                <label for="edit_birthday">Birthday(Optional):</label>
                                 <input type="date" class="form-control" id="edit_birthday" name="edit_birthday">
                             </div>
 
